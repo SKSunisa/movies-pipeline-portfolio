@@ -27,7 +27,7 @@ const Header = () => {
       <div style={styles.container}>
         <Link to="/" style={styles.logo}>
           <div style={styles.logoWrapper}>
-            <img src="/logo.png" alt="Logo" style={styles.logoImage} />
+            <img src="/movies-pipeline-portfolio/logo.png" alt="Logo" style={styles.logoImage} />
           </div>
           <span style={styles.logoText}>Movies Pipeline</span>
         </Link>
