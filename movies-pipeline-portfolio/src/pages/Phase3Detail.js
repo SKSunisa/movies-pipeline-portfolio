@@ -92,11 +92,11 @@ const Phase3Detail = () => {
   ];
 
   const techStack = [
-    { key: 'docker',    icon: `${process.env.PUBLIC_URL}/images/docker.svg`,    color: '#0db7ed', number: 1, isImg: true  },
-    { key: 's3',        icon: `${process.env.PUBLIC_URL}/images/s3.svg`,        color: '#FF9900', number: 2, isImg: true  },
-    { key: 'snowflake', icon: `${process.env.PUBLIC_URL}/images/snowflake.png`, color: '#29B5E8', number: 3, isImg: true  },
-    { key: 'ec2',       icon: `${process.env.PUBLIC_URL}/images/aws.svg`,       color: '#FF9900', number: 4, isImg: true  },
-    { key: 'airflow',   icon: `${process.env.PUBLIC_URL}/images/airflow.png`,   color: '#017CEE', number: 5, isImg: true  }
+    { key: 'docker',    icon: '/movies-pipeline-portfolio/images/docker.svg',    color: '#0db7ed', number: 1, isImg: true  },
+    { key: 's3',        icon: '/movies-pipeline-portfolio/images/s3.svg',        color: '#FF9900', number: 2, isImg: true  },
+    { key: 'snowflake', icon: '/movies-pipeline-portfolio/images/snowflake.png', color: '#29B5E8', number: 3, isImg: true  },
+    { key: 'ec2',       icon: '/movies-pipeline-portfolio/images/aws.svg',       color: '#FF9900', number: 4, isImg: true  },
+    { key: 'airflow',   icon: '/movies-pipeline-portfolio/images/airflow.png',   color: '#017CEE', number: 5, isImg: true  }
   ];
 
   return (

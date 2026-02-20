@@ -49,30 +49,30 @@ const Home = () => {
   ];
 
   const techStack = [
-    { name: 'AWS EC2', logo: `${process.env.PUBLIC_URL}/images/aws.svg`, color: '#FF9900', description: 'Cloud Computing' },
-    { name: 'Amazon S3', logo: `${process.env.PUBLIC_URL}/images/s3.svg`, color: '#569A31', description: 'Data Lake Storage' },
-    { name: 'Snowflake', logo: `${process.env.PUBLIC_URL}/images/snowflake.png`, color: '#29B5E8', description: 'Data Warehouse' },
-    { name: 'Apache Airflow', logo: `${process.env.PUBLIC_URL}/images/airflow.png`, color: '#017CEE', description: 'Workflow Orchestration' },
-    { name: 'dbt', logo: `${process.env.PUBLIC_URL}/images/dbt.png`, color: '#FF694B', description: 'Data Transformation' },
-    { name: 'Power BI', logo: `${process.env.PUBLIC_URL}/images/powerbi.svg`, color: '#F2C811', description: 'Data Visualization' },
-    { name: 'Docker', logo: `${process.env.PUBLIC_URL}/images/docker.svg`, color: '#2496ED', description: 'Containerization' },
-    { name: 'Python', logo: `${process.env.PUBLIC_URL}/images/python.svg`, color: '#3776AB', description: 'Programming Language' }
+    { name: 'AWS EC2', logo: '/movies-pipeline-portfolio/images/aws.svg', color: '#FF9900', description: 'Cloud Computing' },
+    { name: 'Amazon S3', logo: '/movies-pipeline-portfolio/images/s3.svg', color: '#569A31', description: 'Data Lake Storage' },
+    { name: 'Snowflake', logo: '/movies-pipeline-portfolio/images/snowflake.png', color: '#29B5E8', description: 'Data Warehouse' },
+    { name: 'Apache Airflow', logo: '/movies-pipeline-portfolio/images/airflow.png', color: '#017CEE', description: 'Workflow Orchestration' },
+    { name: 'dbt', logo: '/movies-pipeline-portfolio/images/dbt.png', color: '#FF694B', description: 'Data Transformation' },
+    { name: 'Power BI', logo: '/movies-pipeline-portfolio/images/powerbi.svg', color: '#F2C811', description: 'Data Visualization' },
+    { name: 'Docker', logo: '/movies-pipeline-portfolio/images/docker.svg', color: '#2496ED', description: 'Containerization' },
+    { name: 'Python', logo: '/movies-pipeline-portfolio/images/python.svg', color: '#3776AB', description: 'Programming Language' }
   ];
 
   const architectureSteps = [
     { name: 'CSV', logo: null, label: 'Source Data', emoji: '📄' },
-    { name: 'Amazon S3', logo: `${process.env.PUBLIC_URL}/images/s3.svg`, label: t('architecture.dataLake') },
-    { name: 'Snowflake', logo: `${process.env.PUBLIC_URL}/images/snowflake.png`, label: t('architecture.rawLayer') },
-    { name: 'dbt', logo: `${process.env.PUBLIC_URL}/images/dbt.png`, label: t('architecture.transform') },
-    { name: 'Power BI', logo: `${process.env.PUBLIC_URL}/images/powerbi.svg`, label: t('architecture.dashboard') }
+    { name: 'Amazon S3', logo: '/movies-pipeline-portfolio/images/s3.svg', label: t('architecture.dataLake') },
+    { name: 'Snowflake', logo: '/movies-pipeline-portfolio/images/snowflake.png', label: t('architecture.rawLayer') },
+    { name: 'dbt', logo: '/movies-pipeline-portfolio/images/dbt.png', label: t('architecture.transform') },
+    { name: 'Power BI', logo: '/movies-pipeline-portfolio/images/powerbi.svg', label: t('architecture.dashboard') }
   ];
 
   const learningTopics = [
-    { key: 'cloud', icon: `${process.env.PUBLIC_URL}/images/aws.svg`, color: '#FF9900' },
-    { key: 'orchestration', icon: `${process.env.PUBLIC_URL}/images/airflow.png`, color: '#017CEE' },
-    { key: 'warehouse', icon: `${process.env.PUBLIC_URL}/images/snowflake.png`, color: '#29B5E8' },
-    { key: 'transform', icon: `${process.env.PUBLIC_URL}/images/dbt.png`, color: '#FF694B' },
-    { key: 'modeling', icon: `${process.env.PUBLIC_URL}/images/snowflake.png`, color: '#9B59B6' }
+    { key: 'cloud', icon: '/movies-pipeline-portfolio/images/aws.svg', color: '#FF9900' },
+    { key: 'orchestration', icon: '/movies-pipeline-portfolio/images/airflow.png', color: '#017CEE' },
+    { key: 'warehouse', icon: '/movies-pipeline-portfolio/images/snowflake.png', color: '#29B5E8' },
+    { key: 'transform', icon: '/movies-pipeline-portfolio/images/dbt.png', color: '#FF694B' },
+    { key: 'modeling', icon: '/movies-pipeline-portfolio/images/snowflake.png', color: '#9B59B6' }
   ];
 
   return (
@@ -83,7 +83,7 @@ const Home = () => {
           <div style={styles.heroContent}>
             <div style={styles.heroLogoWrapper}>
               <img
-                src={`${process.env.PUBLIC_URL}/logo.png`}
+                src='/movies-pipeline-portfolio/logo.png'
                 alt="Movies Data Pipeline"
                 style={styles.heroLogo}
               />
@@ -246,7 +246,7 @@ const Home = () => {
           <div style={styles.orchestrationBanner}>
             <div style={styles.airflowLogoWrapper}>
               <img
-                src={`${process.env.PUBLIC_URL}/images/airflow.png`}
+                src={'/movies-pipeline-portfolio/images/airflow.png'}
                 alt="Airflow"
                 style={styles.airflowLogo}
               />
@@ -319,10 +319,10 @@ const Home = () => {
         </h2>
         <div style={styles.prerequisitesList}>
           {[
-            { icon: `${process.env.PUBLIC_URL}/images/aws.svg`, text: t('prerequisites.item1') },
-            { icon: `${process.env.PUBLIC_URL}/images/snowflake.png`, text: t('prerequisites.item2') },
+            { icon: '/movies-pipeline-portfolio/images/aws.svg', text: t('prerequisites.item1') },
+            { icon: '/movies-pipeline-portfolio/images/snowflake.png', text: t('prerequisites.item2') },
             { emoji: '💻', text: t('prerequisites.item3') },
-            { icon: `${process.env.PUBLIC_URL}/images/python.svg`, text: t('prerequisites.item4') }
+            { icon: '/movies-pipeline-portfolio/images/python.svg', text: t('prerequisites.item4') }
           ].map((item, index) => (
             <div key={index} style={styles.prereqItem}>
               <div style={styles.prereqIconWrapper}>
