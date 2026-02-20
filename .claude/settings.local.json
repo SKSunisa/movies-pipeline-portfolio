@@ -16,7 +16,9 @@
       "Bash(gh api:*)",
       "Bash(git submodule:*)",
       "Bash(git pull:*)",
-      "Bash(git rebase:*)"
+      "Bash(git rebase:*)",
+      "Bash(npm run build:*)",
+      "Bash(grep:*)"
     ]
   }
 }
