@@ -163,7 +163,7 @@ const Phase9Detail = () => {
                 <li style={styles.listItem}>{t('phase9.purpose.o4')}</li>
               </ol>
               <div style={styles.imageWrapper}>
-                <img src="/phase9/objective.svg" alt="Phase 9 Architecture" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase9/objective.svg" alt="Phase 9 Architecture" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -391,7 +391,7 @@ USE SCHEMA raw;
 SELECT COUNT(*) FROM movies_raw;
 -- Expected: 100`} />
               <div style={styles.imageWrapper}>
-                <img src="/phase9/Part1_raw_schema_validation.png" alt="Total Rows = 100" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase9/Part1_raw_schema_validation.png" alt="Total Rows = 100" style={styles.screenshot} />
                 <p style={styles.imgCaption}>{t('phase9.step1Verify.cap1')}</p>
               </div>
 
@@ -435,7 +435,7 @@ SELECT COUNT(*) FROM movies_raw;
     COUNT(*) - COUNT(runtime_mins) as missing_runtime
 FROM movies_raw;`} />
               <div style={styles.imageWrapper}>
-                <img src="/phase9/Check_for_NULL_values.png" alt="NULL Check Results" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase9/Check_for_NULL_values.png" alt="NULL Check Results" style={styles.screenshot} />
                 <p style={styles.imgCaption}>{t('phase9.step1Verify.cap2')}</p>
               </div>
 
@@ -451,7 +451,7 @@ GROUP BY clean_title, year
 HAVING COUNT(*) > 1
 ORDER BY duplicate_count DESC, clean_title;`} />
               <div style={styles.imageWrapper}>
-                <img src="/phase9/Duplicate_Analysis.png" alt="Duplicate Analysis" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase9/Duplicate_Analysis.png" alt="Duplicate Analysis" style={styles.screenshot} />
                 <p style={styles.imgCaption}>{t('phase9.step1Verify.cap3')}</p>
               </div>
 
@@ -460,7 +460,7 @@ ORDER BY duplicate_count DESC, clean_title;`} />
 FROM movies_raw;
 -- Expected: 95`} />
               <div style={styles.imageWrapper}>
-                <img src="/phase9/Unique_Titles.png" alt="Unique Titles = 95" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase9/Unique_Titles.png" alt="Unique Titles = 95" style={styles.screenshot} />
               </div>
 
               <h4 style={{ ...styles.subHeading2, borderLeftColor: '#3498db', marginTop: '28px' }}>{t('phase9.step1Verify.subh2')}</h4>
@@ -470,7 +470,7 @@ FROM movies_raw;
 SELECT COUNT(*) as total_rows FROM stg_movies_cleaned;
 -- Expected: 95`} />
               <div style={styles.imageWrapper}>
-                <img src="/phase9/analytics_staging_Total_Rows.png" alt="analytics_staging Total Rows = 95" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase9/analytics_staging_Total_Rows.png" alt="analytics_staging Total Rows = 95" style={styles.screenshot} />
               </div>
 
               <p style={styles.bodyText}><strong>{t('phase9.step1Verify.a3')}</strong></p>
@@ -493,7 +493,7 @@ HAVING COUNT(*) > 1;
 FROM stg_movies_cleaned;
 -- Expected: 95`} />
               <div style={styles.imageWrapper}>
-                <img src="/phase9/analytics_staging_Unique_Titles.png" alt="analytics_staging Unique Titles = 95" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase9/analytics_staging_Unique_Titles.png" alt="analytics_staging Unique Titles = 95" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -811,7 +811,7 @@ end`} />
               <p style={styles.bodyText}><strong>{t('phase9.step3.s4')}</strong></p>
               <CopyableCode code={`SELECT * FROM data_quality_report;`} />
               <div style={styles.imageWrapper}>
-                <img src="/phase9/Verify_data_quality_report.png" alt="Data Quality Report Results" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase9/Verify_data_quality_report.png" alt="Data Quality Report Results" style={styles.screenshot} />
                 <p style={styles.imgCaption}>{t('phase9.step3.caption')}</p>
               </div>
 
@@ -983,7 +983,7 @@ dbt docs serve --port 8001
                 {t('phase9.step5.infoBox')}
               </InfoBox>
               <div style={styles.imageWrapper}>
-                <img src="/phase9/Generate_Documentation.png" alt="dbt Documentation UI" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase9/Generate_Documentation.png" alt="dbt Documentation UI" style={styles.screenshot} />
                 <p style={styles.imgCaption}>{t('phase9.step5.caption')}</p>
               </div>
             </div>

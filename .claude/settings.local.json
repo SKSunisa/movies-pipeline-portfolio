@@ -18,7 +18,12 @@
       "Bash(git pull:*)",
       "Bash(git rebase:*)",
       "Bash(npm run build:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(for file in Phase*.js)",
+      "Bash(do sed -i 's|src=\"\"/phase|src=\"\"/movies-pipeline-portfolio/phase|g' \"$file\")",
+      "Bash(done)",
+      "Bash(do sed -i 's|src=\"\"/images/|src=\"\"/movies-pipeline-portfolio/images/|g' \"$file\")",
+      "Bash(do sed -i 's|href=\"\"/downloads/|href=\"\"/movies-pipeline-portfolio/downloads/|g' \"$file\")"
     ]
   }
 }

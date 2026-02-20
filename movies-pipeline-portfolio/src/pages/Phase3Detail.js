@@ -278,7 +278,7 @@ const Phase3Detail = () => {
           {/* Workflow diagram */}
           <div style={styles.imageContainer}>
             <img
-              src="/images/workflow.svg"
+              src="/movies-pipeline-portfolio/images/workflow.svg"
               alt="Workflow Diagram"
               style={styles.workflowImage}
             />

@@ -181,7 +181,7 @@ Avg IMDb Rating = AVERAGE(FACT_MOVIE_PERFORMANCE[IMDB_RATING])`;
               </p>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase14/objective.svg" alt="Phase 14 Architecture" style={styles.diagram} />
+                <img src="/movies-pipeline-portfolio/phase14/objective.svg" alt="Phase 14 Architecture" style={styles.diagram} />
               </div>
 
               <InfoBox color={COLOR}>
@@ -398,7 +398,7 @@ Height: 1200 px
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase14/KPI-Cards.png" alt="KPI Cards" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/KPI-Cards.png" alt="KPI Cards" style={styles.screenshot} />
               </div>
 
               <h3 style={styles.subHeading}>{t('phase14.kpi.resultsTitle')}</h3>
@@ -428,7 +428,7 @@ Height: 1200 px
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase14/Visual1.png" alt="Top 10 Movies by Revenue" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/Visual1.png" alt="Top 10 Movies by Revenue" style={styles.screenshot} />
               </div>
 
               <h3 style={styles.subHeading}>{t('phase14.visual1.resultsTitle')}</h3>
@@ -459,7 +459,7 @@ Height: 1200 px
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase14/Visual2.png" alt="Revenue by Decade" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/Visual2.png" alt="Revenue by Decade" style={styles.screenshot} />
               </div>
 
               <h3 style={styles.subHeading}>{t('phase14.visual2.resultsTitle')}</h3>
@@ -488,7 +488,7 @@ Height: 1200 px
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase14/Visual3.png" alt="Movies by Genre" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/Visual3.png" alt="Movies by Genre" style={styles.screenshot} />
               </div>
 
               <h3 style={styles.subHeading}>{t('phase14.visual3.resultsTitle')}</h3>
@@ -518,7 +518,7 @@ Height: 1200 px
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase14/Visual4.png" alt="Global Movie Production" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/Visual4.png" alt="Global Movie Production" style={styles.screenshot} />
               </div>
 
               <h3 style={styles.subHeading}>{t('phase14.visual4.resultsTitle')}</h3>
@@ -548,7 +548,7 @@ Height: 1200 px
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase14/Visual5.png" alt="Rating Distribution" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/Visual5.png" alt="Rating Distribution" style={styles.screenshot} />
               </div>
 
               <h3 style={styles.subHeading}>{t('phase14.visual5.resultsTitle')}</h3>
@@ -578,7 +578,7 @@ Height: 1200 px
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase14/Visual6.png" alt="Top 10 Oscar Winners" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/Visual6.png" alt="Top 10 Oscar Winners" style={styles.screenshot} />
               </div>
 
               <h3 style={styles.subHeading}>{t('phase14.visual6.resultsTitle')}</h3>
@@ -608,7 +608,7 @@ Height: 1200 px
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase14/Visual7.png" alt="Quality vs Commercial Success" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/Visual7.png" alt="Quality vs Commercial Success" style={styles.screenshot} />
               </div>
 
               <h3 style={styles.subHeading}>{t('phase14.visual7.resultsTitle')}</h3>
@@ -635,7 +635,7 @@ Height: 1200 px
 
               <h3 style={styles.subHeading}>{t('phase14.dashboards.page1Title')}</h3>
               <div style={styles.imageWrapper}>
-                <img src="/phase14/PAGE1.png" alt="Dashboard Page 1" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/PAGE1.png" alt="Dashboard Page 1" style={styles.screenshot} />
               </div>
               <InfoBox color="#27AE60">
                 <strong>{t('phase14.dashboards.page1InfoTitle')}</strong>
@@ -648,7 +648,7 @@ Height: 1200 px
 
               <h3 style={styles.subHeading}>{t('phase14.dashboards.page2Title')}</h3>
               <div style={styles.imageWrapper}>
-                <img src="/phase14/PAGE2.png" alt="Dashboard Page 2" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase14/PAGE2.png" alt="Dashboard Page 2" style={styles.screenshot} />
               </div>
               <InfoBox color="#3498DB">
                 <strong>{t('phase14.dashboards.page2InfoTitle')}</strong>

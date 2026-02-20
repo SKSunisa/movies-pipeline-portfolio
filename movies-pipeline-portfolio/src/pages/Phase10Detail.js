@@ -158,7 +158,7 @@ const Phase10Detail = () => {
               </h2>
               <p style={styles.bodyText}>{t('phase10.purpose.desc')}</p>
               <div style={styles.imageWrapper}>
-                <img src="/phase10/objective.svg" alt="Phase 10 Architecture" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/objective.svg" alt="Phase 10 Architecture" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -467,10 +467,10 @@ SELECT * FROM dim_genres ORDER BY genre_name;
 -- Should see: Action, Adventure, Animation, Biography, Crime, ..`} />
 
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_genres-1.png" alt="dim_genres COUNT = 21" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_genres-1.png" alt="dim_genres COUNT = 21" style={styles.screenshot} />
               </div>
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_genres-2.png" alt="dim_genres results" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_genres-2.png" alt="dim_genres results" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -559,10 +559,10 @@ order by director_name
 SELECT * FROM dim_directors LIMIT 10;`} />
 
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_directors-1.png" alt="dim_directors COUNT = 61" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_directors-1.png" alt="dim_directors COUNT = 61" style={styles.screenshot} />
               </div>
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_directors-2.png" alt="dim_directors results" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_directors-2.png" alt="dim_directors results" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -651,10 +651,10 @@ order by actor_name
 SELECT * FROM dim_actors LIMIT 20;`} />
 
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_actors-1.png" alt="dim_actors COUNT = 152" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_actors-1.png" alt="dim_actors COUNT = 152" style={styles.screenshot} />
               </div>
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_actors-2.png" alt="dim_actors results" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_actors-2.png" alt="dim_actors results" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -743,10 +743,10 @@ order by country_name
 SELECT * FROM dim_countries ORDER BY country_name;`} />
 
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_countries-1.png" alt="dim_countries COUNT = 16" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_countries-1.png" alt="dim_countries COUNT = 16" style={styles.screenshot} />
               </div>
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_countries-2.png" alt="dim_countries results" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_countries-2.png" alt="dim_countries results" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -835,10 +835,10 @@ order by language_name
 SELECT * FROM dim_languages ORDER BY language_name;`} />
 
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_languages-1.png" alt="dim_languages COUNT = 12" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_languages-1.png" alt="dim_languages COUNT = 12" style={styles.screenshot} />
               </div>
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_languages-2.png" alt="dim_languages results" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_languages-2.png" alt="dim_languages results" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -948,10 +948,10 @@ order by year
 SELECT * FROM dim_time ORDER BY year LIMIT 10;`} />
 
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_time-1.png" alt="dim_time COUNT = 54" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_time-1.png" alt="dim_time COUNT = 54" style={styles.screenshot} />
               </div>
               <div style={styles.imageWrapper}>
-                <img src="/phase10/dim_time-2.png" alt="dim_time results" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/dim_time-2.png" alt="dim_time results" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -988,7 +988,7 @@ SELECT 'dim_time',      COUNT(*) FROM dim_time
 ORDER BY table_name;`} />
 
               <div style={styles.imageWrapper}>
-                <img src="/phase10/Dimensions Summary.png" alt="Dimensions Summary Results" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase10/Dimensions Summary.png" alt="Dimensions Summary Results" style={styles.screenshot} />
               </div>
 
               <InfoBox color={COLOR}>

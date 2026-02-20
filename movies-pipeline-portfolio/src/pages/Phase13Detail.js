@@ -497,20 +497,20 @@ Extra Fields Json: {
               <p style={styles.bodyText}><strong>{t('phase13.step4.step1Label')}</strong></p>
               <p style={styles.bodyText}>{t('phase13.step4.step1Desc')}</p>
               <div style={styles.imageWrapper}>
-                <img src="/phase13/test_dag_1.png" alt="Airflow DAGs List" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase13/test_dag_1.png" alt="Airflow DAGs List" style={styles.screenshot} />
               </div>
 
               <p style={styles.bodyText}><strong>{t('phase13.step4.step2Label')}</strong></p>
 
               <p style={styles.bodyText}><strong>{t('phase13.step4.step3Label')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase13/test_dag_3_1.png" alt="test_airflow_setup DAG Progress" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase13/test_dag_3_1.png" alt="test_airflow_setup DAG Progress" style={styles.screenshot} />
               </div>
               <div style={styles.imageWrapper}>
-                <img src="/phase13/test_dag_3_2.png" alt="test_airflow_setup DAG Running" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase13/test_dag_3_2.png" alt="test_airflow_setup DAG Running" style={styles.screenshot} />
               </div>
               <div style={styles.imageWrapper}>
-                <img src="/phase13/test_dag_3_3.png" alt="movies_pipeline DAG Complete" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase13/test_dag_3_3.png" alt="movies_pipeline DAG Complete" style={styles.screenshot} />
               </div>
             </div>
           </section>

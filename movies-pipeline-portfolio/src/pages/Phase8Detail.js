@@ -284,7 +284,7 @@ AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL: 30`} />
 Username: airflow
 Password: airflow`} />
                   <div style={styles.imageWrapper}>
-                    <img src="/images/phase8/Airflow.png" alt="Airflow Web UI Login" style={styles.screenshot} />
+                    <img src="/movies-pipeline-portfolio/images/phase8/Airflow.png" alt="Airflow Web UI Login" style={styles.screenshot} />
                   </div>
                 </li>
               </ol>
@@ -511,7 +511,7 @@ if __name__ == "__main__":
               </ol>
 
               <div style={styles.imageWrapper}>
-                <img src="/images/phase8/Part3_upload_to_s3.svg" alt="upload_to_s3.py script" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/images/phase8/Part3_upload_to_s3.svg" alt="upload_to_s3.py script" style={styles.screenshot} />
               </div>
 
               <p style={{ ...styles.bodyText, fontWeight: '700', marginTop: '20px' }}>{t('phase8.part3.resultLabel')}</p>
@@ -566,7 +566,7 @@ USE SCHEMA raw;
 LIST @movies_s3_stage;`} />
               <p style={styles.bodyText}><strong>{t('phase8.part4.resultLabel')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/images/phase8/Part4_Verification.png" alt="Snowflake LIST stage result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/images/phase8/Part4_Verification.png" alt="Snowflake LIST stage result" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -582,7 +582,7 @@ LIST @movies_s3_stage;`} />
                 <li style={styles.listItem}>
                   {t('phase8.part5.s3')}
                   <div style={{ ...styles.imageWrapper, marginBottom: '12px' }}>
-                    <img src="/images/phase8/Part5_Snowflake_UI.svg" alt="Load data in Snowflake UI" style={styles.screenshot} />
+                    <img src="/movies-pipeline-portfolio/images/phase8/Part5_Snowflake_UI.svg" alt="Load data in Snowflake UI" style={styles.screenshot} />
                   </div>
                   <CopyableCode code={`-- =====================================================
 -- Part 5: Load Data

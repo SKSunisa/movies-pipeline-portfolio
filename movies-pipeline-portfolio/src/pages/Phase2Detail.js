@@ -13,7 +13,7 @@ const Phase2Detail = () => {
   const getLocalizedImage = (baseName) => {
     const lang = i18n.language;
     const langSuffix = lang === 'zh' ? 'zh' : lang === 'en' ? 'en' : 'th';
-    return `/images/${baseName}_${langSuffix}.svg`;
+    return `/movies-pipeline-portfolio/images/${baseName}_${langSuffix}.svg`;
   };
 
   useEffect(() => {
@@ -189,7 +189,7 @@ const Phase2Detail = () => {
           {/* ER Diagram Image */}
           <div style={styles.imageContainer}>
             <img
-              src="/images/er_diagram_chen.svg"
+              src="/movies-pipeline-portfolio/images/er_diagram_chen.svg"
               alt="ER Diagram (Chen)"
               style={{...styles.diagramImage, maxWidth: '50%'}}
             />
@@ -259,7 +259,7 @@ const Phase2Detail = () => {
           {/* Final Schema Image */}
           <div style={styles.imageContainer}>
             <img
-              src="/images/star_schema.png"
+              src="/movies-pipeline-portfolio/images/star_schema.png"
               alt="Star Schema"
               style={styles.schemaImage}
             />
