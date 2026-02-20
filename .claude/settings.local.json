@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd complete Movies Pipeline Portfolio with all 15 phases\n\n- Created Phase 15: EC2 Deployment with full documentation\n- Added comprehensive i18n support \\(Thai, English, Chinese\\) for all phases\n- Implemented phase navigation system with dropdown menu in header\n- Fixed PhaseNavigator to support all 15 phases\n- Added phase images and assets for all phases\n- Cleaned up project structure and removed temporary files\n- All phases now accessible and clickable from homepage and navigation\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run deploy:*)",
+      "Bash(git commit:*)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(git branch:*)",
+      "Bash(gh api:*)",
+      "Bash(git submodule:*)",
+      "Bash(git pull:*)",
+      "Bash(git rebase:*)"
+    ]
+  }
+}
