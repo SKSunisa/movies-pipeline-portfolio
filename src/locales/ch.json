@@ -1,0 +1,2570 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于项目",
+    "phases": "流程阶段"
+  },
+  "home": {
+    "title": "IMDb Top 100 电影数据管道",
+    "subtitle": "端到端数据管道作品集",
+    "description": "本项目构建端到端数据管道，用于分析IMDb前100名电影数据，使用当前标准和全球公认的技术和工具。"
+  },
+  "objectives": {
+    "title": "目标",
+    "item1": "从头到尾学习数据工程师的真实工作流程",
+    "item2": "练习使用当今广泛使用的重要工具"
+  },
+  "learning": {
+    "title": "本项目将学到的内容",
+    "cloud": {
+      "title": "云基础设施",
+      "item1": "使用AWS EC2进行系统部署",
+      "item2": "管理S3存储桶作为数据湖"
+    },
+    "orchestration": {
+      "title": "数据编排",
+      "item1": "使用Apache Airflow控制和管理工作流",
+      "item2": "编写DAG（有向无环图）定义任务序列",
+      "item3": "设置调度和监控"
+    },
+    "warehouse": {
+      "title": "数据仓库",
+      "item1": "使用Snowflake作为云数据仓库",
+      "item2": "设计星型模式用于数据分析"
+    },
+    "transform": {
+      "title": "数据转换",
+      "item1": "使用dbt（数据构建工具）进行数据转换"
+    },
+    "modeling": {
+      "title": "数据建模",
+      "item1": "设计包含事实表和维度表的星型模式"
+    }
+  },
+  "architecture": {
+    "title": "项目架构",
+    "extract": "提取",
+    "load": "加载",
+    "transform": "转换",
+    "dataLake": "数据湖（暂存区）",
+    "rawLayer": "数据仓库（RAW层）",
+    "martsLayer": "数据仓库（MARTS层）",
+    "dashboard": "仪表板（Power BI）",
+    "orchestration": "Apache Airflow编排"
+  },
+  "prerequisites": {
+    "title": "本项目的先决条件",
+    "item1": "AWS账户（免费层）",
+    "item2": "Snowflake账户（免费层）",
+    "item3": "电脑/笔记本",
+    "item4": "基础知识：SQL、Python（入门级）"
+  },
+  "phases": {
+    "title": "文档结构 - 15个阶段",
+    "phase": "阶段",
+    "viewDetails": "查看详情",
+    "phase1": {
+      "name": "数据分析",
+      "description": "分析和理解源数据"
+    },
+    "phase2": {
+      "name": "数据模型设计",
+      "description": "设计数据结构"
+    },
+    "phase3": {
+      "name": "架构设计",
+      "description": "设计系统架构"
+    },
+    "phase4": {
+      "name": "环境设置",
+      "description": "设置Windows + Docker"
+    },
+    "phase5": {
+      "name": "基础设施设置",
+      "description": "设置AWS + Snowflake"
+    },
+    "phase6": {
+      "name": "Docker和Airflow设置",
+      "description": "安装和配置Docker和Airflow"
+    },
+    "phase7": {
+      "name": "dbt设置和配置",
+      "description": "安装和配置dbt"
+    },
+    "phase8": {
+      "name": "手动脚本",
+      "description": "创建Local → S3脚本"
+    },
+    "phase9": {
+      "name": "数据清洗和暂存",
+      "description": "清洗数据并创建暂存模型"
+    },
+    "phase10": {
+      "name": "维度建模",
+      "description": "创建星型模式"
+    },
+    "phase11": {
+      "name": "桥接表和事实表",
+      "description": "创建桥接表和事实表"
+    },
+    "phase12": {
+      "name": "测试和文档",
+      "description": "测试并创建文档"
+    },
+    "phase13": {
+      "name": "DAG开发",
+      "description": "开发DAG并管理编排"
+    },
+    "phase14": {
+      "name": "仪表板",
+      "description": "创建可视化仪表板"
+    },
+    "phase15": {
+      "name": "EC2部署",
+      "description": "在AWS EC2上部署系统"
+    }
+  },
+  "techStack": {
+    "title": "使用的技术"
+  },
+  "common": {
+    "language": "语言",
+    "back": "返回",
+    "next": "下一个",
+    "previous": "上一个",
+    "jumpTo": "跳转至"
+  },
+  "phase1": {
+    "title": "数据分析",
+    "subtitle": "分析和理解源数据",
+    "navigation": {
+      "title": "第一阶段主题"
+    },
+    "downloads": {
+      "title": "下载文件",
+      "dataset": "下载数据集 (CSV)",
+      "notebook": "下载 Jupyter Notebook"
+    },
+    "intro": {
+      "title": "什么是数据分析？",
+      "description": "数据分析是检查和分析数据以了解其结构的过程。了解数据结构有助于识别源数据的格式，帮助适当的架构设计，实现高效的数据管道规划，并确保数据质量。它还有助于避免以后因数据误解而导致的重新设计或返工。",
+      "purposeTitle": "阶段1的目的",
+      "purpose": "研究我们将用于此项目的数据集中的数据结构。在构建数据管道之前，我们将执行数据分析以了解内部数据结构。"
+    },
+    "sections": {
+      "overview": "数据结构概览",
+      "duplicates": "重复数据",
+      "multivalue": "多值",
+      "missing": "缺失数据",
+      "statistics": "统计摘要",
+      "outliers": "异常值"
+    },
+    "overview": {
+      "title": "数据结构概览",
+      "description": "我使用了Pandas，这是最流行的数据分析库之一。总结如下：",
+      "totalRows": "总行数",
+      "totalRowsDesc": "前100部电影",
+      "totalColumns": "总列数",
+      "dataTypes": "主要数据类型",
+      "intType": "整数 (int64)",
+      "objectType": "文本 (object)",
+      "floatType": "小数 (float64)"
+    },
+    "duplicates": {
+      "title": "重复数据",
+      "description": "本节通过删除括号()进行标准化，在'Title'列（电影标题）中查找重复值。",
+      "methodTitle": "重复检测方法",
+      "results": "结果",
+      "summary": "发现重复",
+      "pairs": "对",
+      "rows": "行",
+      "solutionTitle": "处理重复",
+      "solution": "加载到Snowflake后，我们将删除重复列以使数据更清洁、更准确。我们将保留最佳排名并删除较差的排名，从100行减少到95行。"
+    },
+    "multivalue": {
+      "title": "多值",
+      "description": "此部分非常重要，因为根据数据库原则，我们不能在单个字段中存储多个值。此步骤至关重要，因为它会影响将在阶段2中出现的架构设计。",
+      "observation": "在此项目中，运行 .head() 或查看第1节的数据结构概览时，发现某些列可以有多个值，通过 | 符号作为分隔符识别。",
+      "step1Title": "1. 查找哪些列包含 | 分隔符",
+      "step2Title": "2. 显示列名和带有 | 分隔符的行数",
+      "results1": "输出",
+      "results2": "输出",
+      "solutionTitle": "处理多值",
+      "solution": "结果显示许多行具有多个值。我们将在Snowflake中拆分它们，因为此项目使用ELT数据管道方法，选择先加载然后在Snowflake中拆分。"
+    },
+    "missing": {
+      "title": "缺失数据",
+      "description": "在检查所有100行后，发现5列中存在缺失值，如下表所示：",
+      "high": "高",
+      "medium": "中",
+      "low": "低",
+      "columnName": "列名",
+      "missingCount": "缺失数量",
+      "percentage": "缺失百分比",
+      "note": "备注",
+      "metacriticNote": "高级别缺失（一半数据缺失，可能影响整体评分分析）",
+      "boxOfficeNote": "中级别缺失（部分收入数据缺失）",
+      "lowNote": "低级别缺失",
+      "solutionTitle": "处理缺失数据",
+      "solution": "对于处理缺失数据，最初我可能选择将它们保留为NULL。保留为NULL为我们提供了选项，如\"NULL应该是平均值吗？\"或\"应该显示为N/A？\"我们可以随时更改方法而无需修改代码。"
+    },
+    "statistics": {
+      "title": "统计摘要",
+      "description": "使用：",
+      "resultTitle": "输出",
+      "summaryTitle": "总结：",
+      "yearSummary": "大多数电影来自20世纪中期，最早的是1931年，最新的是2019年",
+      "imdbSummary": "平均评分为8.39，最高为9.3",
+      "runtimeSummary": "平均时长为130分钟，最短86分钟，最长222分钟",
+      "boxOfficeSummary": "收入波动很大（标准差为270.32），最高收入为11.199亿美元"
+    },
+    "outliers": {
+      "title": "异常值检测",
+      "description": "异常值检测识别可能是\"错误数据\"的异常数据点。异常值可能由两个主要原因引起：错误和极端值。",
+      "purpose": "异常值检测可防止\"倾斜\"统计并帮助发现有趣的数据模式。",
+      "codeIntro": "我使用以下代码检测异常值：",
+      "validation": "从代码中：",
+      "yearRule": "年份不应早于1800年或晚于当前年份，因为历史数据通常表明电影从1800年左右开始",
+      "imdbRule": "必须在0-10之间",
+      "runtimeRule": "不应为负数或零",
+      "rottenRule": "百分比分数必须在0-100之间",
+      "oscarsRule": "奥斯卡数量不应为负数"
+    },
+    "summary": {
+      "title": "阶段1总结：数据分析",
+      "description": "此阶段研究了数据结构，揭示了项目数据集中的问题。由于此项目使用ELT数据管道方法，专注于首先将原始数据加载到系统中（Load），然后使用SQL处理转换（Transform），因此在启动数据管道流程之前进行数据分析至关重要，以确保了解数据结构并导致良好的设计。",
+      "finding1Title": "重复值",
+      "finding1": "删除括号()后发现5对重复的'Title'值",
+      "finding2Title": "多值",
+      "finding2": "根据数据库原则，我们不能在单个字段中存储多个值 - 要存储此数据，我们将在阶段2的架构设计中使用它",
+      "finding3Title": "缺失数据",
+      "finding3": "暂时保留为NULL作为未知",
+      "nextSteps": "下一步",
+      "nextStepsDescription": "Phase 2: 设计数据模型（星型架构）将分析后的数据结构化为最适合分析的格式"
+    }
+  },
+  "phase2": {
+    "title": "数据模型设计",
+    "subtitle": "设计星型模式",
+    "navigation": {
+      "title": "第二阶段主题"
+    },
+    "intro": {
+      "title": "什么是数据模型？",
+      "description": "从第一阶段，我们完成了数据分析，这帮助我们理解了数据结构和处理方法。在第二阶段，我们将创建数据模型。",
+      "purposeTitle": "第二阶段的目的",
+      "purpose": "创建数据模型可以帮助我们更好地可视化数据连接，理解存储数据的逻辑。在组织环境或协作工作中，数据模型对于帮助所有相关人员理解整体数据图景至关重要，也有助于减少未来的问题。"
+    },
+    "sections": {
+      "problems": "理解现有问题",
+      "division": "数据划分",
+      "erdiagram": "ER图",
+      "schema": "星型模式"
+    },
+    "problems": {
+      "title": "理解现有问题",
+      "description": "从第一阶段的数据分析中，我们识别了这个项目数据集中的问题，包括重复数据、多值和缺失数据。这些问题决定了数据建模设计的方向。如果不知道从哪里开始，首先关注数据的\"整洁性\"和\"准确性\"。在数据结构方面最明显的问题是多值——根据数据库原则，我们不能在单个字段中存储多个值，因此必须首先分离数据。",
+      "duplicate": "重复数据",
+      "multivalue": "多值",
+      "multivalueDesc": "根据数据库原则，我们不能在单个字段中存储多个值。需要规范化来解决多对多关系。",
+      "missing": "缺失数据",
+      "focus": "在数据结构方面最明显的问题是多值。在这个项目中，我们首先从多值问题开始数据建模——因为根据数据库原则，我们不能在单个字段中存储多个值，因此必须首先分离数据。"
+    },
+    "division": {
+      "title": "数据划分",
+      "description": "从第一节中，我发现的问题是多值。多值问题的核心是数据被压缩到一个字段中。根据数据库原则，\"一个字段必须有一个值\"（原子性）。如果我们强制将数据放入一个表中，查询将变得非常困难，需要重新构建数据结构。简单来说，需要分析新的表结构。从3个简单问题开始：",
+      "q1": "我们主要分析或关注什么？",
+      "q1Desc": "这个问题导向创建事实表。在这个项目中，我们主要分析'电影'——因此 ✅ 事实表 = movies",
+      "q2": "我们的事实表用什么指标来衡量？",
+      "q2Desc": "回顾我们拥有的数据集——这些通常是数字或统计列。它们必须是实际可测量的值（度量），不会随分析视角而改变。",
+      "q3": "什么有自己的属性并且可以重复使用？",
+      "q3Desc": "再次回顾数据集。这个问题导向创建维度表。",
+      "dimensionTitle": "本项目的维度表",
+      "closing": "至此，我们已经有了事实表和维度表。在下一节中，我们将绘制ER图。"
+    },
+    "erdiagram": {
+      "title": "绘制ER图（Chen图）",
+      "description": "基于业务规则的ER图。此图中的业务逻辑由作者根据观看各种电影和剧集创建，认为逻辑相当合理。该图总结了本项目中所有实体之间的关系。",
+      "manyToMany": "多对多关系（M:N）",
+      "manyToManyDesc": "图中大多数关系是M:N（多对多）。根据数据库原则，我们不能直接在表结构中存储M:N数据。因此，我们必须使用桥接表来解决M:N关系。",
+      "bridgeTitle": "桥接表",
+      "bridgeDesc": "这使我们需要按照下图创建数据模型"
+    },
+    "schema": {
+      "title": "星型模式 vs 雪花模式",
+      "description": "通常，数据仓库设计是<strong>非规范化</strong>的——我们避免规范化（或将其最小化）。但是当存在<strong>多对多</strong>关系时，我们使用<strong>维度建模</strong>来组织数据，其中包括：",
+      "recommended": "推荐",
+      "star1": "仅基本规范化以解决多对多",
+      "star2": "维度表不进一步规范化",
+      "star3": "强调查询速度",
+      "snowflake1": "更多规范化（3NF-BCNF）",
+      "snowflake2": "维度表被进一步细分（例如单独拆分出国家表）",
+      "snowflake3": "节省存储但查询较慢",
+      "projectChoice": "<strong>本项目：</strong>使用<strong>星型模式</strong>——仅在基本层面进行规范化，通过桥接表解决多对多（N:M）关系。我们不进行像OLTP那样的深度规范化，<strong>因为数据仓库注重查询的简便性和速度。</strong>",
+      "finalDesc": "转换为星型模式后如下图所示",
+      "noteTitle": "注意：桥接表 ≠ 雪花模式",
+      "noteText": "桥接表是在星型模式内解决多对多的技术——不是雪花模式的一部分。由于有多个表，图表可能看起来像雪花模式，但关键原则是维度表没有进一步 normalize。这就是星型模式与雪花模式的区别所在。",
+      "modernNote": "然而，现代工具已大幅进步，出现了更灵活的替代方案——例如先将数据存储为 Array/半结构化类型放在单张表中，再使用特殊 SQL 命令（如 Snowflake 中的 FLATTEN）提取数据进行分析，效果如同拆分了多张表。本项目选择使用规范化方法，作为对自身及其他读者的最佳实践。"
+    },
+    "summary": {
+      "title": "第二阶段总结：数据模型设计",
+      "description": "在这个阶段，我们使用星型模式设计了数据模型来处理多值问题和多对多关系。",
+      "finding1Title": "事实表",
+      "finding1": "fact_movie_performance用于存储电影定量数据",
+      "finding2Title": "桥接表",
+      "finding2": "创建了5个桥接表来解决多对多问题",
+      "finding3Title": "星型模式",
+      "finding3": "使用星型模式以提高查询速度和易于理解",
+      "nextSteps": "下一步",
+      "nextStepsDescription": "第三阶段：使用设计的数据模型进行架构设计以规划系统结构"
+    }
+  },
+  "phase3": {
+    "title": "架构设计",
+    "subtitle": "设计架构与技术栈",
+    "navigation": {
+      "title": "第三阶段主题"
+    },
+    "sections": {
+      "purpose": "第三阶段目的",
+      "concept": "概念起源",
+      "workflow": "项目工作流程",
+      "techstack": "技术栈"
+    },
+    "purpose": {
+      "description": "第三阶段的目的是设计架构，帮助我们可视化数据的流向以及使用的工具，减少混乱，使所有人对系统有一致的理解。",
+      "outputTitle": "本阶段输出成果：",
+      "output1": "架构图",
+      "output2": "技术栈列表"
+    },
+    "concept": {
+      "description": "基于项目目标，我希望使用无需大量安装的工具，能在云端使用并提供免费试用期。经过研究，我筛选出2个主要的数据仓库候选方案，每个方案也都将自身定义为数据仓库：",
+      "toolCompareTitle": "数据仓库选项对比",
+      "tool": "工具",
+      "cloudBased": "云端使用",
+      "freeTrial": "免费试用",
+      "easeOfUse": "易用性",
+      "definition": "定义",
+      "snowflakeCloud": "通过浏览器使用",
+      "snowflakeTrial": "30天（$400积分）",
+      "snowflakeEase": "非常简单",
+      "snowflakeDef": "\"Snowflake tables are ideal for data warehouses\"",
+      "bigqueryCloud": "通过GCP使用",
+      "bigqueryTrial": "90天（$300积分）",
+      "bigqueryEase": "中等（配置时间较长）",
+      "bigqueryDef": "\"Google Cloud's fully managed, petabyte-scale, and cost-effective analytics data warehouse\"",
+      "decision": "我选择Snowflake因为其配置更简单，因此我计划将Snowflake作为本项目的数据仓库使用。",
+      "s3Concept": "在深入研究并想体验AWS云平台后，我发现可以使用AWS S3作为数据湖。这让我产生了以下概念：",
+      "s3Result": "现在我有了这个项目的核心概念：使用S3（数据湖）将数据加载到Snowflake（数据仓库）中。",
+      "kaggleDesc": "接下来，我需要找一个作为源数据的数据集。我使用Kaggle寻找源数据，找到了名为<a href=\"https://www.kaggle.com/datasets/shayanzk/imdb-top-100-movies-dataset-2025-edition\" target=\"_blank\" rel=\"noopener noreferrer\">IMDb Top 100 Movies Dataset (2025 Edition)</a>的数据集作为本项目的源数据。我之所以选择它，是因为它体量小，适合练习项目使用。在Phase 1中进行数据分析后，我已大致了解了转换思路。现在我已有了本项目的Workflow：",
+      "eltIntro": "至此，本项目数据管道的方案已明确：我们采用\"ELT\"模式。",
+      "eltCompareTitle": "ETL与ELT对比",
+      "paradigm": "范式",
+      "order": "处理顺序",
+      "transformLocation": "转换（T）发生位置",
+      "transformTool": "转换（T）使用工具",
+      "etlLocation": "仓库外部（暂存区）",
+      "etlTool": "外部脚本：Python、Spark、Scala、Flink",
+      "eltLocation": "仓库内部（暂存表）",
+      "eltTool": "原生SQL脚本",
+      "dbtReason": "因此在本项目中，\"ELT\"的Transform步骤在数据仓库内进行。转换工具是原生SQL脚本。我选择dbt作为Transform工具，因为dbt是在SQL基础上增加了更多功能的原生SQL。普通SQL虽然可用，但问题是必须按顺序执行——顺序错误就会报错。dbt通过DAG（有向无环图）系统解决了这个问题。简单来说，dbt具有方向明确、无循环的工作流结构。它根据依赖关系自动确定正确的执行顺序，消除了普通SQL中可能出现的顺序错误。",
+      "dagExplain": ""
+    },
+    "workflow": {
+      "description": "本项目的目的是学习数据管道流程并实践广泛使用的工具。以下是本项目所使用流程的概览。",
+      "layer": "第",
+      "layer1Title": "Docker容器",
+      "layer1Problem": "如果我们在Windows机器上开发项目，然后部署到EC2（Linux）上却无法运行，那将是一个大问题。",
+      "layer1SolutionIntro": "Docker通过将所有内容封装在容器中解决了这个问题。使用Docker的好处如下：",
+      "layer1Benefit1": "能在任何机器上运行，无论是Windows、Mac、Linux，还是云端（EC2）",
+      "layer1Benefit2": "环境完全一致，解决了\"在我机器上能运行，在你机器上却不行\"的问题",
+      "layer1ExtractIntro": "CSV数据进入容器后，第一步是将数据从本地机器转移到云端。这个步骤我们称为Extract：",
+      "layer1ExtractLabel": "EXTRACT：",
+      "layer1Extract1": "Python脚本从data文件夹读取top_100_movies_full_best_effort.csv文件",
+      "layer1Extract2": "脚本使用boto3（AWS SDK）将文件上传到S3存储桶",
+      "layer2Title": "数据湖 - Amazon S3",
+      "layer2Desc": "上传完成后，数据存储在S3——数据湖——作为\"原始数据存储\"：",
+      "layer2Question": "很多人可能会疑惑：为什么不直接加载到Snowflake？为什么要经过S3？",
+      "layer2Answer": "答案是因为我们需要：",
+      "layer2Reason1": "备份原始数据——如果出错，我们在数据湖（S3）中还保有原始数据",
+      "layer2Reason2": "Snowflake可以直接从S3拉取数据——使用COPY INTO命令很方便",
+      "layer3Title": "数据仓库 - RAW层",
+      "layer3Desc": "数据现在已在S3上，下一步是将其加载到数据仓库以准备进行分析。",
+      "layer3SchemaIntro": "在将数据加载到数据仓库之前，我们按Schema将数据分层。简单来说，我们创建3个Schema。将Schema分成多层后，数据被划分为以下几层：",
+      "layer3Schema1": "Raw Schema：存储完全未处理的原始数据（铜层 或 Raw Layer）",
+      "layer3Schema2": "Staging Schema：存储清洗后的可用数据（银层 或 Staging Layer）",
+      "layer3Schema3": "Marts Schema：存储Star Schema格式或分析就绪的数据（金层 或 Marts Layer）",
+      "layer3Note": "将数据分层可以避免数据混淆",
+      "layer3LoadIntro": "在此步骤中，我们将数据从S3加载到数据仓库：",
+      "layer3Load": "在Snowflake中，使用COPY INTO命令先将S3的数据拉取到Raw Schema",
+      "layer3Raw": "重要的是，RAW层存储所有未修改的原始数据，数据仍存在NULL值、重复等问题：",
+      "layer3WhyTitle": "那为什么不在S3就进行清洗呢？",
+      "layer3WhyAnswer": "因为我们希望保留真实的原始数据。如果清洗逻辑出错，我们可以重新加载原始数据",
+      "layer4Title": "数据转换 - dbt",
+      "layer4Desc": "使用dbt（data build tool）进行数据转换，将原始数据转化为高质量数据。转换在Staging Schema中进行，并执行数据清洗。",
+      "layer5Title": "数据仓库 - MARTS层",
+      "layer5Desc": "数据清洗完成后，dbt运行结束，所有转换后的数据存储在Snowflake的Marts Schema中，可供分析使用。",
+      "layer6Title": "仪表盘 - Power BI",
+      "layer6Desc": "Power BI连接到Snowflake的Marts Schema，从Fact + Dimension表中提取数据构建可视化图表，展示分析结果。",
+      "layer7Title": "编排 - Apache Airflow",
+      "layer7Desc": "尽可能自动化整个数据管道的端到端流程。Airflow负责管理执行顺序、调度和监控整个数据管道。"
+    },
+    "techstack": {
+      "description": "本项目使用了以下工具：",
+      "dockerTitle": "Docker",
+      "dockerDesc": "作为容器化层——隔离项目环境以防止依赖冲突，确保所有机器的环境一致性，同时也充当服务器托管平台。",
+      "s3Title": "AWS S3",
+      "s3Desc": "S3代表Simple Storage Service，是亚马逊的云文件存储服务（类似Google Drive）。AWS S3使用Bucket作为存储文件的大型文件夹。",
+      "s3Role1": "数据湖：原始数据存储区域",
+      "s3Role2": "暂存区（临时区域）：在加载到Snowflake之前存储数据",
+      "s3Role3": "备份存储：当Snowflake出现问题时，S3中的原始数据作为备份",
+      "s3Role4": "集成点：连接本地机器与Snowflake",
+      "snowflakeTitle": "Snowflake",
+      "snowflakeDesc": "作为本项目的数据仓库，存储RAW（原始数据）和转换为Star Schema后的ANALYTICS数据，用于查询和构建仪表盘。",
+      "ec2Title": "AWS EC2",
+      "ec2Desc": "作为虚拟服务器，全天候在云端运行Airflow和Docker。",
+      "airflowTitle": "Apache Airflow",
+      "airflowDesc": "作为工作流编排工具，追踪并控制数据管道从头到尾的执行。"
+    },
+    "summary": {
+      "title": "第三阶段总结：架构设计",
+      "description": "本阶段我们为数据管道设计了架构，选择ELT模式配合7层架构，包含Docker、AWS S3、Snowflake、dbt、Power BI、Apache Airflow和AWS EC2。",
+      "finding1Title": "ELT模式",
+      "finding1": "选择ELT而非ETL，因为Transform步骤在数据仓库内使用原生SQL（dbt）完成，降低了基础设施复杂度。",
+      "finding2Title": "7层架构",
+      "finding2": "设计了从Docker容器到Power BI仪表盘的7层架构，覆盖完整的ELT管道。",
+      "finding3Title": "云优先方法",
+      "finding3": "使用云服务（AWS S3、EC2、Snowflake）以获得灵活性、可扩展性和随处运行的能力。",
+      "nextSteps": "下一步",
+      "nextStepsDescription": "第四阶段：按照设计的架构进行实施，从Docker容器配置和环境搭建开始。"
+    }
+  },
+  "phase4": {
+    "title": "环境搭建",
+    "subtitle": "Windows + Docker 配置",
+    "navigation": {
+      "title": "跳转到章节"
+    },
+    "sections": {
+      "purpose": "第四阶段目的",
+      "steps": "安装步骤",
+      "summary": "第四阶段总结"
+    },
+    "purpose": {
+      "description": "第四阶段的目的是安装 Docker 和 Python，为本项目搭建环境。以下步骤已为您整理好，可以直接按照步骤操作。"
+    },
+    "steps": {
+      "step1": {
+        "title": "安装 Docker Desktop（最重要！）",
+        "sub1Title": "下载 Docker Desktop",
+        "sub1Code": "# 打开浏览器访问：\nhttps://www.docker.com/products/docker-desktop/",
+        "sub2Title": "安装 Docker Desktop",
+        "sub2Warning": "重要！安装时请选择：",
+        "sub2Check": "\"Use WSL 2 instead of Hyper-V\"（如需使用 WSL 推荐选择，但本项目不使用）",
+        "sub2Click": "点击 OK 并等待安装完成",
+        "sub3Title": "重启计算机",
+        "sub3Warn": "必须重启——否则 Docker 无法使用",
+        "sub4Title": "打开 Docker Desktop",
+        "sub4Step1": "重启后，Docker Desktop 应自动启动",
+        "sub4Step2": "查看系统托盘（右下角）是否有 Docker 图标",
+        "sub4Step3": "等待显示 \"Docker Desktop is running\"",
+        "sub5Title": "测试 Docker 安装",
+        "sub5Intro": "打开 CMD 并运行：",
+        "sub5Code": "docker --version\ndocker-compose --version",
+        "sub5ResultLabel": "我的结果：",
+        "sub5Result": "Docker version 27.5.1, build 9f9e405\nDocker Compose version v2.32.4"
+      },
+      "step2": {
+        "title": "安装 Python 3.11+",
+        "sub1Title": "下载 Python",
+        "sub1Code": "# 打开浏览器访问：\nhttps://www.python.org/downloads/",
+        "sub1Note": "下载 Python 3.11.x 或 3.12.x（最新版本）",
+        "sub2Title": "安装 Python",
+        "sub2Warning": "重要！别忘了！安装时必须勾选：",
+        "sub2Check": "\"Add Python to PATH\"（在第一个界面底部）",
+        "sub2Note": "这是最关键的步骤！如果忘记勾选，将无法在 CMD 中使用 Python",
+        "sub2Then": "然后：",
+        "sub2Click1": "点击 \"Install Now\"",
+        "sub2Click2": "等待约 5 分钟完成安装",
+        "sub3Title": "测试安装",
+        "sub3Intro": "打开新的 CMD（必须重新打开，不能使用之前打开的窗口）并运行：",
+        "sub3Code": "python --version\npip --version",
+        "sub3ResultLabel": "我的结果：",
+        "sub3Result": "Python 3.11.0\npip 25.3 from D:\\movies_pipeline\\venv\\Lib\\site-packages\\pip (python 3.11)"
+      },
+      "step3": {
+        "title": "安装 Git（如尚未安装）",
+        "description": "我们安装 Git 用于代码版本控制，并创建 .gitignore 以防止将敏感文件（如 .env）提交到 GitHub。",
+        "testLabel": "测试 Git：",
+        "testCode": "git --version"
+      },
+      "step4": {
+        "title": "创建项目文件夹结构",
+        "sub1Title": "打开 CMD 并运行：",
+        "sub1Code": "# 进入要存放项目的驱动器（本项目存放在 D 盘）\nD:\n\n# 创建项目文件夹\n# 本项目名称为 movies_pipeline\nmkdir movies_pipeline\ncd movies_pipeline\n\n# 创建子文件夹结构\nmkdir data\nmkdir scripts\n\n# 验证是否创建成功\ndir",
+        "sub2Title": "复制 CSV 文件",
+        "sub2Note": "将 top_100_movies_full_best_effort.csv 复制到 data 文件夹中"
+      },
+      "step5": {
+        "title": "创建 Python 虚拟环境",
+        "description": "虚拟环境将本项目的包与系统 Python 安装隔离开来。",
+        "code": "# 进入项目文件夹（如果尚未进入）\nD:\ncd movies_data_pipeline\n\n# 创建名为 venv 的虚拟环境\npython -m venv venv\n\n# 激活虚拟环境\nvenv\\Scripts\\activate",
+        "successLabel": "成功激活后，命令行前面会显示 (venv)：",
+        "successResult": "(venv) D:\\movies_pipeline>"
+      },
+      "step6": {
+        "title": "安装 Python 包",
+        "description": "venv 已激活，现在安装所有必需的包：",
+        "code": "# 升级 pip 到最新版本\npython -m pip install --upgrade pip\n\n# 安装主要包\npip install pandas\npip install boto3\npip install snowflake-connector-python==3.12.2\npip install python-dotenv\npip install apache-airflow\npip install dbt-snowflake==1.8.4\npip install dbt-core==1.8.7\npip install apache-airflow-providers-snowflake==5.6.0",
+        "checkCode": "# 验证所有包已安装\npip list | findstr \"airflow dbt snowflake pandas boto3 numpy python-dotenv\"",
+        "resultLabel": "结果："
+      },
+      "step7": {
+        "title": "创建 requirements.txt",
+        "description": "用于将来重新安装包。",
+        "sub1": "在 VS Code 中创建 requirements.txt：",
+        "sub2": "将以下代码粘贴到 requirements.txt 中：",
+        "code": "# ====================================\n# DBT + SNOWFLAKE\n# ====================================\ndbt-core==1.8.7\ndbt-snowflake==1.8.4\nsnowflake-connector-python==3.12.2\n\n# ====================================\n# AWS\n# ====================================\nboto3==1.42.34\n\n# ====================================\n# Snowflake Provider\n# ====================================\napache-airflow-providers-snowflake==5.6.0\n\n# ====================================\n# UTILITIES\n# ====================================\npython-dotenv==1.2.1"
+      }
+    },
+    "summary": {
+      "title": "第四阶段：环境搭建完成！",
+      "description": "本项目所需的所有工具均已安装完毕，可以进行下一步。",
+      "item1": "Docker Desktop（运行中）",
+      "item2": "Python 3.11+ + pip",
+      "item3": "Git for Windows",
+      "item4": "项目文件夹结构",
+      "nextSteps": "下一步",
+      "nextStepsDescription": "第五阶段：继续进行 AWS 基础设施配置并与项目连接。"
+    }
+  },
+  "phase5": {
+    "title": "基础设施搭建",
+    "subtitle": "AWS + Snowflake 配置",
+    "backBtn": "← 返回首页",
+    "navTitle": "第五阶段主题",
+    "nav": {
+      "purpose": "第五阶段目的",
+      "step1": "Step 1: AWS S3 配置",
+      "step1_1": "  1.1 创建 AWS 账户",
+      "step1_2": "  1.2 创建 S3 存储桶",
+      "step1_3": "  1.3 在 S3 创建文件夹",
+      "step1_4": "  1.4 创建 IAM 用户",
+      "step1_5": "  1.5 AWS 凭证配置",
+      "step1_6": "  1.6 IAM 角色",
+      "step2": "Step 2: Snowflake 配置",
+      "step2_1": "  2.1 注册 Snowflake",
+      "step2_2": "  2.2 创建 Warehouse",
+      "step2_3": "  2.3 创建 Database 和 Schema",
+      "step2_4": "  2.4 设置默认上下文",
+      "step2_5": "  2.5 验证对象",
+      "step2_6": "  2.6 存储集成",
+      "step2_7": "  2.7 更新 IAM 角色",
+      "step2_8": "  2.8 创建 Stage",
+      "step2_9": "  2.9 文件格式",
+      "step2_10": "  2.10 创建数据表",
+      "step2_11": "  2.11 更新 .env",
+      "summary": "第五阶段完成"
+    },
+    "purpose": {
+      "heading": "第五阶段目的",
+      "desc1": "第五阶段的目的是配置 AWS 和 Snowflake。本阶段的目标是创建 AWS 账户、S3 存储桶和 Snowflake 账户，使它们能够相互连接。",
+      "desc2": "第五阶段有 2 个主要步骤：Step 1 主要配置 AWS，Step 2 主要配置 Snowflake。",
+      "goal1Title": "Step 1: AWS S3 配置",
+      "goal1_1": "创建 AWS 账户 (Free Tier)",
+      "goal1_2": "创建用于存储 CSV 文件的 S3 存储桶",
+      "goal1_3": "创建带有访问密钥的 IAM 用户",
+      "goal1_4": "在本机配置 AWS 凭证",
+      "goal1_5": "测试将 CSV 文件上传到 S3",
+      "goal2Title": "Step 2: Snowflake 配置",
+      "goal2_1": "创建 Snowflake 账户 (免费试用)",
+      "goal2_2": "数据库: movies_db",
+      "goal2_3": "数据仓库: movies_wh",
+      "goal2_4": "Schema: raw、staging、analytics",
+      "goal2_5": "存储集成连接到 S3",
+      "goal2_6": "数据表: movies_raw（含 100 行数据）"
+    },
+    "step1Header": {
+      "title": "☁️ Step 1: AWS S3 配置",
+      "desc": "在此步骤中，我们将配置 AWS S3 以在云端存储 CSV 文件。"
+    },
+    "step1_1": {
+      "title": "📋 Step 1.1: 创建 AWS 账户",
+      "goToAws": "前往 AWS 网站",
+      "note": "本指南不会详细介绍创建 AWS 账户 (Free Tier) 的过程，重点将放在目标 2–5 上。"
+    },
+    "step1_2": {
+      "title": "📋 Step 1.2: 创建 S3 存储桶",
+      "desc": "如第三阶段所述：AWS S3 是亚马逊的云端文件存储服务。在本项目中，我们将其用作数据湖、暂存区（临时区域）、备份存储，以及连接本地机器与 Snowflake 的集成点。",
+      "s1Label": "进入 AWS 管理控制台或搜索 S3",
+      "s1a": "在顶部搜索栏输入 \"S3\"",
+      "s1b": "点击 \"S3\"（云中的可扩展存储）",
+      "s2Label": "创建存储桶",
+      "s2a": "点击 \"Create bucket\" 按钮（橙色）",
+      "s2b": "存储桶名称：（必须全球唯一！）",
+      "bucketNameComment": "在本项目中我命名为：",
+      "s3Label": "检查区域：",
+      "s3Desc": "本项目使用默认值以与 Snowflake 区域匹配",
+      "s4Label": "对象所有权：选择 \"ACLs disabled（推荐）\"",
+      "s5Label": "阻止公共访问设置：",
+      "s5a": "勾选全部 4 项（阻止所有公共访问）",
+      "s5b": "因为我们不希望他人访问我们的数据",
+      "s6Label": "存储桶版本控制：选择 \"Disable\"",
+      "s6Note": "（本项目不需要。版本控制会存储多个文件版本，增加存储使用量和费用。）",
+      "s7Label": "默认加密：",
+      "s7a": "选择 \"Server-side encryption with Amazon S3 managed keys (SSE-S3)\" — 自动加密数据",
+      "s7b": "启用",
+      "s8Label": "高级设置 → 对象锁定：选择 \"Disable\"",
+      "s9Label": "点击 \"Create bucket\"",
+      "resultDesc": "创建存储桶后，页面将显示：存储桶名称、AWS 区域和创建日期"
+    },
+    "step1_3": {
+      "title": "📋 Step 1.3: 在 S3 创建文件夹",
+      "desc": "在本节中，我们将在刚刚创建的存储桶中创建一个文件夹。",
+      "item1": "进入刚刚创建的存储桶",
+      "item2": "点击创建文件夹，命名为：",
+      "item3": "点击刚创建的 raw 文件夹",
+      "item4": "将 top_100_movies_full_best_effort.csv 文件上传到该文件夹"
+    },
+    "step1_4": {
+      "title": "📋 Step 1.4: 创建 IAM 用户（非常重要）",
+      "iamDesc": "IAM（\"身份和访问管理\"）是一项用于管理身份和各种 AWS 服务访问权限的服务。IAM 用户是在 IAM 系统中创建的\"用户身份\"——每个用户都有自己的用户名和权限，以确保安全性和访问控制。",
+      "choiceDesc": "在本项目中，我们使用访问密钥，因为我们希望数据管道系统自动与 AWS 通信——使用 Python 脚本从本地提取数据到 S3，以及使用 EC2 上的 Airflow 访问 S3（无需手动登录）。",
+      "stepsTitle": "在本项目中创建 IAM 用户的步骤：",
+      "s1Label": "进入 IAM 服务",
+      "s1a": "在搜索栏搜索 \"IAM\"",
+      "s1b": "点击 \"IAM\"（身份和访问管理）",
+      "s2Label": "创建新用户",
+      "s2a": "点击左侧栏的 \"Users\"",
+      "s2b": "点击 \"Create user\"",
+      "s2Note": "注意：如果已有用户，可以直接点击要使用的用户名。",
+      "s3Label": "填写用户信息：",
+      "s3Desc": "本项目使用的用户名为：",
+      "s4Label": "权限：",
+      "s4a": "选择 \"Attach policies directly\"",
+      "s4b": "搜索并选择：\"AmazonS3FullAccess\"（用于访问 S3）",
+      "s5Label": "点击 \"Next\" → \"Create user\"",
+      "s6Label": "创建访问密钥（非常重要！）",
+      "s6a": "点击刚创建的用户（movies-pipeline-user）",
+      "s6b": "您将看到标签：Permissions、Groups、Tags、Security credentials、Last Accessed",
+      "s6c": "进入 \"Security credentials\" 标签",
+      "s6d": "向下滚动找到 \"Access keys\"",
+      "s6e": "点击 \"Create access key\"",
+      "s6f": "选择 \"Command Line Interface (CLI)\"",
+      "s6g": "勾选 ✅ \"I understand...\"",
+      "s6h": "点击 \"Next\"",
+      "s6i": "描述标签（可选）——我写的是：",
+      "s6j": "点击 \"Create access key\"",
+      "s7Label": "保存访问密钥（⚠️ 此步骤非常重要！）",
+      "s7Desc": "您将看到：",
+      "s7a": "点击 \"Download .csv file\"（将文件保存在安全位置！）",
+      "s7b": "或复制这两个值并安全存储",
+      "warnText": "警告：Secret access key 只显示一次！如果关闭此页面则无法找回——必须重新创建。切勿与任何人分享这些密钥！"
+    },
+    "step1_5": {
+      "title": "📋 Step 1.5: 在本机配置 AWS 凭证",
+      "credDesc": "凭证是\"身份验证数据\"——当两个系统通信时，一方会询问\"你是谁？你有密码吗？\"另一方用访问密钥 ID 和秘密访问密钥回应。验证通过后，该系统就可以访问 AWS 服务。",
+      "goalLabel": "目标 🎯：在此步骤中，我们将创建 .env 文件以安全存储凭证和常量。",
+      "item1": "在 VS Code 中创建 .env 文件：",
+      "item2": "将此代码粘贴到 .env 文件中：",
+      "item3": "保存文件（Ctrl+S）"
+    },
+    "step1_6": {
+      "title": "📋 Step 1.6: 配置 IAM 角色",
+      "roleDesc": "IAM 角色定义了对各种 AWS 服务的访问权限。如果 IAM 用户是拥有永久凭证的永久身份，那么 IAM 角色就是一个\"可以承担的角色\"，没有永久凭证。",
+      "s1Label": "进入 IAM 控制台：",
+      "s1a": "搜索 → \"IAM\"",
+      "s2Label": "创建角色：",
+      "s2a": "左侧菜单 → \"Roles\" → \"Create role\"",
+      "imgCaption": "IAM 控制台 → Roles → 创建角色",
+      "s3Label": "受信任实体：",
+      "s3a": "选择 \"AWS account\"",
+      "s3b": "选择 \"This AWS account\"",
+      "s3c": "✅ 勾选 \"Require external ID\"",
+      "s3d": "External ID：先填写 0000",
+      "s3e": "点击 \"Next\"",
+      "s4Label": "添加权限：",
+      "s4a": "搜索：AmazonS3FullAccess",
+      "s4b": "✅ 勾选此策略",
+      "s4c": "点击 \"Next\"",
+      "s5Label": "命名角色：",
+      "s5a": "描述：\"Allows Snowflake to full access from S3 bucket\"",
+      "s5b": "点击 \"Create role\"",
+      "s6Label": "复制角色 ARN：",
+      "s6a": "打开已创建的角色",
+      "s6b": "复制 \"ARN\" 以在 2.6 节的存储集成步骤中使用",
+      "completeTitle": "✅ Step 1 完成！",
+      "completeSubtitle": "您完成的内容：",
+      "complete1": "创建了 AWS 账户 (Free Tier)",
+      "complete2": "创建了用于存储数据的 S3 存储桶 (movies-pipeline-data-22)",
+      "complete3": "创建了带有访问密钥的 IAM 用户 (movies-pipeline-user)",
+      "complete4": "在 .env 中配置了 AWS 凭证",
+      "complete5": "创建了 IAM 角色 (movies-pipeline-data-22-role)"
+    },
+    "step2Header": {
+      "title": "❄️ Step 2: Snowflake 配置",
+      "desc": "Step 2 目标：创建 Snowflake 账户、Database、Warehouse、Schema、存储集成、Stage 和数据表"
+    },
+    "step2_1": {
+      "title": "📋 Step 2.1: 注册 Snowflake 账户（免费试用）",
+      "desc": "步骤 2.1 您可以自行完成。访问："
+    },
+    "step2_2": {
+      "title": "📋 Step 2.2: 创建 Warehouse",
+      "whDesc": "Warehouse 是虚拟计算机或服务器集群——类似于只在计算数据时才打开的\"机器\"。不计算时关闭以节省费用。",
+      "whyTitle": "💡 为什么要创建 Warehouse：",
+      "whyDesc": "我们创建 Warehouse 来承担拉取数据进行处理（使用 CPU/RAM）的工作，并允许独立工作而不竞争资源。",
+      "rolesTitle": "💡 Warehouse 的 3 个主要功能：",
+      "role1": "查询命令，例如运行 SELECT（Join、Group By、Sort）",
+      "role2": "数据移动，例如运行 COPY INTO 来加载或导出数据",
+      "role3": "转换表中的数据，例如 INSERT、UPDATE、DELETE、MERGE",
+      "codeTitle": "代码详解：",
+      "code1": "CREATE WAREHOUSE IF NOT EXISTS movies_wh — 仅在不存在时创建名为 movies_wh 的数据仓库",
+      "code2": "WAREHOUSE_SIZE = 'X-SMALL' — 最小尺寸，适合轻量工作负载，节约成本",
+      "code3": "AUTO_SUSPEND = 180 — 空闲 180 秒后自动挂起以节省成本",
+      "code4": "AUTO_RESUME = TRUE — 有查询时自动恢复，无需手动启动",
+      "code5": "INITIALLY_SUSPENDED = TRUE — 初始状态为\"挂起\"，仅在使用时运行"
+    },
+    "step2_3": {
+      "title": "📋 Step 2.3: 创建 Database 和 Schema",
+      "dbTitle": "创建 Database",
+      "dbDesc": "数据库是有组织地存储和管理的大型数据集合。如果 Warehouse 是\"机器\"，那么 Database 就像一栋大楼——Schema 是楼层，Tables 是各楼层的房间。",
+      "whyDbTitle": "💡 为什么需要 Database：",
+      "whyDbDesc": "保持数据有序、防止混淆并确保数据安全。",
+      "dbRolesTitle": "💡 Database 的 3 个主要功能：",
+      "dbRole1": "按业务领域对数据分组",
+      "dbRole2": "分离环境",
+      "dbRole3": "控制访问",
+      "schemaTitle": "创建 Schema",
+      "schemaDesc": "Schema 是 Database 中用于整理 Tables 的文件夹。我们按数据层划分为 3 个 Schema：",
+      "schemaItem1": "raw schema：从 S3 加载原始数据（尚未转换）——RAW 层",
+      "schemaItem2": "staging schema：用于数据清洗——Staging 层",
+      "schemaItem3": "analytics schema：存储转换后的数据（星型模式）——Marts 层"
+    },
+    "step2_4": {
+      "title": "📋 Step 2.4: 将 Warehouse、Database 和 Schema 设为默认值"
+    },
+    "step2_5": {
+      "title": "📋 Step 2.5: 验证已创建的对象（Warehouse、Database、Schema）",
+      "resultLabel": "查询结果：",
+      "imgCaption": "Snowflake 结果：MOVIES_WH | MOVIES_DB | RAW | ACCOUNTADMIN | ZH"
+    },
+    "step2_6": {
+      "title": "📋 Step 2.6: 创建存储集成",
+      "desc": "还记得 Step 1 中创建的 S3 存储桶吗？这部分是最具挑战性的——我们将使 Snowflake 能够从 S3 存储桶读取数据。存储集成是连接 Snowflake 与云存储（S3、Azure Blob、GCS）的\"桥梁\"。",
+      "s1Label": "创建存储集成",
+      "s1Note": "将 STORAGE_AWS_ROLE_ARN 替换为 Step 1.6 中的 ARN，并将 STORAGE_ALLOWED_LOCATIONS 更新为您的 S3 存储桶名称。",
+      "s2Label": "查看集成详情",
+      "s3Label": "记录值",
+      "s3Desc": "您将看到：",
+      "s3Note": "记录 STORAGE_AWS_IAM_USER_ARN 和 STORAGE_AWS_EXTERNAL_ID 的值。"
+    },
+    "step2_7": {
+      "title": "📋 Step 2.7: 更新 IAM 角色",
+      "item1": "Roles → movies-pipeline-data-22-role",
+      "item2": "信任关系 → 编辑信任策略",
+      "item3": "替换为以下 JSON：",
+      "item4": "点击更新策略"
+    },
+    "step2_8": {
+      "title": "📋 Step 2.8: 创建 Stage",
+      "stageDesc": "Snowflake 中的 Stage 是用于以下目的的\"临时存储区域\"：",
+      "item1": "将数据加载到 Snowflake（COPY INTO）",
+      "item2": "从 Snowflake 导出数据（UNLOAD）",
+      "stageSummary": "简单来说，它是数据导入或导出前的\"中转站\"。",
+      "resultLabel": "查询结果：",
+      "successMsg": "✅ 看到文件 = 连接成功！"
+    },
+    "step2_9": {
+      "title": "📋 Step 2.9: 创建文件格式",
+      "ffDesc": "文件格式是一种\"文件读取规则\"，用于告诉 Snowflake 文件中数据的结构，以便正确读取和加载数据。它可以在每次加载相同格式的 CSV 文件时重复使用。",
+      "codeTitle": "代码详解：",
+      "code1": "TYPE = 'CSV' — 将文件类型设置为 CSV（逗号分隔值）",
+      "code2": "FIELD_DELIMITER = ',' — 将列分隔符设置为逗号",
+      "code3": "SKIP_HEADER = 1 — 跳过第一行（标题行）",
+      "code4": "FIELD_OPTIONALLY_ENCLOSED_BY = '\"' — 允许字段用双引号括起来",
+      "code5": "TRIM_SPACE = TRUE — 自动去除每个字段的前后空格",
+      "code6": "ERROR_ON_COLUMN_COUNT_MISMATCH = FALSE — 列数不匹配时不报错"
+    },
+    "step2_10": {
+      "title": "📋 Step 2.10: 创建数据表",
+      "desc": "创建带有列名的 movies_raw 表。列名不必与数据集中的列名完全匹配——为了方便，我对列名进行了重命名。"
+    },
+    "step2_11": {
+      "title": "📋 Step 2.11: 更新 .env 文件",
+      "item1": "在 VS Code 中打开 .env",
+      "item2": "添加 Snowflake 信息："
+    },
+    "summary": {
+      "title": "第五阶段完成！",
+      "subtitle": "完成内容总结：",
+      "item1Title": "Snowflake 账户",
+      "item1Desc": "30 天，$400 积分",
+      "item2Title": "MOVIES_WH",
+      "item2Desc": "数据仓库 (XSMALL)",
+      "item3Title": "MOVIES_DB",
+      "item3Desc": "数据库",
+      "item4Title": "RAW / STAGING / ANALYTICS",
+      "item4Desc": "Schema",
+      "item5Title": "S3_INTEGRATION",
+      "item5Desc": "已连接 S3",
+      "item6Title": "MOVIES_S3_STAGE",
+      "item6Desc": "从 S3 读取文件",
+      "item7Title": "CSV_FORMAT",
+      "item7Desc": "CSV 格式",
+      "item8Title": "MOVIES_RAW 数据表",
+      "item8Desc": "含 100 行数据",
+      "nextTitle": "下一步",
+      "nextDesc": "第六阶段：Docker 和 Airflow 配置——安装和配置 Docker 和 Airflow"
+    },
+    "navBtn": {
+      "prev": "← 第四阶段：环境搭建",
+      "next": "第六阶段：Docker & Airflow 配置 →"
+    }
+  },
+  "phase6": {
+    "title": "Docker + Airflow 配置",
+    "subtitle": "DOCKER + AIRFLOW 配置",
+    "backBtn": "← 返回首页",
+    "navTitle": "第六阶段主题",
+    "nav": {
+      "purpose": "第六阶段目的",
+      "docker": "Docker 是什么？",
+      "step1": "步骤 1：Airflow 设置",
+      "step2": "步骤 2：创建文件夹结构",
+      "step3": "步骤 3：.dockerignore",
+      "step4": "步骤 4：Dockerfile",
+      "step5": "步骤 5：docker-compose.yaml",
+      "step6": "步骤 6：自定义 docker-compose.yaml",
+      "step6p1": "  第一部分：基本配置",
+      "step6p2": "  第二部分：服务配置",
+      "summary": "第六阶段完成"
+    },
+    "purpose": {
+      "heading": "第六阶段目的：Docker + Airflow",
+      "desc": "在本阶段，我们将安装并配置 Docker + Airflow，以创建用于自动运行数据管道的环境。"
+    },
+    "docker": {
+      "title": "🐳 Docker 是什么？",
+      "desc1": "Docker 是一个解决代码库问题的平台/环境。试想一下，今天你用特定的工具和版本构建了这个项目。将来，如果你或其他人想继续开发这个项目，就需要搞清楚用了哪些库版本，检查与当前机器的兼容性，并花时间重新配置环境。",
+      "desc2": "Docker 通过 Container（容器）来解决这个问题——将代码和环境打包在一起。当你或他人想继续这个项目时，只需运行 Docker 封装的代码，就能获得完全相同的环境。",
+      "vocabTitle": "关键词汇：",
+      "imageTitle": "Docker Image（镜像）",
+      "imageDesc": "封装后可与 Docker 协同工作的代码。可以把它看作蓝图、模板或配方。",
+      "containerTitle": "Container（容器）",
+      "containerDesc": "在机器上运行 Docker Image 的实例。一个 Image 可以运行为多个 Container，它们共享同一源 Image，因此工作方式完全相同。"
+    },
+    "step1": {
+      "title": "⚙️ 步骤 1：Airflow 设置",
+      "desc": "在为 Docker 配置 Airflow 和 dbt 时，我们需要指定 User ID 和 Group ID，让 Docker 知道我们是谁：",
+      "uidDesc": "AIRFLOW_UID= Airflow 在 Docker Container 内部使用的用户 ID (UID)",
+      "gidDesc": "AIRFLOW_GID= 用于按组设置文件访问权限的组 ID (GID)",
+      "gidNote": "GID 可以是任意数字，例如：0 = root 组（最高权限），1000 = 普通用户组，50 = staff 组，100 = users 组",
+      "osTitle": "根据操作系统分为两种情况：",
+      "linuxTitle": "Linux：",
+      "linuxDesc": "Linux 有严格的权限系统。使用 Docker 运行的 Airflow 时，必须将 Docker 中的 UID 设置为与主机用户匹配，使用命令：echo \"AIRFLOW_UID=$(id -u)\" >> .env。如果 Container 中的 UID ≠ 主机 UID，将会出现权限拒绝错误。",
+      "windowsTitle": "Windows：",
+      "windowsDesc": "Windows 没有 UID/GID 系统。Docker Desktop 使用 WSL 2 作为文件管理的中介，以特殊方式处理文件权限，让 Windows 用户无需检查 UID 即可访问所有文件。本项目使用 Windows 系统——查阅 Airflow 文档后，使用 AIRFLOW_UID=50000。",
+      "stepsTitle": "操作步骤：",
+      "s1": "在 VS Code 中打开 .env 文件",
+      "s2": "添加以下代码："
+    },
+    "step2": {
+      "title": "📁 步骤 2：创建文件夹结构",
+      "desc": "创建文件夹：dags、logs、config 和 plugins：",
+      "imageCaption": "VS Code 中生成的文件夹结构"
+    },
+    "step3": {
+      "title": "🚫 步骤 3：创建 .dockerignore",
+      "desc": "创建 .dockerignore 文件是列出我们不想包含在 Docker Image 中的项目——例如缓存和临时文件——从而节省存储空间。简而言之，.dockerignore 告诉 Docker：\"不要包含这些项目。\"",
+      "s1": "创建文件：.dockerignore",
+      "s2": "将以下所有内容粘贴到文件中："
+    },
+    "step4": {
+      "title": "🐳 步骤 4：创建 Dockerfile",
+      "desc": "Dockerfile 是包含构建 Docker Image 命令的文件。",
+      "s1": "在 VS Code 中创建文件：Dockerfile",
+      "s2": "将以下所有内容复制到文件中：",
+      "learnMore": "了解构建 Airflow Image 的方法，请访问："
+    },
+    "step5": {
+      "title": "📄 步骤 5：创建 docker-compose.yaml",
+      "desc": "在此步骤中，我们将从 Airflow 下载 docker-compose.yaml 模板，然后根据我们的项目进行自定义。",
+      "s1": "访问 Airflow 文档网站：",
+      "s2": "从 Airflow 下载 docker-compose.yaml 文件",
+      "s2cmd": "下载命令：",
+      "s3": "将下载的 docker-compose.yaml 移动到项目文件夹中"
+    },
+    "step6": {
+      "title": "⚙️ 步骤 6：自定义 docker-compose.yaml",
+      "desc": "在此步骤中，我们将逐步自定义文件：",
+      "part1Title": "第一部分：调整基本配置",
+      "before": "修改前：",
+      "changeTo": "修改为：",
+      "pointsTitle": "需要修改的要点：",
+      "c1Title": "1. Image Build — 从使用预构建镜像改为自行构建：",
+      "c1n1": "注释掉 image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.10.4} 这行，在前面加 #",
+      "c1n2": "取消注释 build: . 这行，去掉 # —— 让 Docker 从我们的 Dockerfile 构建，其中包含 dbt-snowflake。否则会拉取不包含 dbt 的标准镜像。",
+      "c1n3": "添加 env_file: - .env，让 Docker 自动从 .env 文件加载环境变量",
+      "c2Title": "2. 更改 Executor：",
+      "c2Note": "使用 CeleryExecutor 时需要同时运行 Redis 和 Airflow Worker。改用 LocalExecutor 后，还必须从 docker-compose.yaml 中删除 redis、flower 和 airflow-worker。原因：本项目规模较小，在与 Scheduler 相同的进程中运行任务（Local）比通过 Celery 队列路由任务更便于调试。",
+      "c3Title": "3. 删除 2 行 Celery 配置：",
+      "c3Note": "我们删除这些行是因为不再使用 CeleryExecutor。RESULT_BACKEND 用于存储任务结果，BROKER_URL 用于连接 Redis。改用 LocalExecutor 后，系统直接在内部运行任务，无需 Redis。保留这些未使用的行可能在将来调试时造成困惑。",
+      "c4Title": "4. 更改 Load Examples：",
+      "c4Note": "默认 'true' 会显示大量示例 DAG，使我们难以找到自己的 DAG。设置为 'false' 只显示我们自己的 DAG。",
+      "c5Title": "5. 修复 depends_on：",
+      "c5Note": "切换到 LocalExecutor 后，Airflow 不再使用 Redis 传递任务。所有任务在 Scheduler 内部运行。如果不删除 Redis 依赖，docker compose up 将会失败，因为它在等待一个不存在的 Redis 服务。",
+      "c6Title": "6. 修复 Pause DAGs：",
+      "c6Note": "设置为 'false' 时，新创建的 DAG 将自动开始运行，无需手动取消暂停。注意：如果 DAG 有调度且尚未准备好，可能会无意中运行——部署前请确认。",
+      "c7Title": "7. 添加 Snowflake + dbt 环境变量：",
+      "c7Note": "在 _PIP_ADDITIONAL_REQUIREMENTS 之前添加。这允许 Airflow 连接到 S3 并将数据加载到 Snowflake，同时告诉 dbt 在 Container 内哪里可以找到 profiles.yml 文件。总结：env_file: - .env 将原始 .env 文件加载到容器中；将这些变量添加到 environment 强制 Docker Compose 从 .env 读取值，并在发送到容器之前用实际值替换 ${变量名}。",
+      "part2Title": "第二部分：调整服务配置",
+      "p2Intro": "在调整服务之前，以下是 Airflow 中所有服务的汇总表：",
+      "tableH1": "服务",
+      "tableH2": "详细说明",
+      "keepTitle": "本项目（LocalExecutor）的服务决策：",
+      "e1Title": "1. 编辑 postgres",
+      "e1Note": "通常 Docker 会随机分配或根据文件夹名称命名容器。指定名称便于管理。我们还添加了 PostgreSQL 的端口 5432（标准端口），以便查看 Postgres 中的数据库表。",
+      "e2Title": "2. 编辑 webserver",
+      "e2Note": "添加 container_name: movies_airflow_webserver，便于识别。",
+      "e3Title": "3. 删除不需要的服务",
+      "e3Note": "完全删除这 4 个服务：redis、airflow-worker、airflow-cli 和 flower。",
+      "e4Title": "4. 编辑 airflow-scheduler",
+      "e4Note": "明确的容器名称可防止意外管理错误的容器。我们还将 <<: *airflow-common-depends-on 替换为只有 postgres，因为 Redis 已被删除——否则 Scheduler 将处于 Pending 状态，等待不再存在的 Redis 服务。",
+      "e5Title": "5. 编辑 airflow-init",
+      "e5Note": "添加容器名称的原因与其他部分相同——便于更轻松、更有组织地管理。",
+      "e6Title": "6. 编辑 volumes",
+      "e6Note": "我们指定名称以便立即识别这是 Movies 项目的数据。不指定名称时，Docker Volume 使用文件夹名称作为标识符，多个项目时可能造成混淆。"
+    },
+    "services": {
+      "postgresDesc": "Airflow 用于存储所有重要数据的数据库：DAG 列表、运行状态、任务历史、配置设置。没有它，每次重启 Airflow 时所有数据都会丢失。",
+      "redisDesc": "Airflow 各组件之间的消息代理，特别是在多台机器同时运行或需要同时运行数千个 Task 时。使用 Queue 作为发送给 airflow-worker 之前的缓冲区。",
+      "webserverDesc": "与想要向 Airflow 发送命令的外部程序连接。在 Airflow 3 中，将被重命名为 airflow-apiserver。",
+      "schedulerDesc": "按计划运行任务并管理任务依赖关系。使用 LocalExecutor 时自行运行任务。每个 Airflow 设置都必须有此服务——否则 Airflow 将无法工作。",
+      "dagProcessorDesc": "Airflow 3 中的新功能。读取并验证 DAG 文件。之前由 Scheduler 完成，但文件过多会导致其他任务变慢，因此分离为独立服务。",
+      "workerDesc": "接收来自 Scheduler 的任务（CeleryExecutor）。使用 LocalExecutor 时，Scheduler 自行运行任务——相当于一个员工。规模扩大时可添加更多 Worker。",
+      "triggererDesc": "监视\"等待\"任务的特殊服务（例如等待 S3 文件 5 小时）。设计为高效等待，不消耗机器资源。",
+      "initDesc": "全称 Initialize。在首次 Airflow 安装时只运行一次：创建 Postgres 表、创建管理员账户、设置初始配置。完成后自动停止。",
+      "flowerDesc": "监控 Celery Worker 健康状态的仪表板——显示每个 Worker 的状态、当前任务和队列大小。"
+    },
+    "summary": {
+      "title": "第六阶段完成！",
+      "subtitle": "第六阶段完成内容总结：",
+      "item1Title": "Docker 已配置",
+      "item1Desc": "Docker 环境搭建完成",
+      "item2Title": "Airflow 已配置",
+      "item2Desc": "LocalExecutor 配置完成",
+      "item3Title": "文件夹结构",
+      "item3Desc": "dags、logs、config、plugins",
+      "item4Title": ".dockerignore",
+      "item4Desc": "排除不必要的文件",
+      "item5Title": "Dockerfile",
+      "item5Desc": "自定义 Airflow 2.10.4 镜像",
+      "item6Title": "docker-compose.yaml",
+      "item6Desc": "已下载并自定义",
+      "item7Title": "服务已配置",
+      "item7Desc": "postgres、scheduler、triggerer、init",
+      "item8Title": "凭据已设置",
+      "item8Desc": "AWS + Snowflake + dbt 环境变量",
+      "nextTitle": "下一步",
+      "nextDesc": "第七阶段：配置 DAG 并自动运行数据管道"
+    },
+    "navBtn": {
+      "prev": "← 第五阶段：基础设施搭建",
+      "next": "第七阶段：DAG 配置 →"
+    }
+  },
+  "phase7": {
+    "title": "dbt 安装与配置",
+    "subtitle": "DBT 安装与配置",
+    "backBtn": "← 返回首页",
+    "navTitle": "第七阶段主题",
+    "nav": {
+      "purpose": "第七阶段目的",
+      "concepts": "基本概念",
+      "workflow": "工作流程",
+      "projectStructure": "dbt 项目结构",
+      "sqlModel": "SQL 模型结构",
+      "step1": "步骤 1：前提条件",
+      "step2": "步骤 2：准备环境",
+      "step3": "步骤 3：安装 dbt-snowflake",
+      "step4": "步骤 4：创建 dbt 项目",
+      "step5": "步骤 5：配置 profiles.yml",
+      "step6": "步骤 6：更新 dbt_project.yml",
+      "step7": "步骤 7：创建 sources.yml",
+      "step8": "步骤 8：dbt compile 测试",
+      "summary": "第七阶段完成"
+    },
+    "purpose": {
+      "heading": "第七阶段目的：dbt 安装与配置",
+      "desc": "在本阶段，我们将安装和配置 dbt（数据构建工具）。本阶段的目的是搭建基础结构，以便在下一阶段能够以有组织、安全和可审计的方式编写数据转换代码。",
+      "overviewTitle": "概览 — 本阶段我们将完成：",
+      "o1": "安装 dbt-snowflake",
+      "o2": "创建 dbt 项目",
+      "o3": "配置 Snowflake 连接",
+      "o4": "创建 sources（引用 MOVIES_RAW）",
+      "o5": "测试连接",
+      "o6": "创建项目结构",
+      "o7": "验证配置"
+    },
+    "concepts": {
+      "title": "1. dbt 是什么？",
+      "desc": "dbt（数据构建工具）= 使用 SQL 在数据仓库中转换数据的工具。在本阶段，我们将按照上述目的进行 dbt 配置。"
+    },
+    "workflow": {
+      "title": "2. 理解工作流程",
+      "desc": "本项目的工作流程如下：",
+      "flow": "CSV 文件 → S3 存储桶 → RAW 层 → STAGING 层 → MARTS 层",
+      "layersTitle": "从工作流程可以看出，Snowflake 中分为 3 层：",
+      "raw": "RAW 层：存储从外部来源（S3）提取的原始数据。数据可能存在重复或格式不规范。不可变（Immutable）——不修改数据。",
+      "staging": "Staging 层：数据清洗层（cleansing）。",
+      "marts": "Marts 层：经过转换的数据，用于分析（analytics）。可用于报告或 Dashboard。本项目创建维度表（Dimension Tables）和事实表（Fact Tables）。",
+      "note": "注意：不要将 S3 存储桶与'暂存存储'混淆——S3 不是 Staging 层，而是临时存储区域。"
+    },
+    "projectStructure": {
+      "title": "3. dbt 项目结构",
+      "desc": "在本项目中，dbt 项目命名为 movies_dbt，结构如下：",
+      "modelsTitle": "从此结构中，我们重点关注 models/ 文件夹：",
+      "modelsDesc": "models/ 是最重要的文件夹——存储我们编写的 SQL 文件。dbt 将在 Snowflake 中运行这些文件。每个文件将成为一个 VIEW 或 TABLE（1 个 SQL 文件 = 1 个模型）。",
+      "stagingDesc": "models/staging/ 包含用于创建 Staging 层的 SQL 文件。关键文件包括 sources.yml 和 schema.yml。此文件夹的作用是接收来自 Raw 层的数据，清洗后发送到 MARTS 层。",
+      "martsDesc": "models/marts/ 包含用于创建 Marts 层的 SQL 文件。接收来自 Staging 层的数据，为分析构建 Star Schema（维度表 + 事实表），与第二阶段设计的数据模型保持一致。"
+    },
+    "sqlModel": {
+      "title": "4. SQL 模型结构",
+      "desc": "在 dbt 中，模型是我们编写命令的 .sql 文件。每个文件对应 Snowflake 中的 1 个表/视图（1 个 SQL 文件 = 1 个模型）。",
+      "jinjaTitle": "SQL 模型使用 Jinja 模板。使用 Jinja 的好处：",
+      "jinjaDesc": "无需重复编写冗长的表名。可以将常用命令存储为函数（在 dbt 中称为 Macros）。",
+      "syntaxTitle": "需要记住的重要语法：",
+      "s1": "{{ ... }} — 表达式：输出一个值，例如调用表名",
+      "s2": "{% ... %} — 语句：逻辑处理，例如循环或条件判断",
+      "s3": "{# ... #} — 注释：在代码中写备注，dbt 不会读取",
+      "examplesTitle": "本项目中 Jinja 模板的使用方式："
+    },
+    "step1": {
+      "title": "⚙️ 步骤 1：前提条件",
+      "desc": "开始前必须具备：",
+      "p1": "第 1–6 阶段已完成",
+      "p2": "Python 3.11（已安装）",
+      "p3": "Snowflake 账户 + 凭据",
+      "p4": "movies_db.raw.movies_raw 表中有数据",
+      "verifyTitle": "在 Snowflake 中验证："
+    },
+    "step2": {
+      "title": "💻 步骤 2：准备环境",
+      "s1": "打开命令提示符（CMD）",
+      "s2": "导航到项目目录：",
+      "s3": "验证：",
+      "s4": "激活虚拟环境：",
+      "s5": "更新 pip："
+    },
+    "step3": {
+      "title": "📦 步骤 3：安装 dbt-snowflake",
+      "s1": "检查是否已安装 dbt-snowflake：",
+      "s2": "安装 dbt-snowflake（如果尚未安装）：",
+      "s3": "验证安装："
+    },
+    "step4": {
+      "title": "🚀 步骤 4：创建 dbt 项目并测试连接",
+      "desc": "在本节中，我们创建 dbt 项目。项目结构已在前面说明。这里我们创建名为 movies_dbt 的项目。",
+      "s1": "创建项目：",
+      "cmdDesc": "命令说明：",
+      "c1": "dbt init — 用于创建新 dbt 项目的命令",
+      "c2": "movies_dbt — 要创建的 dbt 项目名称",
+      "c3": "此命令为 movies_dbt 项目创建文件夹结构和初始文件，包括 models、tests、macros 文件夹以及数据转换所需的各种配置文件。",
+      "questionsTitle": "然后回答设置问题：",
+      "q1": "选择数据库：输入 1（snowflake）然后回车",
+      "q2": "account：输入您的 Snowflake 账户",
+      "q3": "user：输入您的用户名",
+      "q4": "认证类型：输入 1（密码）",
+      "q5": "password：输入您的密码",
+      "q6": "role：ACCOUNTADMIN（或您项目的角色）",
+      "q7": "warehouse：movies_wh",
+      "q8": "database：movies_db",
+      "q9": "schema：analytics（最终输出 schema）",
+      "q10": "threads：10",
+      "resultTitle": "结果：",
+      "result": "profiles.yml 文件创建于 C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "s2": "测试 dbt ↔ Snowflake 连接：",
+      "successMsg": "如果看到 \"All checks passed!\" — 表示 dbt 与 Snowflake 的连接正常。",
+      "s3": "验证项目结构："
+    },
+    "step5": {
+      "title": "🔧 步骤 5：配置 profiles.yml",
+      "desc": "在步骤 4 中完成 dbt 与 Snowflake 的连接后，步骤 5 中我们将对 profiles.yml 进行少量调整。首先了解 profiles.yml 是什么。",
+      "whatTitle": "profiles.yml 是什么？",
+      "whatDesc": "它充当存储 dbt 与 Snowflake 连接信息的中介。文件中必须指定：连接详情（账户、用户名、密码）、角色和仓库，以及数据库和 Schema（转换后数据的存储位置——MOVIES_DB 和 analytics）。",
+      "securityNote": "为了安全，dbt 设计为将此文件存储在项目外部，防止意外将密码上传到 GitHub。",
+      "location": "Windows 位置：C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "s1": "找到 profiles.yml：导航到 C:\\Users\\<<YourName>>\\.dbt\\profiles.yml",
+      "s2": "用 VS Code 或记事本打开。当前文件内容如下：",
+      "s3": "将此代码复制粘贴到 profiles.yml 中：",
+      "envTitle": "2 个环境：",
+      "devTitle": "dev（开发环境）：",
+      "devDesc": "用于开发过程中的测试。写入 schema: staging。如果该 schema 不存在，dbt 会在下一阶段运行 dbt run 时自动创建。可以安全地尝试，不会影响生产环境。",
+      "prodTitle": "prod（生产环境）：",
+      "prodDesc": "用于正式系统。写入 schema: analytics。这是 Dashboard 将使用的数据。",
+      "targetNote": "可以随时使用 dbt run --target dev（开发环境）或 dbt run --target prod（生产环境）切换目标。",
+      "s4": "保存文件：Ctrl+S",
+      "s5": "验证文件：",
+      "s6": "再次测试连接："
+    },
+    "step6": {
+      "title": "📝 步骤 6：更新 dbt_project.yml",
+      "desc": "本节涉及 dbt_project.yml 文件，主要用于：定义物化方式（table / view / incremental），按环境（dev / prod）分隔 schema，以及管理模型结构（staging / marts）。",
+      "s1": "在 VS Code 中打开 movies_dbt 文件夹，找到 dbt_project.yml",
+      "s2": "编辑内容——找到这些行并更新：",
+      "s2Before": "修改前：",
+      "s2After": "修改为：",
+      "s3": "在 dbt_project.yml 中添加配置——向下滚动，找到并更新此部分：",
+      "s3Before": "修改前：",
+      "s3After": "修改为：",
+      "configNote1": "movies_dbt 必须与上面指定的 name: 匹配",
+      "configNote2": "+materialized 告诉 dbt 在数据库中将每个模型创建为什么类型",
+      "configNote3": "staging 模型将是 VIEW——每次查询时运行而不存储数据。接收来自 Raw 层的数据，清洗后发送到 MARTS 层。",
+      "configNote4": "marts 模型将是 TABLE——每次查询后存储数据。接收来自 Staging 层的数据，为 Star Schema 构建分析（维度表 + 事实表）。",
+      "configNote5": "+schema 是附加到 profiles.yml 基础 schema 后的后缀——帮助按层分隔模型。"
+    },
+    "step7": {
+      "title": "📋 步骤 7：创建 sources.yml",
+      "desc": "sources.yml 是一个 YAML 文件，用于声明源数据——告诉 dbt 本项目的原始数据位于 Snowflake 的哪里。需要指定：哪个数据库、哪个 Schema、哪个表，以及哪些列。",
+      "benefitTitle": "创建 sources.yml 的好处：",
+      "benefitDesc": "不必反复输入 movies_db.raw.movies_raw 这样的长表名。只需使用短别名 'raw' 代替，减少错误。",
+      "s1": "进入 movies_dbt 文件夹，然后进入 models 子文件夹：",
+      "s2": "在 models/staging/sources.yml 位置创建 sources.yml：",
+      "s3": "保存文件：Ctrl+S"
+    },
+    "step8": {
+      "title": "🧪 步骤 8：使用 dbt compile 测试",
+      "desc": "打开终端。我们将使用 dbt compile 将 dbt 模型转换为纯 SQL，而不接触数据库——它显示 dbt 实际会写出什么 SQL，而不运行任何内容。",
+      "s1": "运行此命令：",
+      "resultTitle": "结果：",
+      "resultDesc": "可能出现警告，因为在 dbt_project.yml 中我们为 models.movies_dbt.staging 和 models.movies_dbt.marts 配置了路径，但 dbt 找不到这些路径下的 .sql 模型文件——这在此阶段是正常的。",
+      "successNote": "编译成功。警告是正常的，因为尚未创建 .sql 模型文件。"
+    },
+    "summary": {
+      "title": "第七阶段完成！",
+      "subtitle": "第七阶段完成内容总结：",
+      "item1Title": "dbt-snowflake 已安装",
+      "item1Desc": "版本 1.8.4",
+      "item2Title": "dbt 项目已创建",
+      "item2Desc": "movies_dbt 项目",
+      "item3Title": "连接已测试",
+      "item3Desc": "dbt debug — All checks passed!",
+      "item4Title": "profiles.yml 已配置",
+      "item4Desc": "dev (staging) + prod (analytics)",
+      "item5Title": "dbt_project.yml 已更新",
+      "item5Desc": "staging (view) + marts (table)",
+      "item6Title": "sources.yml 已创建",
+      "item6Desc": "声明 raw.movies_raw",
+      "item7Title": "测试已定义",
+      "item7Desc": "not_null, unique",
+      "item8Title": "dbt compile 通过",
+      "item8Desc": "配置已验证",
+      "nextTitle": "下一步",
+      "nextDesc": "第八阶段：编写 SQL 转换模型（staging + marts）"
+    },
+    "navBtn": {
+      "prev": "← 第六阶段：Docker & Airflow 配置",
+      "next": "第八阶段：手动脚本 →"
+    }
+  },
+  "phase8": {
+    "title": "Manual Scripts (Local → S3)",
+    "subtitle": "手动脚本（本地 → S3）",
+    "backBtn": "← 返回首页",
+    "navTitle": "Phase 8 主题",
+    "nav": {
+      "purpose": "Phase 8 目标",
+      "part1": "Part 1: 更新 docker-compose.yml",
+      "part1_1": "  1. 删除配置文件",
+      "part1_2": "  2. 添加性能配置",
+      "part1_3": "  3. 修改 Volumes",
+      "part1_4": "  4. 简化 airflow-init",
+      "part1_5": "  5. 调整 environment",
+      "part2": "Part 2: 运行 Airflow",
+      "part3": "Part 3: 创建 upload_to_s3.py",
+      "part4": "Part 4: 验证",
+      "part5": "Part 5: 在 Snowflake UI 加载数据",
+      "summary": "Phase 8 完成"
+    },
+    "purpose": {
+      "heading": "Phase 8 目标",
+      "desc": "在本阶段，我们的目标是：",
+      "o1": "更新 Airflow 的 docker-compose.yml 文件",
+      "o2": "运行 Airflow 并进行测试",
+      "o3": "创建 Python 脚本，将 CSV 文件从本地上传到 S3",
+      "o4": "将数据从 S3 加载到 Snowflake（RAW Layer）"
+    },
+    "part1": {
+      "title": "Part 1: 更新 docker-compose.yml",
+      "desc": "在完成第 7 阶段的 dbt 配置后，我们返回更新 docker-compose.yml，然后再运行 Airflow。",
+      "c1Title": "1. 删除配置文件",
+      "c1BeforeLabel": "原来（删除此行）：",
+      "c1Note": "使用 AIRFLOW_CONFIG 意味着告诉 Airflow 从 airflow.cfg 读取配置——这意味着需要单独编写 airflow.cfg 并配置 2 个文件（airflow.cfg 和 .env），过于复杂。最佳方案是删除此行，只配置 .env 文件即可。",
+      "c2Title": "2. 添加性能配置",
+      "c2Intro": "添加：",
+      "c2n1": "允许 Airflow 同时运行最多 32 个任务（全系统）",
+      "c2n2": "每个 DAG 最多同时运行 16 个任务",
+      "c2n3": "每个 DAG 最多同时运行 16 个 run",
+      "c2n4": "告诉 Airflow 从哪个文件夹读取 DAG 文件",
+      "c2n5": "调度器每 30 秒检查一次 DAG 文件夹",
+      "c3Title": "3. 修改 Volumes",
+      "c3BeforeLabel": "原来：",
+      "c3AfterLabel": "改为：",
+      "c3Note": "删除 /config，因为已移除 airflow.cfg 文件。添加 /movies_dbt 使 Airflow 能运行 dbt 命令——需要访问本机上的 dbt 项目文件（如 models、dbt_project.yml）。添加 /data 以访问原始数据文件。/scripts 是存放 Python 脚本的文件夹，这些脚本不是 DAG 但会被 DAG 调用。",
+      "c4Title": "4. 简化 airflow-init 命令",
+      "c4Intro": "airflow-init 命令目前约有 100 多行，可以保留原版或替换为以下精简版本：",
+      "c5Title": "5. 调整 environment",
+      "c5Intro": "在 environment 部分添加："
+    },
+    "part2": {
+      "title": "Part 2: 运行 Airflow",
+      "s1": "构建 Docker 镜像：",
+      "s1Note": "此步骤从 Dockerfile 构建 Docker 镜像，安装 requirements.txt 中的依赖项，并为 Airflow 准备环境。",
+      "s2": "初始化 Airflow 数据库：",
+      "s2Intro": "此步骤将：",
+      "s2n1": "创建 Airflow 的数据库架构",
+      "s2n2": "创建 username: airflow  password: airflow（按 docker-compose.yml 配置）",
+      "s2n3": "创建必要文件夹（logs、dags、plugins、movies_dbt 和 data）",
+      "s2n4": "设置权限",
+      "s2n5": "看到 'Airflow initialization complete!' 即表示成功",
+      "s3": "启动 Airflow 服务：",
+      "s3Note": "启动所有服务（webserver、scheduler、postgres）",
+      "s4": "打开 Web UI：http://localhost:8080",
+      "loginLabel": "登录："
+    },
+    "part3": {
+      "title": "Part 3: 创建 upload_to_s3.py",
+      "desc": "在此步骤中，我们创建一个文件，将 CSV 文件从本地（Docker 容器）上传到 AWS S3。此文件是整个 Data Pipeline 的起点，负责从 /opt/airflow/data/ 读取 CSV 文件并上传到指定的 S3 存储桶。",
+      "step1Title": "Step 1: 检查 data/ 文件夹中的文件",
+      "step1Result": "结果：应看到 top_100_movies_full_best_effort.csv。如果没有，请将 CSV 文件放入 data/ 文件夹。",
+      "step2Title": "Step 2: 在 scripts/ 文件夹中创建 upload_to_s3.py",
+      "step2s1": "1. 检查 scripts/ 文件夹（该文件夹在 Phase 4 已创建）：",
+      "step2s2": "2. 在 scripts/ 文件夹中创建 upload_to_s3.py",
+      "step2s3": "3. 在 upload_to_s3.py 中编写代码：",
+      "resultLabel": "运行结果："
+    },
+    "part4": {
+      "title": "Part 4: 验证",
+      "s1Title": "1. 在 AWS S3 中验证",
+      "method1Label": "方法一：使用 AWS CLI",
+      "method2Label": "方法二：进入 AWS Console",
+      "m2s1": "前往 S3 → Buckets → movies-pipeline-data-22",
+      "m2s2": "进入 raw/ 文件夹",
+      "m2s3": "应看到 top_100_movies_full_best_effort.csv",
+      "s2Title": "2. 在 Snowflake 中验证：",
+      "resultLabel": "结果："
+    },
+    "part5": {
+      "title": "Part 5: 在 Snowflake UI 加载数据",
+      "desc": "在此步骤中，我们将数据加载到 Raw schema，数据仍处于 Raw layer 级别。",
+      "s1": "打开 Snowflake",
+      "s2": "打开 Worksheet",
+      "s3": "将以下代码粘贴到 Worksheet："
+    },
+    "summary": {
+      "title": "Phase 8 完成！",
+      "subtitle": "Phase 8 完成内容总结：",
+      "item1Title": "更新 docker-compose.yml",
+      "item1Desc": "性能配置 + volumes",
+      "item2Title": "Airflow 运行中",
+      "item2Desc": "webserver、scheduler、postgres",
+      "item3Title": "创建 upload_to_s3.py",
+      "item3Desc": "CSV → S3 上传脚本",
+      "item4Title": "验证完成",
+      "item4Desc": "AWS S3 + Snowflake Stage",
+      "item5Title": "数据已加载",
+      "item5Desc": "S3 → Snowflake RAW Layer",
+      "item6Title": "已验证 100 行",
+      "item6Desc": "movies_raw 表已就绪",
+      "nextTitle": "下一步",
+      "nextDesc": "Phase 9：数据清洗 & Staging — 清洗数据并创建 Staging Models"
+    },
+    "navBtn": {
+      "prev": "← Phase 7: dbt 配置",
+      "next": "Phase 9: 数据清洗 →"
+    }
+  },
+  "phase9": {
+    "title": "数据清洗与暂存模型",
+    "subtitle": "构建暂存层 — 使用 dbt 进行数据转换的第一层",
+    "backBtn": "← 返回主页",
+    "navTitle": "目录",
+    "nav": {
+      "purpose": "Phase 9 目标",
+      "overview": "概述",
+      "step1": "步骤 1：stg_movies_cleaned.sql",
+      "step1Verify": "验证步骤 1",
+      "step2": "步骤 2：stg_movies_enriched.sql",
+      "step2Verify": "验证步骤 2",
+      "step3": "步骤 3：data_quality_report.sql",
+      "step4": "步骤 4：schema.yml",
+      "step5": "步骤 5：生成文档",
+      "summary": "总结"
+    },
+    "info": {
+      "title": "Phase 9 信息",
+      "models": "已创建模型",
+      "inputRows": "输入行数",
+      "outputRows": "输出行数",
+      "duplicatesRemoved": "已删除重复",
+      "newColumns": "新增列数",
+      "tool": "工具"
+    },
+    "purpose": {
+      "heading": "Phase 9 目标",
+      "desc": "在本阶段，我们将构建暂存层（Staging Layer）——数据转换的第一层，其职责为：",
+      "o1": "清洗来自 RAW schema 的原始数据",
+      "o2": "将数据转换为可用格式",
+      "o3": "处理缺失值和数据质量问题",
+      "o4": "为下一阶段构建维度模型准备数据"
+    },
+    "overview": {
+      "heading": "概述",
+      "subh1": "1. 数据质量问题（来自 Phase 1）",
+      "desc1": "在 Phase 1 中，我们发现了以下问题：",
+      "problem1": "问题 1：缺失数据",
+      "thCol": "列名",
+      "thCount": "缺失数量",
+      "thPct": "缺失百分比",
+      "thNote": "备注",
+      "note1": "高缺失率（一半数据缺失，可能影响整体评分分析）",
+      "note2": "中等缺失率（部分收入数据缺失）",
+      "note3": "低缺失率",
+      "note4": "低缺失率",
+      "note5": "低缺失率",
+      "problem2": "问题 2：重复数据",
+      "problem2Desc": "发现 5 对重复数据，共 10 行：",
+      "subh2": "Phase 9 的工作内容",
+      "subh2Desc": "在 Phase 9 中，我们将在 models/staging/ 中创建 3 个 SQL 模型：",
+      "m1Desc": "第 1 层：基础清洗 — 处理 Phase 1 中的数据质量问题",
+      "m2Desc": "第 2 层：业务逻辑 — 处理 NULL 值并创建新列",
+      "m3Desc": "质量指标 — 在运行前两个模型后检查数据质量"
+    },
+    "step1": {
+      "heading": "步骤 1：创建 stg_movies_cleaned.sql（第 1 层：基础清洗）",
+      "infoHeading": "stg_movies_cleaned.sql 的目标",
+      "infoDesc": "这是执行基础数据清洗的第一个暂存模型，包括：",
+      "i1": "重命名列",
+      "i2": "修剪空白：删除多余空格",
+      "i3": "保留 NULL：不替换为 0",
+      "i4": "将空字符串转换为 NULL：使用 nullif()",
+      "i5": "删除重复项：使用 QUALIFY",
+      "subh": "如何创建 stg_movies_cleaned.sql",
+      "s1": "1. 打开命令提示符（CMD）：",
+      "s2": "2. 完整复制此代码：",
+      "s3": "3. 编译：",
+      "s4": "4. 运行：",
+      "result": "运行结果：",
+      "warning": "注意：出现 WARNING 是因为我们尚未创建 marts 文件夹，dbt 无法找到相应路径。我们将在 Phase 10 中创建该文件夹。"
+    },
+    "step1Verify": {
+      "heading": "在 Snowflake 中验证步骤 1",
+      "goal": "目标：验证 Raw schema 与 Staging schema（analytics_staging）之间的数据准确性",
+      "infoTitle": "为什么是 analytics_staging 而不只是 staging？",
+      "infoDesc": "dbt 从两处合并 schema 名称：目标 schema（analytics）+ 自定义 schema（staging）。合并方式：{target_schema}_{custom_schema} → 结果：analytics_staging",
+      "subh1": "第 1 部分：验证 raw schema 中的数据",
+      "v1": "1. 检查行数（Total Rows）",
+      "v2": "2. 查看前 5 行数据（Sample Data）",
+      "v3": "3. 检查 NULL 值",
+      "v4": "4. 重复数据分析",
+      "v5": "5. 唯一标题数",
+      "cap1": "✅ 确认 100 行 — 与数据分析（Phase 1）一致",
+      "cap2": "✅ 与数据分析（Phase 1）一致",
+      "cap3": "✅ 与数据分析（Phase 1）一致",
+      "subh2": "第 2 部分：验证 analytics_staging schema 中的数据",
+      "a1": "1. 总行数",
+      "a3": "3. NULL 检查",
+      "a4": "4. 重复数据检查（应为 0）",
+      "a5": "5. 唯一标题数"
+    },
+    "step2": {
+      "heading": "步骤 2：创建 stg_movies_enriched.sql（第 2 层：业务逻辑）",
+      "infoHeading": "stg_movies_enriched.sql 的目标",
+      "infoDesc": "这是处理 NULL 值并创建业务分析列的第二个暂存模型：",
+      "ib1": "文本字段（director、country、language）：将 NULL 替换为 'Unknown'",
+      "ib2": "数值字段（runtime_mins、oscars_won、box_office_millions）：将 NULL 替换为 0",
+      "ib3": "评分字段（imdb_rating、rotten_tomatoes_pct、metacritic_score）：保留 NULL，因为'无数据' ≠ '评分为 0'",
+      "subh": "如何创建 stg_movies_enriched.sql",
+      "s1": "1. 打开命令提示符（CMD）：",
+      "s2": "2. 完整复制此代码：",
+      "s3": "3. 编译：",
+      "s4": "4. 运行：",
+      "derivedTitle": "6 个新派生列",
+      "d1Basis": "IMDb 评分",
+      "d2Basis": "票房收入",
+      "d3Basis": "获奥斯卡奖数",
+      "d4Basis": "上映年份",
+      "d5Basis": "上映年份",
+      "d6Basis": "时长（分钟）"
+    },
+    "step2Verify": {
+      "heading": "在 Snowflake 中验证步骤 2",
+      "topMovies": "顶级杰作电影："
+    },
+    "step3": {
+      "heading": "步骤 3：创建 data_quality_report.sql — 数据质量报告",
+      "s1": "1. 打开命令提示符（CMD）：",
+      "s2": "2. 完整复制此代码：",
+      "s3": "3. 运行：",
+      "s4": "4. 验证 — 打开 Snowflake Web UI → Worksheet → 运行：",
+      "caption": "结果：13 项检查 — PASS 76.9%，INFO 23.1%"
+    },
+    "step4": {
+      "heading": "步骤 4：创建 schema.yml",
+      "desc": "schema.yml 是一个 YAML 文件，用于'声明'我们创建的模型——告诉 dbt 我们构建的新表的结构和规则。可以指定验证规则，例如 movie_id 列不能为空（not_null）且必须唯一（unique）。",
+      "thFile": "文件",
+      "thUsedFor": "用途",
+      "thGoal": "主要目标",
+      "sourceDesc": "原始数据（来源）",
+      "sourceGoal": "告诉 dbt 原始数据在哪里",
+      "schemaDesc": "我们创建的数据（目标）",
+      "schemaGoal": "告诉 dbt 我们构建的新表的结构和规则",
+      "s1": "1. 打开命令提示符（CMD）：",
+      "s2": "2. 添加以下内容：",
+      "s3": "3. 运行测试："
+    },
+    "step5": {
+      "heading": "步骤 5：生成文档",
+      "infoBox": "运行命令后，浏览器将自动打开。或在浏览器中访问：http://localhost:8001",
+      "caption": "dbt Docs UI — 显示 analytics_staging 中的项目结构和所有模型"
+    },
+    "summary": {
+      "heading": "Phase 9：数据清洗与暂存模型 完成！",
+      "subtext": "Phase 9 总结：已完成的工作",
+      "modelsTitle": "成功创建 3 个模型：",
+      "m1": "第 1 层：基础清洗",
+      "m2": "第 2 层：业务逻辑",
+      "m3": "质量监控",
+      "fixedTitle": "已解决数据质量问题",
+      "thCol": "列名",
+      "thCount": "缺失数量",
+      "thPct": "缺失百分比",
+      "thHandling": "处理方式",
+      "h1": "保留 NULL",
+      "h2": "替换为 0（无数据 ≠ 亏损）",
+      "h3": "保留 NULL",
+      "h4": "保留 NULL",
+      "h5": "替换为 0",
+      "dupTitle": "重复数据 — 保留排名更好的记录：",
+      "d1": "Rashomon：rank 45 ✅ 保留 / rank 79 ❌ 删除",
+      "d2": "Paths of Glory：rank 76 ✅ / rank 92 ❌",
+      "d3": "The Bridge on the River Kwai：rank 73 ✅ / rank 97 ❌",
+      "d4": "The Third Man：rank 47 ✅ / rank 71 ❌",
+      "d5": "The Great Dictator：rank 43 ✅ / rank 75 ❌",
+      "newColsTitle": "stg_movies_enriched.sql 中的 6 个新列",
+      "nc1": "Masterpiece、Excellent、Very Good、Good",
+      "nc2": "Blockbuster、Major Hit、Hit、Modest",
+      "nc3": "Oscar Winner (5+)、(3-4)、(1-2)、No Oscar",
+      "nc4": "1930、1940、...、2019",
+      "nc5": "Modern Era (2010s+)、2000s、1990s、1970s、1950s 等",
+      "nc6": "Epic、Long、Standard、Short",
+      "finalBox": "所有数据测试均通过 ✅ — 13 项检查：PASS 76.9%，INFO 23.1%"
+    },
+    "navBtn": {
+      "prev": "← Phase 8：手动脚本",
+      "next": "Phase 10：维度建模 →"
+    }
+  },
+  "phase12": {
+    "backBtn": "← 主页",
+    "title": "测试与文档",
+    "subtitle": "创建dbt测试以验证数据质量并生成文档",
+    "navTitle": "第12阶段内容",
+    "nav": {
+      "purpose": "第12阶段目标",
+      "step1": "步骤1：schema.yml",
+      "step1_dims": "— 维度表",
+      "step1_bridges": "— 桥接表",
+      "step1_fact": "— 事实表",
+      "step2": "步骤2：业务逻辑测试",
+      "step3": "步骤3：安装dbt_utils",
+      "step4": "步骤4：运行测试",
+      "step5": "步骤5：生成文档",
+      "summary": "总结"
+    },
+    "info": {
+      "title": "摘要"
+    },
+    "labels": {
+      "createFile": "创建文件：",
+      "code": "代码：",
+      "run": "运行：",
+      "result": "结果："
+    },
+    "purpose": {
+      "heading": "第12阶段目标",
+      "desc": "验证数据准确性并检查逻辑正确性。本阶段的目标是创建dbt测试以检查数据质量。"
+    },
+    "step1": {
+      "heading": "步骤1：创建schema.yml进行通用测试",
+      "infoText": "创建schema.yml文件的目的是定义维度表、桥接表和事实表的结构，从而提高数据准确性和质量验证的水平。",
+      "dimsHeading": "维度表",
+      "bridgesHeading": "桥接表",
+      "factHeading": "事实表",
+      "saveNote": "保存文件 (Ctrl+S)"
+    },
+    "step2": {
+      "heading": "步骤2：业务逻辑测试",
+      "desc": "在此步骤中，我们需要分别创建文件，因为我们需要测试所写逻辑的计算是否正确。从以下文件开始：",
+      "file1": "assert_movie_count.sql",
+      "file1desc": "文件1 assert_movie_count.sql：验证去重后是否有95部电影。源数据有100行，清洗后应恰好剩下95部电影。若不是95部，则数据清洗存在问题。",
+      "file2": "assert_no_orphan_bridges.sql",
+      "file2desc": "文件2 assert_no_orphan_bridges.sql：验证所有桥接表是否正确链接到主表。",
+      "file3": "assert_rating_consistency.sql",
+      "file3desc": "文件3 assert_rating_consistency.sql：验证is_masterpiece列的计算是否正确。若imdb_rating>=9.0，则is_masterpiece=1（杰作）；若<9.0，则is_masterpiece=0。检查所有电影的rating与is_masterpiece是否一致——全部一致则PASS，否则FAIL。"
+    },
+    "step3": {
+      "heading": "步骤3：安装dbt_utils包",
+      "createFile": "1. 创建packages.yml：",
+      "addContent": "2. 添加：",
+      "install": "3. 安装："
+    },
+    "step4": {
+      "heading": "步骤4：运行测试",
+      "desc": "运行所有测试："
+    },
+    "step5": {
+      "heading": "步骤5：生成文档站点"
+    },
+    "summary": {
+      "heading": "第12阶段完成！",
+      "desc": "已创建dbt测试（schema.yml + 3个自定义测试）并生成dbt文档站点。",
+      "whatDone": "第12阶段完成内容总结：",
+      "thStep": "步骤",
+      "thFile": "文件 / 命令",
+      "thDesc": "说明",
+      "row1": "为所有13个MARTS表定义结构和测试",
+      "row2": "验证去重后恰好有95部电影",
+      "row3": "验证所有桥接记录具有有效的外键",
+      "row4": "验证is_masterpiece标志与IMDb评分一致",
+      "row5": "添加dbt_utils v1.1.1依赖",
+      "row6": "运行所有schema+singular测试",
+      "row7": "生成并提供dbt文档站点"
+    },
+    "navBtn": {
+      "prev": "← 第11阶段：桥接表和事实表",
+      "next": "第13阶段：DAG开发 →"
+    }
+  },
+  "phase11": {
+    "backBtn": "← 主页",
+    "title": "桥接表和事实表",
+    "subtitle": "为星形模式中的多对多关系构建桥接表和事实表",
+    "navTitle": "第11阶段内容",
+    "nav": {
+      "purpose": "第11阶段目标",
+      "structure": "项目结构",
+      "tables": "表格概览",
+      "part1": "第一部分：桥接表",
+      "step1": "步骤1：bridge_movie_genre",
+      "step2": "步骤2：bridge_movie_actor",
+      "step3": "步骤3：bridge_movie_country",
+      "step4": "步骤4：bridge_movie_language",
+      "step5": "步骤5：bridge_movie_director",
+      "bridges_summary": "桥接表汇总",
+      "part2": "第二部分：事实表",
+      "final_verify": "最终验证",
+      "summary": "总结"
+    },
+    "info": {
+      "title": "摘要"
+    },
+    "labels": {
+      "createFile": "创建文件：",
+      "code": "代码：",
+      "run": "运行：",
+      "verify": "验证：",
+      "result": "结果："
+    },
+    "purpose": {
+      "heading": "第11阶段目标",
+      "desc1": "本阶段继续第10阶段，管理数据模型中复杂的数据关系。",
+      "desc2": "主要目标是解决事实表和维度表之间无法直接连接的多对多(M:N)关系。本阶段的目标是：",
+      "goal1": "为多对多关系创建桥接表",
+      "goal2": "创建作为星形模式核心的事实表"
+    },
+    "structure": {
+      "heading": "项目结构"
+    },
+    "tables": {
+      "heading": "待创建的表格：共13张",
+      "dimTitle": "维度表（7张）— 已在第10阶段完成：",
+      "bridgeTitle": "本阶段待创建的桥接表（5张）：",
+      "factTitle": "本阶段待创建的事实表（1张）："
+    },
+    "part1": {
+      "heading": "第一部分：桥接表",
+      "desc": "桥接表处理多对多关系"
+    },
+    "step1": {
+      "heading": "步骤1：bridge_movie_genre"
+    },
+    "step2": {
+      "heading": "步骤2：bridge_movie_actor"
+    },
+    "step3": {
+      "heading": "步骤3：bridge_movie_country"
+    },
+    "step4": {
+      "heading": "步骤4：bridge_movie_language"
+    },
+    "step5": {
+      "heading": "步骤5：bridge_movie_director"
+    },
+    "bridges_summary": {
+      "heading": "桥接表汇总",
+      "runAll": "运行所有桥接表：",
+      "verifyAll": "全部验证："
+    },
+    "part2": {
+      "heading": "第二部分：事实表",
+      "desc": "包含电影表现指标的事实表 | 粒度：每部电影一行 | 输入：dim_movies, dim_time | 输出：95行"
+    },
+    "final_verify": {
+      "heading": "最终验证",
+      "runAll": "运行全部：",
+      "completeCounts": "完整表格行数："
+    },
+    "summary": {
+      "heading": "第11阶段完成！",
+      "desc": "第11阶段创建了桥接表（5张）和事实表（1张），共6个模型。",
+      "modelsBuilt": "第11阶段构建的模型：",
+      "totalModels": "与维度表（7张）和暂存层合并后，共有16个模型：",
+      "thCategory": "类别",
+      "thTable": "表名",
+      "thRows": "行数"
+    },
+    "navBtn": {
+      "prev": "← 第10阶段：维度建模",
+      "next": "第12阶段：测试与文档 →"
+    }
+  },
+  "phase10": {
+    "backBtn": "← 主页",
+    "title": "维度建模",
+    "subtitle": "使用 dbt 构建星型模式的维度模型",
+    "navTitle": "第10阶段内容",
+    "nav": {
+      "purpose": "第10阶段目标",
+      "structure": "项目结构",
+      "step1": "步骤1: 创建文件夹",
+      "step2": "步骤2: dim_movies",
+      "step3": "步骤3: dim_genres",
+      "step4": "步骤4: dim_directors",
+      "step5": "步骤5: dim_actors",
+      "step6": "步骤6: dim_countries",
+      "step7": "步骤7: dim_languages",
+      "step8": "步骤8: dim_time",
+      "summary": "维度汇总"
+    },
+    "info": {
+      "title": "数据汇总"
+    },
+    "labels": {
+      "createFile": "创建文件:",
+      "run": "运行:",
+      "verify": "验证:",
+      "result": "结果:"
+    },
+    "purpose": {
+      "heading": "第10阶段目标",
+      "desc": "以星型模式构建维度模型，让仪表板和分析系统能够高效地查询数据"
+    },
+    "structure": {
+      "heading": "项目结构",
+      "listTitle": "待构建的维度表 (共7张):"
+    },
+    "step1": {
+      "heading": "步骤1: 创建文件夹",
+      "cmd": "Windows CMD:",
+      "verify": "验证:"
+    },
+    "step2": {
+      "heading": "步骤2: dim_movies (主维度)",
+      "infoText": "包含所有属性的电影维度表 | 输入: stg_movies_enriched | 输出: 95行 | materialized='table', schema='marts'",
+      "result": "结果:"
+    },
+    "step3": {
+      "heading": "步骤3: dim_genres",
+      "infoText": "电影类型查找维度 | 输入: stg_movies_enriched | 输出: 21行 | 使用 LATERAL FLATTEN 拆分 genres_raw"
+    },
+    "step4": {
+      "heading": "步骤4: dim_directors",
+      "infoText": "导演查找维度 | 输入: stg_movies_cleaned (使用 cleaned 因需要 director_raw) | 输出: 61行"
+    },
+    "step5": {
+      "heading": "步骤5: dim_actors",
+      "infoText": "演员查找维度 | 输入: stg_movies_enriched | 输出: 152行"
+    },
+    "step6": {
+      "heading": "步骤6: dim_countries",
+      "infoText": "国家查找维度 | 输入: stg_movies_enriched | 输出: 16行 | 按 country_list 拆分"
+    },
+    "step7": {
+      "heading": "步骤7: dim_languages",
+      "infoText": "语言查找维度 | 输入: stg_movies_enriched | 输出: 12行 | 按 language_list 拆分"
+    },
+    "step8": {
+      "heading": "步骤8: dim_time",
+      "infoText": "时间维度 (基于电影年份) | 输入: stg_movies_enriched | 输出: 54行 | 每个唯一年份一行"
+    },
+    "summary": {
+      "heading": "维度汇总",
+      "runAll": "运行所有维度:",
+      "verifyAll": "验证所有:",
+      "completeMsg": "第10阶段: 维度建模 (星型模式) 完成!",
+      "tablesBuilt": "共构建了7张维度表:",
+      "thTable": "表名",
+      "thRows": "行数",
+      "thKey": "主键字段",
+      "thDesc": "说明",
+      "d1Desc": "所有电影中的唯一演员",
+      "d2Desc": "所有电影中的唯一国家",
+      "d3Desc": "所有电影中的唯一导演",
+      "d4Desc": "所有电影中的唯一类型",
+      "d5Desc": "所有电影中的唯一语言",
+      "d6Desc": "包含完整属性的所有电影",
+      "d7Desc": "唯一年份及时间属性"
+    },
+    "navBtn": {
+      "prev": "← Phase 9: 数据清洗与暂存",
+      "next": "Phase 11: 桥接表与事实表 →"
+    }
+  },
+  "phase13": {
+    "backBtn": "← 首页",
+    "title": "DAG 开发与编排",
+    "subtitle": "构建自动化、可靠的系统来管理任务依赖关系",
+    "navTitle": "Phase 13 内容",
+    "nav": {
+      "purpose": "Phase 13 的目的",
+      "step1": "Step 1: test_airflow_setup.py",
+      "step2": "Step 2: movies_pipeline_dag.py",
+      "step3": "Step 3: Snowflake 连接配置",
+      "step4": "Step 4: 测试 DAG",
+      "summary": "总结"
+    },
+    "info": {
+      "title": "Phase 13 信息",
+      "dag1": "测试 DAG",
+      "dag2": "主 DAG",
+      "tasks": "任务总数",
+      "schedule": "调度时间",
+      "version": "Airflow 版本",
+      "conn": "Snowflake 连接"
+    },
+    "labels": {
+      "openCmd": "打开 CMD",
+      "paste": "复制粘贴此代码："
+    },
+    "purpose": {
+      "heading": "Phase 13 的目的",
+      "desc": "在本阶段的数据管道开发中，我们的目的是构建一个能够自动化运行、可靠的系统，以明确定义任务依赖关系（Task Dependencies）并防止任务乱序执行。"
+    },
+    "step1": {
+      "heading": "Step 1: 创建 test_airflow_setup.py",
+      "infoText": "此文件是一个测试 DAG 文件，用于在为 Movies Pipeline 创建真实 DAG 之前，验证 Airflow 是否已正确安装并运行。"
+    },
+    "step2": {
+      "heading": "Step 2: 创建 movies_pipeline_dag.py",
+      "infoText": "这是最重要的文件。我们将为 Movies Data Pipeline 的每个步骤创建 DAG，从 CSV 到 Snowflake 中的 Star Schema，全部自动化执行。",
+      "tasksLabel": "流水线任务（8 个任务）：",
+      "depsLabel": "任务依赖关系："
+    },
+    "step3": {
+      "heading": "Step 3: 在 Airflow 中配置 Snowflake 连接",
+      "openAirflow": "1. 启动 Airflow",
+      "openUI": "2. 打开 Web UI",
+      "loginLabel": "登录：",
+      "setupLabel": "3. 在 Airflow 中配置 Snowflake 连接：",
+      "goto": "前往 Admin → Connections",
+      "clickAdd": "点击 + （添加新记录）",
+      "fillInfo": "填写连接信息：",
+      "clickSave": "点击 Save"
+    },
+    "step4": {
+      "heading": "Step 4: 测试 DAG",
+      "step1Label": "1. 前往 Dags 页面或主页：",
+      "step1Desc": "您会看到 DAG 已切换为 ON 状态。若未开启，请在左上角点击切换按钮将其设为 ON（蓝色）",
+      "step2Label": "2. 触发两个 DAG",
+      "step3Label": "3. 查看运行进度"
+    },
+    "summary": {
+      "heading": "总结",
+      "desc": "我们已使用 Apache Airflow 成功构建了自动化编排系统，共包含 8 个任务，从 CSV 上传到 dbt 文档生成，全程自动化。",
+      "whatDone": "Phase 13 完成内容：",
+      "thStep": "步骤",
+      "thFile": "文件 / 工具",
+      "thDesc": "描述",
+      "row1": "验证 Airflow 安装的测试 DAG",
+      "row2": "管理完整 Movies 数据管道的主 DAG（8 个任务）",
+      "row3": "在 Airflow Admin 中配置 Snowflake 连接",
+      "row4": "成功触发并监控两个 DAG"
+    },
+    "navBtn": {
+      "prev": "← Phase 12: 测试与文档",
+      "next": "Phase 14: 数据看板 →"
+    }
+  },
+  "phase14": {
+    "title": "使用 Power BI 创建数据看板",
+    "subtitle": "使用 Power BI 创建数据看板以展示来自 Snowflake 的数据",
+    "backBtn": "← 返回主页",
+    "navTitle": "内容",
+    "sidebar": {
+      "quickInfo": "快速信息",
+      "tool": "工具",
+      "dataSource": "数据源",
+      "schema": "架构",
+      "tables": "表",
+      "dashboardPages": "看板页面",
+      "visuals": "可视化"
+    },
+    "purpose": {
+      "heading": "Phase 14 的目的",
+      "description": "这是数据管道旅程的最后阶段。在之前的阶段中，我们准备、清理和构建了数据。此阶段的目标是连接到 Snowflake，从星型架构中提取数据，并通过易于理解和可操作的数据可视化展示洞察。",
+      "infoboxTitle": "🎬 Phase 14 涵盖内容：",
+      "coverage": [
+        "安装 Power BI Desktop",
+        "连接到 Snowflake",
+        "从星型架构导入数据（13 个表）",
+        "验证数据模型和关系",
+        "创建包含 7+ 个可视化的 2 页看板",
+        "分析来自 IMDb Top 100 的 95 部电影"
+      ]
+    },
+    "step1": {
+      "heading": "步骤 1：安装 Power BI Desktop",
+      "description": "我们不会在此步骤中详细说明。安装很简单，可以快速完成。",
+      "note": "💡 注意：",
+      "noteText": "您可以从 Microsoft Store 或 Microsoft 官方网站下载 Power BI Desktop"
+    },
+    "step2": {
+      "heading": "步骤 2：连接到 Snowflake",
+      "goal": "目标：",
+      "goalText": "将 Power BI 连接到 Snowflake 以检索数据",
+      "subsection1": {
+        "title": "2.1 准备 Snowflake 凭据",
+        "description": "所需信息："
+      },
+      "subsection2": {
+        "title": "2.2 连接到 Snowflake",
+        "step1Title": "步骤 1：获取数据",
+        "step1Items": [
+          "打开 Power BI Desktop",
+          "点击 '获取数据' （主页选项卡）",
+          "或者：主页 → 获取数据 → 更多..."
+        ],
+        "step2Title": "步骤 2：搜索 Snowflake",
+        "step2Description": "在 '获取数据' 对话框中：",
+        "step2Items": [
+          "搜索框：输入 'Snowflake'",
+          "选择 'Snowflake'",
+          "点击 '连接'"
+        ],
+        "step3Title": "步骤 3：输入 Snowflake 详细信息",
+        "step3Description": "将出现 Snowflake 连接对话框：",
+        "warningTitle": "⚠️ 重要：",
+        "warningItems": [
+          "必须包含 .snowflakecomputing.com 后缀",
+          "不要使用 https://"
+        ],
+        "step4Title": "步骤 4：身份验证",
+        "step4Description": "将出现身份验证对话框：",
+        "step4Items": [
+          "选择 '数据库' （左侧选项卡）",
+          "输入用户名和密码",
+          "点击 '连接'"
+        ],
+        "step5Title": "步骤 5：导航器（选择表）",
+        "step5Description": "导航器窗口将显示数据库：",
+        "step5Info": "您将看到 13 个表：",
+        "tables": [
+          "✅ DIM_MOVIES",
+          "✅ DIM_GENRES",
+          "✅ DIM_DIRECTORS",
+          "✅ DIM_ACTORS",
+          "✅ DIM_COUNTRIES",
+          "✅ DIM_LANGUAGES",
+          "✅ DIM_TIME",
+          "✅ BRIDGE_MOVIE_GENRE",
+          "✅ BRIDGE_MOVIE_ACTOR",
+          "✅ BRIDGE_MOVIE_COUNTRY",
+          "✅ BRIDGE_MOVIE_LANGUAGE",
+          "✅ BRIDGE_MOVIE_DIRECTOR",
+          "✅ FACT_MOVIE_PERFORMANCE"
+        ]
+      },
+      "subsection3": {
+        "title": "2.3 验证连接",
+        "items": [
+          "点击 DIM_MOVIES",
+          "检查右侧的预览：您应该看到列：MOVIE_ID、MOVIE_TITLE、RELEASE_YEAR...",
+          "如果看到数据 = 连接成功！"
+        ]
+      }
+    },
+    "step3": {
+      "heading": "步骤 3：导入数据",
+      "goal": "目标：",
+      "goalText": "从 Snowflake 导入所需的表",
+      "subsection1": {
+        "title": "3.1 选择表",
+        "description": "如何选择：",
+        "items": [
+          "✅ 点击表名旁边的复选框",
+          "或 Ctrl+点击选择多个表"
+        ],
+        "info": "在导航器窗口中：选择所有 13 个表，包括维度表（7 个）、桥接表（5 个）和事实表（1 个）"
+      },
+      "subsection2": {
+        "title": "3.2 加载数据",
+        "items": [
+          "点击 '加载'",
+          "等待加载..."
+        ]
+      },
+      "subsection3": {
+        "title": "3.3 验证数据已加载",
+        "description": "检查 '字段' 窗格（右侧）：您应该看到 13 个表",
+        "successTitle": "✅ 加载完成后",
+        "successText": "您将在字段窗格中看到 13 个表，可以使用，包括：",
+        "successItems": [
+          "维度表：7 个表（电影、类型、导演、演员、国家、语言、时间）",
+          "桥接表：5 个表（电影-类型、电影-演员、电影-国家、电影-语言、电影-导演）",
+          "事实表：1 个表（电影表现）"
+        ]
+      }
+    },
+    "step4": {
+      "heading": "步骤 4：数据模型",
+      "subsection1": {
+        "title": "4.1 进入模型视图",
+        "description": "点击左侧的 '模型' 图标以检查表之间的关系",
+        "infoTitle": "🔗 Power BI 将自动创建关系",
+        "infoText": "基于 Snowflake 中定义的外键，在事实表和维度表之间。验证：",
+        "infoItems": [
+          "桥接表正确连接事实表和维度表",
+          "基数为多对一（*:1）如设计所示",
+          "没有模糊关系（红线）"
+        ]
+      }
+    },
+    "step5": {
+      "heading": "步骤 5：构建数据看板",
+      "subsection1": {
+        "title": "1. 创建页面",
+        "description": "重命名页面：",
+        "items": [
+          "右键点击'第 1 页'（底部）",
+          "重命名 → '执行摘要'"
+        ],
+        "canvasTitle": "画布设置："
+      },
+      "subsection2": {
+        "title": "2. 创建度量表",
+        "description": "在创建可视化之前，我们需要先创建度量：",
+        "steps": [
+          "主页 → 输入数据",
+          "命名表：\"DAX_Metrics\"",
+          "删除所有列",
+          "加载"
+        ],
+        "daxTitle": "创建 DAX 度量："
+      }
+    },
+    "kpi": {
+      "heading": "KPI 卡片：关键指标",
+      "goal": "目标：",
+      "goalText": "显示所有电影的最重要指标",
+      "steps": [
+        "插入 → 卡片（4 个卡片）",
+        "选择字段：总电影数、总收入、总奥斯卡奖、平均 IMDb 评分",
+        "排列为 4 个垂直卡片"
+      ],
+      "resultsTitle": "结果解读：",
+      "results": {
+        "movies": "95 部电影",
+        "moviesDesc": "共 95 部电影（5 部作为重复项被删除）",
+        "revenue": "$16,621M",
+        "revenueDesc": "总收入 166 亿美元（平均每部电影约 2.1 亿美元）",
+        "oscars": "173",
+        "oscarsDesc": "总奥斯卡奖数（平均每部电影 1.8 个奖项）",
+        "rating": "8.40",
+        "ratingDesc": "平均 IMDb 评分（非常高 > 8.0 = 优秀）"
+      }
+    },
+    "visual1": {
+      "heading": "可视化 1：收入最高的前 10 部电影",
+      "goal": "目标：",
+      "goalText": "显示票房收入最高的前 10 部电影",
+      "steps": [
+        "插入 → 簇状条形图",
+        "X 轴：DIM_MOVIES[MOVIE_TITLE]",
+        "Y 轴：DAX_Metrics[Total Revenue]",
+        "添加前 10 筛选器 → 按总收入降序排序"
+      ],
+      "resultsTitle": "结果：",
+      "topMoviesTitle": "前 3 名是十亿美元级大片：",
+      "topMovies": [
+        "1. 指环王：王者归来 - $1,119.9M",
+        "2. 黑暗骑士 - $1,004.9M",
+        "3. 狮子王 - $968.5M"
+      ],
+      "observation": "注意：",
+      "observationText": "3 部中有 2 部是成功的三部曲（指环王三部曲）"
+    },
+    "visual2": {
+      "heading": "可视化 2：按年代划分的收入",
+      "goal": "目标：",
+      "goalText": "显示不同年代电影的收入趋势",
+      "steps": [
+        "插入 → 折线图",
+        "X 轴：DIM_TIME[DECADE]",
+        "Y 轴：DAX_Metrics[Total Revenue]"
+      ],
+      "resultsTitle": "结果：",
+      "goldenEra": "2000 年代是黄金时代：",
+      "goldenEraText": "最高收入约 57.47 亿美元，平均 IMDb 评分 8.5",
+      "growth": "增长：",
+      "growthText": "从 <1 亿美元（1930-1940 年代）→ 10 亿美元（1970 年代）→ 53 亿美元（1990 年代）→ 峰值 60 亿美元（2000 年代）",
+      "decline": "2010 年代：",
+      "declineText": "下降至 20 亿美元（-67%），因为数据集仅包含到 2019 年的数据"
+    },
+    "visual3": {
+      "heading": "可视化 3：按类型划分的电影数量",
+      "goal": "目标：",
+      "goalText": "显示每种类型的电影数量",
+      "steps": [
+        "插入 → 簇状条形图",
+        "X 轴：DIM_GENRES[GENRE_NAME]",
+        "Y 轴：BRIDGE_MOVIE_GENRE[MOVIE_ID] → 计数（非重复）",
+        "按计数降序排序"
+      ],
+      "resultsTitle": "结果：",
+      "drama": "剧情片占主导：",
+      "dramaText": "69 部电影 = 72.6% 的所有电影（比第 2 名犯罪片多 2.5 倍）",
+      "middle": "中间层级：",
+      "middleText": "犯罪（27）、冒险（17）、喜剧（16）、悬疑（15）、惊悚（13）",
+      "bottom": "较低层级：",
+      "bottomText": "动作、奇幻、爱情、科幻均为 11 部电影",
+      "note": "注意：",
+      "noteText": "总数 > 95，因为一部电影可以有多种类型"
+    },
+    "visual4": {
+      "heading": "可视化 4：全球电影制作",
+      "goal": "目标：",
+      "goalText": "查看电影制作的地理多样性",
+      "steps": [
+        "插入 → 树状图",
+        "类别：DIM_COUNTRIES[COUNTRY_NAME]",
+        "值：BRIDGE_MOVIE_COUNTRY[MOVIE_ID] → 计数（非重复）"
+      ],
+      "resultsTitle": "结果：",
+      "us": "🇺🇸 美国占主导地位：",
+      "usText": "76 部电影（80.0%）",
+      "uk": "🇬🇧 英国位居第二：",
+      "ukText": "17 部电影（17.9%）- 比美国少 4.5 倍",
+      "others": "其他国家：",
+      "othersText": "日本（5）、德国（4）、意大利/法国/新西兰/韩国（3 部电影）",
+      "takeaway": "关键要点：",
+      "takeawayText": "好莱坞在全球高质量电影中占 80%"
+    },
+    "visual5": {
+      "heading": "可视化 5：评分分布",
+      "goal": "目标：",
+      "goalText": "显示 IMDb 评分的分布",
+      "steps": [
+        "插入 → 簇状柱形图",
+        "X 轴：评分范围（7.5-7.9、8.0-8.4、8.5-8.9、9.0-10.0）",
+        "Y 轴：有 IMDb 的电影（过滤 NULL 的 DAX 度量）"
+      ],
+      "resultsTitle": "结果：",
+      "great": "优秀（8.0-8.4）：",
+      "greatText": "51 部电影（54.3%）- 最大群体",
+      "excellent": "卓越（8.5-8.9）：",
+      "excellentText": "36 部电影（38.3%）- 几乎与优秀相当",
+      "masterpiece": "杰作（9.0-10.0）：",
+      "masterpieceText": "5 部电影（5.3%）- 非常罕见（肖申克的救赎 9.3、教父 9.2、黑暗骑士 9.0）",
+      "good": "良好（7.5-7.9）：",
+      "goodText": "2 部电影（2.1%）- 最低分（社交网络 7.7、早餐俱乐部 7.8）"
+    },
+    "visual6": {
+      "heading": "可视化 6：获得奥斯卡奖最多的前 10 部电影",
+      "goal": "目标：",
+      "goalText": "显示获得最多奥斯卡奖的电影",
+      "steps": [
+        "插入 → 簇状条形图",
+        "Y 轴：DIM_MOVIES[MOVIE_TITLE]",
+        "X 轴：奥斯卡获奖数（仅获奖）- 过滤 > 0 的 DAX 度量",
+        "添加前 10 筛选器"
+      ],
+      "resultsTitle": "结果：",
+      "rank1": "🏆 第 1 名：",
+      "rank1Text": "指环王：王者归来 - 11 个奖项（IMDb 8.90）",
+      "rank2": "第 2 名：",
+      "rank2Text": "码头风云 - 8 个奖项（IMDb 8.10）",
+      "ranks36": "第 3-6 名：",
+      "ranks36Text": "4 部电影获得 7 个奖项（阿拉伯的劳伦斯、辛德勒的名单、桂河大桥、骗中骗）",
+      "note": "注意：",
+      "noteText": "47 部电影没有获得奥斯卡奖（49.5%）"
+    },
+    "visual7": {
+      "heading": "可视化 7：质量与商业成功的关系",
+      "goal": "目标：",
+      "goalText": "显示质量（IMDb 评分）与收入之间的关系",
+      "steps": [
+        "插入 → 散点图",
+        "X 轴：FACT_MOVIE_PERFORMANCE[IMDB_RATING]",
+        "Y 轴：FACT_MOVIE_PERFORMANCE[BOX_OFFICE_MILLIONS]",
+        "值：DIM_MOVIES[MOVIE_TITLE]",
+        "启用趋势线（分析窗格）"
+      ],
+      "resultsTitle": "结果：",
+      "trendline": "趋势线向上倾斜（正斜率）：",
+      "trendlineText": "总体而言，'评分越高，收入往往越高'",
+      "exceptionsTitle": "⚠️ 但存在许多例外：",
+      "exceptions": [
+        "杰作电影（9.0+）的收入差异高达 1000 倍（100 万美元 - 10.05 亿美元）",
+        "肖申克的救赎（9.3）仅赚了 5800 万美元",
+        "黑暗骑士（9.0）赚了 10.05 亿美元",
+        "社交网络（7.7）赚了 2.25 亿美元 - 比肖申克多 4 倍"
+      ],
+      "conclusion": "结论：",
+      "conclusionText": "评分只是影响收入的众多因素之一"
+    },
+    "dashboards": {
+      "heading": "数据看板页面 - 最终结果",
+      "description": "当所有可视化排列在一起时，我们得到 2 个完整的看板页面：",
+      "page1Title": "第 1 页：执行摘要（概览）",
+      "page1InfoTitle": "第 1 页包括：",
+      "page1Components": [
+        "KPI 卡片（4 个卡片）- 显示关键指标",
+        "收入最高的前 10 部电影 - 显示大片",
+        "按年代划分的收入 - 显示各时代的收入趋势",
+        "按类型划分的电影数量 - 显示类型受欢迎程度",
+        "全球电影制作 - 显示各国制作情况"
+      ],
+      "page2Title": "第 2 页：深入分析",
+      "page2InfoTitle": "第 2 页包括：",
+      "page2Components": [
+        "按评分范围划分的 IMDb 电影 - 评分分布",
+        "获得奥斯卡奖最多的前 10 部电影 - 获奖最多的电影",
+        "质量与商业成功的关系 - 评分与收入的关系"
+      ]
+    },
+    "summary": {
+      "heading": "Phase 14 总结",
+      "completeTitle": "✅ Phase 14：使用 Power BI 创建数据看板 — 完成！",
+      "completeText": "您已创建了一个交互式看板，可有效展示数据管道中的数据",
+      "accomplishedTitle": "我们在 Phase 14 中完成的工作：",
+      "tableHeaders": {
+        "step": "步骤",
+        "details": "详情",
+        "result": "结果"
+      },
+      "steps": [
+        {
+          "step": "步骤 1",
+          "details": "安装 Power BI Desktop",
+          "result": "成功安装 Power BI"
+        },
+        {
+          "step": "步骤 2",
+          "details": "连接到 Snowflake",
+          "result": "连接到 Snowflake 并从 analytics_marts 提取数据"
+        },
+        {
+          "step": "步骤 3",
+          "details": "导入数据",
+          "result": "导入 13 个表（7 个维度表、5 个桥接表、1 个事实表）"
+        },
+        {
+          "step": "步骤 4",
+          "details": "数据模型",
+          "result": "验证表之间的关系"
+        },
+        {
+          "step": "步骤 5",
+          "details": "构建数据看板",
+          "result": "创建包含 7+ 个可视化的 2 页看板"
+        }
+      ],
+      "pipelineCompleteTitle": "🎬 数据管道完成！",
+      "pipelineCompleteText": "从 Phase 1-14，您构建了一个端到端数据管道，从数据收集、清理、存储在数据仓库、使用 dbt 处理、使用 Airflow 编排，到使用完整的 Power BI 看板展示结果！",
+      "insightsTitle": "看板的关键洞察：",
+      "insights": [
+        "数据库中有 95 部电影，平均 IMDb 评分为 8.40（优秀）",
+        "所有电影的总收入为 166.21 亿美元（平均每部电影 2.1 亿美元）",
+        "这些电影获得了 173 个奥斯卡奖（平均每部电影 1.8 个奖项）",
+        "剧情片占主导地位，占所有电影的 72.6%",
+        "美国制作了数据集中 80% 的电影（好莱坞主导）",
+        "2000 年代是黄金时代，收入近 60 亿美元，评分很高",
+        "指环王：王者归来收入最高、获奖最多（11.2 亿美元、11 个奥斯卡奖）",
+        "杰作电影（9.0+）- 仅 5 部，但收入差异很大"
+      ],
+      "learnedTitle": "我们学到的：",
+      "learnedSubtitle": "📊 数据可视化最佳实践：",
+      "learned": [
+        "为数据选择适当的可视化类型（条形图、折线图、散点图、树状图、卡片）",
+        "在整个看板中使用有意义且一致的颜色",
+        "安排布局以讲述故事（用数据讲故事）",
+        "创建 DAX 度量来计算所需的值",
+        "使用筛选器和切片器让用户探索数据",
+        "添加趋势线和分析以查看模式"
+      ],
+      "nextSteps": "下一步",
+      "nextStepsDescription": "Phase 15: 将系统部署到 AWS EC2，实现 24/7 云端自动化运行，可从任何地方通过互联网访问"
+    }
+  },
+  "phase15": {
+    "title": "EC2部署",
+    "subtitle": "部署到AWS EC2实现24/7云端运行",
+    "backBtn": "← 返回首页",
+    "navTitle": "目录",
+    "sidebar": {
+      "quickInfo": "快速信息",
+      "tool": "工具",
+      "platform": "平台",
+      "instance": "实例类型",
+      "os": "操作系统",
+      "services": "服务",
+      "deployment": "部署方法"
+    },
+    "purpose": {
+      "heading": "Phase 15的目的",
+      "description": "本阶段的目的是将我们在本地机器上开发的电影数据管道部署到AWS EC2的生产环境,使系统能够在云端24/7运行(无需保持自己的机器开启),并使Airflow能够根据定义的时间表自动运行。此外,还可以通过互联网从任何地方访问。",
+      "infoboxTitle": "在EC2上部署的好处:",
+      "benefits": [
+        "24/7运行,无需保持自己的机器开启",
+        "Airflow按计划自动运行",
+        "可通过互联网从任何地方访问",
+        "比本地更稳定和安全",
+        "需要时可以扩展"
+      ]
+    },
+    "step1": {
+      "heading": "步骤1: 在根项目中创建profiles.yml",
+      "description": "在这一步中,我们之前在Phase 7中创建了profiles.yml文件,当时我们将dbt连接到Snowflake,并在C:\\Users\\YourName\\.dbt\\profiles.yml中获得了profiles.yml文件",
+      "roleTitle": "profiles.yml的作用:",
+      "roleDesc": "profiles.yml充当\"中介\"来存储dbt和Snowflake之间的连接信息",
+      "details": [
+        "地址和身份:必须指定dbt应该连接到哪个Snowflake账户,使用什么用户名和密码",
+        "定义权限:告诉dbt使用什么角色级别以及使用哪个仓库进行处理",
+        "指定目标:定义将转换后的数据放在哪个数据库和模式中"
+      ],
+      "twoFiles": "本项目使用2个profiles.yml文件:",
+      "globalFile": "文件1: 全局profiles.yml",
+      "globalLocation": "位置: C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "globalPurpose": "目的: 用于本地机器上的开发和测试",
+      "projectFile": "文件2: 项目profiles.yml",
+      "projectLocation": "位置: D:\\movies_pipeline\\movies_dbt\\profiles.yml",
+      "projectPurpose": "目的: 用于Docker/Airflow/EC2上的部署",
+      "createTitle": "如何创建profiles.yml文件(项目):",
+      "createStep1": "打开CMD并导航到movies_dbt",
+      "createStep2": "从C:\\Users\\YourName\\.dbt\\profiles.yml复制粘贴此代码,并使其不被硬编码",
+      "testConnection": "测试连接:",
+      "testDesc": "dbt将按以下顺序搜索profiles.yml: 1) 在当前文件夹中(如果存在)→使用此文件, 2) 如果未找到→在C:\\Users\\YourName\\.dbt\\profiles.yml中查找",
+      "testSteps": [
+        "设置环境变量",
+        "验证设置: echo %SNOWFLAKE_ACCOUNT%",
+        "运行dbt debug",
+        "如果看到'All checks passed!' = 成功!"
+      ]
+    },
+    "step2": {
+      "heading": "步骤2: 创建EC2实例",
+      "console": "1. 访问EC2控制台",
+      "consoleSteps": [
+        "登录AWS控制台: https://console.aws.amazon.com",
+        "验证您在区域: US East (N. Virginia)",
+        "在搜索框中搜索'EC2'并点击'EC2'",
+        "点击'Launch Instance'(橙色按钮)"
+      ],
+      "configure": "2. 配置实例",
+      "nameTag": "名称和标签: movies-pipeline-airflow",
+      "ami": "应用程序和操作系统映像(AMI):",
+      "amiDetails": [
+        "AMI: Ubuntu Server 22.04 LTS (HVM), SSD Volume Type",
+        "架构: 64位(x86)",
+        "点击'Quick Start'选项卡→选择'Ubuntu'",
+        "选择'Ubuntu Server 22.04 LTS'(有'Free tier eligible'标签)"
+      ],
+      "instanceType": "实例类型: m7i-flex.large",
+      "instanceTypeDesc": "在搜索框中,输入'm7i-flex.large'并选择(有'Free tier eligible'标签)",
+      "keyPair": "密钥对(登录):",
+      "keyPairNew": "如果您还没有密钥对:",
+      "keyPairSteps": [
+        "点击'Create new key pair'",
+        "密钥对名称: movies-pipeline-key",
+        "密钥对类型: RSA",
+        "私钥文件格式: .pem(如果使用Mac/Linux)←本项目使用此格式",
+        "点击'Create key pair'",
+        ".pem文件将被下载 - 请妥善保管此文件!"
+      ],
+      "networkSettings": "网络设置:",
+      "networkSteps": [
+        "在网络设置中点击'Edit'",
+        "VPC: 默认VPC(保持默认)",
+        "子网: 无偏好",
+        "自动分配公共IP: 启用(必须启用才能通过互联网访问)"
+      ],
+      "securityGroup": "防火墙(安全组):",
+      "sgName": "安全组名称: movies-pipeline-sg",
+      "sgDesc": "描述: Airflow服务器的安全组",
+      "sgRules": "入站安全组规则:",
+      "rule1": "规则1: SSH - 类型: SSH, 协议: TCP, 端口: 22, 源类型: My IP",
+      "rule2": "规则2: 自定义TCP(Airflow Web服务器) - 端口: 8080, 源类型: My IP",
+      "rule3": "规则3: 自定义TCP(Postgres) - 端口: 5432, 源类型: My IP",
+      "rule4": "规则4: HTTPS - 端口: 443, 源类型: Anywhere (0.0.0.0/0)",
+      "launch": "3. 启动实例",
+      "launchSteps": [
+        "检查右侧的摘要: 实例类型: m7i-flex.large, 实例数量: 1",
+        "点击'Launch instance'(右下角的橙色按钮)",
+        "等待1-2分钟让实例启动",
+        "点击'View all instances'查看创建的实例"
+      ],
+      "verify": "4. 验证实例状态",
+      "verifyDesc": "在EC2控制台中,您应该看到实例状态: Running(绿色), 状态检查: 2/2 checks passed(等待约2-3分钟), 公有IPv4地址: 复制并保存"
+    },
+    "step3": {
+      "heading": "步骤3: 连接到EC2",
+      "prepareKey": "1. 准备SSH密钥(Windows)",
+      "keySteps": [
+        "打开PowerShell",
+        "将密钥移动到.ssh文件夹(推荐)",
+        "检查.ssh文件夹是否存在: dir $HOME\\.ssh",
+        "(如果不存在)创建.ssh文件夹: mkdir $HOME\\.ssh",
+        "移动.pem文件: move $HOME\\Downloads\\movies-pipeline-key.pem $HOME\\.ssh\\",
+        "设置权限"
+      ],
+      "permissions": "设置文件权限:",
+      "permSteps": [
+        "重置权限: icacls.exe movies-pipeline-key.pem /reset",
+        "授予替换权限: icacls.exe movies-pipeline-key.pem /grant:r \"$(env:USERNAME):(R)\"",
+        "禁用继承: icacls.exe movies-pipeline-key.pem /inheritance:r",
+        "验证权限: icacls movies-pipeline-key.pem"
+      ],
+      "connect": "2. SSH连接到EC2",
+      "connectCmd": "ssh -i \"movies-pipeline-key.pem\" ubuntu@<EC2_IP>",
+      "firstConnect": "首次连接时会询问'Are you sure you want to continue connecting (yes/no)?'",
+      "firstConnectAction": "输入yes并按Enter",
+      "successMsg": "成功连接后,您将看到: Welcome to Ubuntu 22.04.3 LTS"
+    },
+    "step4": {
+      "heading": "步骤4: 在EC2上安装软件",
+      "update": "1. 更新系统",
+      "updateCmd": "sudo apt update && sudo apt upgrade -y",
+      "docker": "2. 安装Docker",
+      "dockerSteps": [
+        "安装依赖项",
+        "添加Docker仓库",
+        "安装Docker",
+        "允许ubuntu用户不使用sudo使用docker",
+        "必须注销并重新登录"
+      ],
+      "dockerVerify": "验证Docker:",
+      "dockerCmds": [
+        "docker --version (应该得到Docker version 29.2.1或更新版本)",
+        "docker compose version (应该得到Docker Compose version v5.0.2或更新版本)"
+      ],
+      "projectDir": "3. 创建新的项目目录",
+      "projectDirCmd": "mkdir -p ~/movies-pipeline && cd ~/movies-pipeline",
+      "git": "4. 安装Git",
+      "gitCmd": "sudo apt install -y git && git --version"
+    },
+    "step5": {
+      "heading": "步骤5: 将代码移动到EC2",
+      "github": "1. 创建GitHub仓库",
+      "githubSteps": [
+        "前往https://github.com",
+        "登录",
+        "点击右上角的'+'→'New repository'",
+        "名称: movies-data-pipeline",
+        "选择Private(如果您不希望其他人看到)",
+        "不要勾选'Add a README'",
+        "点击'Create repository'"
+      ],
+      "push": "2. 从本地机器推送代码",
+      "pushDesc": "转到您的项目文件夹并运行命令:",
+      "pushCmds": [
+        "git init",
+        "git add .",
+        "git commit -m 'Prepare for EC2 Deployment'",
+        "git branch -M main",
+        "git remote add origin https://github.com/yourusername/movies-pipeline.git",
+        "git push -u origin main"
+      ]
+    },
+    "step6": {
+      "heading": "步骤6: 从GitHub克隆项目",
+      "description": "在EC2上(已经在~/movies-pipeline中)",
+      "cmd": "git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git .",
+      "note": "注意: 末尾的.(点) = 克隆到当前文件夹"
+    },
+    "step7": {
+      "heading": "步骤7: 检查重要文件",
+      "checks": [
+        "检查data/中的CSV文件: ls -la data/",
+        "检查DAG文件: ls -la dags/",
+        "检查dbt项目: ls -la movies_dbt/"
+      ]
+    },
+    "step8": {
+      "heading": "步骤8: 创建.env文件",
+      "create": "1. 创建.env文件",
+      "createCmd": "cd ~/movies_pipeline && nano .env",
+      "content": "2. 输入所有信息",
+      "sections": [
+        "AIRFLOW设置",
+        "AWS凭证",
+        "Snowflake凭证"
+      ],
+      "save": "保存: Ctrl + X, Y, Enter",
+      "verify": "验证.env:",
+      "verifyCmds": [
+        "检查是否创建: ls -la .env",
+        "查看内容: cat .env"
+      ],
+      "warning": "⚠️ 警告: .env文件包含敏感信息。请妥善保管,切勿上传到GitHub!"
+    },
+    "step9": {
+      "heading": "步骤9: 设置权限",
+      "setUid": "设置AIRFLOW_UID: export AIRFLOW_UID=50000",
+      "createDirs": "创建目录(logs, plugins): mkdir -p logs plugins",
+      "setOwnership": "设置所有权: sudo chown -R 50000:0 logs dags plugins data movies_dbt",
+      "setPerms": "设置权限: chmod -R 775 logs dags plugins data movies_dbt",
+      "verify": "验证: ls -la"
+    },
+    "step10": {
+      "heading": "步骤10: 构建Docker镜像",
+      "cmd": "docker compose build",
+      "verify": "验证创建的镜像: docker images | grep movies-pipeline",
+      "expected": "应该看到: movies-pipeline-airflow-webserver, airflow-scheduler, airflow-triggerer, airflow-init"
+    },
+    "step11": {
+      "heading": "步骤11: 初始化Airflow数据库",
+      "cmd": "docker compose up airflow-init",
+      "description": "此命令将为Airflow创建数据库"
+    },
+    "step12": {
+      "heading": "步骤12: 启动所有服务",
+      "cmd": "docker compose up -d",
+      "description": "启动服务(分离模式 - 在后台运行)"
+    },
+    "step13": {
+      "heading": "步骤13: 检查服务状态",
+      "cmd": "docker compose ps",
+      "description": "查看所有容器的状态"
+    },
+    "step14": {
+      "heading": "步骤14: 访问Airflow UI",
+      "url": "打开浏览器: http://<EC2_IP>:8080",
+      "login": "登录:",
+      "username": "用户名: airflow",
+      "password": "密码: airflow"
+    },
+    "step15": {
+      "heading": "步骤15: 在Airflow UI中创建Snowflake连接",
+      "steps": [
+        "前往Admin → Connections",
+        "点击+(添加新记录)",
+        "填写连接信息"
+      ],
+      "fields": "按如下填写:",
+      "connectionId": "连接ID: snowflake_default",
+      "connectionType": "连接类型: Snowflake",
+      "schema": "模式: RAW",
+      "login": "登录: YOUR_SNOWFLAKE_ACCOUNT",
+      "passwordField": "密码: YOUR_SNOWFLAKE_PASSWORD",
+      "extraFields": "额外字段Json:",
+      "save": "点击保存",
+      "enableDag": "启用DAG(切换ON)",
+      "viewProgress": "查看进度",
+      "sub1": {
+        "title": "进入 Admin → Connections"
+      },
+      "sub2": {
+        "title": "填写连接详情"
+      },
+      "sub3": {
+        "title": "添加额外字段 JSON"
+      },
+      "sub4": {
+        "title": "保存配置"
+      },
+      "sub5": {
+        "title": "启用 DAG 并查看进度"
+      }
+    },
+    "step16": {
+      "heading": "步骤16: 在Snowflake中验证",
+      "useDb": "使用数据库: USE DATABASE movies_db;",
+      "checkRaw": "检查RAW模式:",
+      "rawCmds": [
+        "USE SCHEMA raw;",
+        "SELECT COUNT(*) as total_movies FROM movies_raw; -- 应该得到100行",
+        "SELECT * FROM movies_raw LIMIT 10;"
+      ],
+      "checkMarts": "检查ANALYTICS_MARTS:",
+      "martsCmds": [
+        "USE SCHEMA ANALYTICS_MARTS;",
+        "SHOW TABLES; -- 应该看到13个表"
+      ],
+      "tables": "预期的表:",
+      "tableList": [
+        "DIM_MOVIES",
+        "DIM_GENRES",
+        "DIM_DIRECTORS",
+        "DIM_ACTORS",
+        "DIM_COUNTRIES",
+        "DIM_LANGUAGES",
+        "DIM_TIME",
+        "BRIDGE_MOVIE_GENRE",
+        "BRIDGE_MOVIE_ACTOR",
+        "BRIDGE_MOVIE_COUNTRY",
+        "BRIDGE_MOVIE_LANGUAGE",
+        "BRIDGE_MOVIE_DIRECTOR",
+        "FACT_MOVIE_PERFORMANCE"
+      ],
+      "countAll": "统计所有表:",
+      "result": "预期结果:",
+      "resultItems": [
+        "与Phase 11完整表计数匹配",
+        "Phase 15: 部署EC2完成! 🎉"
+      ]
+    },
+    "summary": {
+      "heading": "Phase 15总结",
+      "complete": "您已成功将电影数据管道部署到AWS EC2!",
+      "accomplishments": "成就:",
+      "items": [
+        "在AWS上创建了EC2实例",
+        "安装了Docker和依赖项",
+        "从GitHub克隆了项目",
+        "设置了环境变量",
+        "为Airflow构建了Docker镜像",
+        "启动了所有服务(Web服务器、调度器、Postgres、Redis)",
+        "通过Airflow连接了Snowflake",
+        "测试了管道并在Snowflake中验证了数据"
+      ],
+      "benefits": "获得的好处:",
+      "benefitsList": [
+        "系统在云端24/7运行",
+        "Airflow按计划自动运行",
+        "可通过互联网从任何地方访问",
+        "无需保持自己的机器开启",
+        "比本地更稳定和安全"
+      ],
+      "nextSteps": "下一步:",
+      "nextStepsList": [
+        "监控Airflow DAG运行",
+        "出现问题时检查日志",
+        "必要时优化性能",
+        "设置备份和灾难恢复",
+        "根据需要继续开发管道"
+      ]
+    }
+  }
+}
