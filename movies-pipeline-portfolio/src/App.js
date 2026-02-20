@@ -22,7 +22,7 @@ import Phase15Detail from './pages/Phase15Detail';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/movies-pipeline-portfolio">
       <div className="App">
         <Header />
         <main style={styles.main}>
