@@ -1,0 +1,2570 @@
+{
+  "nav": {
+    "home": "หน้าหลัก",
+    "about": "เกี่ยวกับโปรเจค",
+    "phases": "ขั้นตอนการทำงาน"
+  },
+  "home": {
+    "title": "IMDb Top 100 Movies Data Pipeline",
+    "subtitle": "End-to-End Data Pipeline Portfolio",
+    "description": "โปรเจคนี้เป็นการสร้าง End-to-End Data Pipeline สำหรับการวิเคราะห์ข้อมูลภาพยนตร์ IMDb 100 อันดับแรก โดยใช้เทคโนโลยีและเครื่องมือที่เป็นมาตรฐานและสากลในปัจจุบัน"
+  },
+  "objectives": {
+    "title": "วัตถุประสงค์",
+    "item1": "เรียนรู้กระบวนการทำงานจริงของ Data Engineer ตั้งแต่ต้นจนจบ",
+    "item2": "ฝึกปฏิบัติการใช้งานเครื่องมือสำคัญที่ใช้กันอย่างแพร่หลายในปัจจุบัน"
+  },
+  "learning": {
+    "title": "สิ่งที่จะได้เรียนรู้ในโปรเจค",
+    "cloud": {
+      "title": "Cloud Infrastructure",
+      "item1": "การใช้งาน AWS EC2 สำหรับการ deploy ระบบ",
+      "item2": "การจัดการ S3 bucket สำหรับ Data Lake"
+    },
+    "orchestration": {
+      "title": "Data Orchestration",
+      "item1": "การใช้ Apache Airflow ในการควบคุมและจัดการ workflow",
+      "item2": "การเขียน DAG (Directed Acyclic Graph) เพื่อกำหนดลำดับการทำงาน",
+      "item3": "การตั้งค่า scheduling และ monitoring"
+    },
+    "warehouse": {
+      "title": "Data Warehousing",
+      "item1": "การใช้งาน Snowflake เป็น Cloud Data Warehouse",
+      "item2": "การออกแบบ Star Schema สำหรับการวิเคราะห์ข้อมูล"
+    },
+    "transform": {
+      "title": "Data Transformation",
+      "item1": "การใช้ dbt (data build tool) ในการ transform ข้อมูล"
+    },
+    "modeling": {
+      "title": "Data Modeling",
+      "item1": "การออกแบบ Star Schema ที่ประกอบด้วย Fact Table และ Dimension Tables"
+    }
+  },
+  "architecture": {
+    "title": "สถาปัตยกรรมของโปรเจค",
+    "extract": "Extract",
+    "load": "Load",
+    "transform": "Transform",
+    "dataLake": "Data Lake (Staging Area)",
+    "rawLayer": "Data Warehouse (RAW Layer)",
+    "martsLayer": "Data Warehouse (MARTS Layer)",
+    "dashboard": "Dashboard (Power BI)",
+    "orchestration": "Orchestration with Apache Airflow"
+  },
+  "prerequisites": {
+    "title": "สิ่งที่ต้องเตรียมสำหรับในโปรเจคนี้",
+    "item1": "AWS Account (Free Tier)",
+    "item2": "Snowflake Account (Free Tier)",
+    "item3": "คอมพิวเตอร์/โน้ตบุ๊ค",
+    "item4": "ความรู้พื้นฐาน: SQL, Python (เบื้องต้น)"
+  },
+  "phases": {
+    "title": "โครงสร้างเอกสาร - 15 Phases",
+    "phase": "Phase",
+    "viewDetails": "ดูรายละเอียด",
+    "phase1": {
+      "name": "Data Profiling",
+      "description": "วิเคราะห์และทำความเข้าใจข้อมูลต้นทาง"
+    },
+    "phase2": {
+      "name": "Data Model Design",
+      "description": "ออกแบบโครงสร้างข้อมูล"
+    },
+    "phase3": {
+      "name": "Architecture Design",
+      "description": "ออกแบบสถาปัตยกรรมระบบ"
+    },
+    "phase4": {
+      "name": "Environment Setup",
+      "description": "ติดตั้ง Windows + Docker"
+    },
+    "phase5": {
+      "name": "Infrastructure Setup",
+      "description": "ติดตั้ง AWS + Snowflake"
+    },
+    "phase6": {
+      "name": "Docker & Airflow Setup",
+      "description": "ติดตั้งและตั้งค่า Docker และ Airflow"
+    },
+    "phase7": {
+      "name": "dbt Setup & Configuration",
+      "description": "ติดตั้งและตั้งค่า dbt"
+    },
+    "phase8": {
+      "name": "Manual Scripts",
+      "description": "สร้าง Scripts สำหรับ Local → S3"
+    },
+    "phase9": {
+      "name": "Data Cleansing & Staging",
+      "description": "ทำความสะอาดข้อมูลและสร้าง Staging Models"
+    },
+    "phase10": {
+      "name": "Dimensional Modeling",
+      "description": "สร้าง Star Schema"
+    },
+    "phase11": {
+      "name": "Bridge & Fact Tables",
+      "description": "สร้าง Bridge Tables และ Fact Table"
+    },
+    "phase12": {
+      "name": "Testing & Documentation",
+      "description": "ทดสอบและจัดทำเอกสาร"
+    },
+    "phase13": {
+      "name": "DAG Development",
+      "description": "พัฒนา DAG และจัดการ Orchestration"
+    },
+    "phase14": {
+      "name": "Dashboard",
+      "description": "สร้าง Dashboard สำหรับแสดงผล"
+    },
+    "phase15": {
+      "name": "EC2 Deployment",
+      "description": "Deploy ระบบบน AWS EC2"
+    }
+  },
+  "techStack": {
+    "title": "เทคโนโลยีที่ใช้"
+  },
+  "common": {
+    "language": "ภาษา",
+    "back": "กลับ",
+    "next": "ถัดไป",
+    "previous": "ก่อนหน้า",
+    "jumpTo": "ข้ามไปที่"
+  },
+  "phase1": {
+    "title": "Data Profiling",
+    "subtitle": "วิเคราะห์และทำความเข้าใจข้อมูลต้นทาง",
+    "navigation": {
+      "title": "หัวข้อใน Phase 1"
+    },
+    "downloads": {
+      "title": "ดาวน์โหลดไฟล์",
+      "dataset": "ดาวน์โหลด Dataset (CSV)",
+      "notebook": "ดาวน์โหลด Jupyter Notebook"
+    },
+    "intro": {
+      "title": "Data Profiling คืออะไร?",
+      "description": "Data Profiling คือ กระบวนการตรวจสอบ วิเคราะห์เพื่อทำความเข้าใจโครงสร้างของข้อมูล การเข้าใจโครงสร้างของข้อมูลจะช่วยให้เข้าใจโครงสร้างข้อมูลต้นทางว่ามีรูปแบบเป็นอย่างไร ช่วยในการออกแบบ schema ได้อย่างเหมาะสม ทำให้มีการวางแผนการทำ data pipeline ที่มีประสิทธิภาพและส่งผลให้ข้อมูลมีคุณภาพ (Data Quality) นอกจากนี้ยังหลีกเลี่ยงการ redesign หรือ rework ที่เกิดจากความไม่เข้าใจข้อมูลได้ในภายหลัง",
+      "purposeTitle": "จุดประสงค์ใน Phase 1",
+      "purpose": "ศึกษาโครงสร้างของข้อมูลภายใน dataset ที่เราจะใช้สำหรับโปรเจคนี้ โดยเราจะทำ Data Profiling เพื่อศึกษาโครงสร้างภายในข้อมูล ก่อนจะทำ data pipeline"
+    },
+    "sections": {
+      "overview": "ภาพรวมโครงสร้างข้อมูล",
+      "duplicates": "ข้อมูลซ้ำ",
+      "multivalue": "Multi-value",
+      "missing": "ข้อมูลสูญหาย",
+      "statistics": "สรุปทางสถิติ",
+      "outliers": "ค่าผิดปกติ"
+    },
+    "overview": {
+      "title": "ภาพรวมโครงสร้างข้อมูล",
+      "description": "ฉันได้ใช้ Pandas ที่เป็นหนึ่งในไลบารี่ยอดฮิตในการทำ Data Profiling สามารถสรุปได้ดังนี้",
+      "totalRows": "จำนวนแถวทั้งหมด",
+      "totalRowsDesc": "ภาพยนตร์ 100 อันดับแรก",
+      "totalColumns": "จำนวนคอลัมน์ทั้งหมด",
+      "dataTypes": "ประเภทข้อมูลหลัก",
+      "intType": "ตัวเลขจำนวนเต็ม (int64)",
+      "objectType": "ข้อความ (object)",
+      "floatType": "ตัวเลขทศนิยม (float64)"
+    },
+    "duplicates": {
+      "title": "ข้อมูลซ้ำ (Duplicate)",
+      "description": "ในส่วนนี้จะหาค่า Duplicate จากคอลัมน์ 'Title' ที่เป็นชื่อของภาพยนตร์ โดยตัดวงเล็บ () ออกก่อนเพื่อทำ Standardization",
+      "methodTitle": "วิธีการค้นหา Duplicate",
+      "results": "ผลลัพธ์",
+      "summary": "พบค่า Duplicate จำนวน",
+      "pairs": "คู่",
+      "rows": "แถว",
+      "solutionTitle": "การจัดการกับค่า Duplicate",
+      "solution": "หลังจาก Load เข้า Snowflake แล้วในส่วนนี้จะทำการ Dropping columns ที่มีค่าซ้ำ เพื่อให้ข้อมูลมีความสะอาดมากขึ้นและมีความถูกต้องมากยิ่งขึ้น โดยเราจะเก็บ rank ที่ดีที่สุดไว้แล้ว Drop rank ที่แย่กว่าออก ข้อมูลจะเหลือ 95 rows จาก 100 rows"
+    },
+    "multivalue": {
+      "title": "Multi-value",
+      "description": "ในส่วนนี้มีความสำคัญอย่างมากเพราะตามหลักการของ Database แล้วเราไม่สามารถเก็บข้อมูลที่มีหลายค่าภายในช่องเดียวได้ ขั้นตอนนี้จึงมีความสำคัญเป็นพิเศษเนื่องจากจะส่งผลต่อ schema ซึ่งในโปรเจคนี้จะปรากฏใน Phase 2",
+      "observation": "ในโปรเจคนี้ เมื่อลองรัน .head() หรือเมื่อลองรันข้อมูลจากหัวข้อที่ 1 ที่เป็นภาพรวมของโครงสร้างข้อมูล จะพบว่ามีบางคอลัมน์ที่สามารถมีค่าได้หลายค่า สังเกตจากมี | เป็นสัญลักษณ์พิเศษที่ใช้ \"คั่น\" ข้อความ",
+      "step1Title": "1. หาว่ามีคอลัมน์ไหนบ้างที่มี | เป็นตัวคั่น",
+      "step2Title": "2. แสดงชื่อคอลัมน์และ \"จำนวนแถว\" ที่มีเครื่องหมาย |",
+      "results1": "ผลที่ได้",
+      "results2": "ผลที่ได้",
+      "solutionTitle": "การจัดการกับค่า Multi-value",
+      "solution": "จากผลที่ได้พบว่ามีจำนวนแถวที่มีหลายค่าอยู่จำนวนมาก เราจะทำการ Split ใน Snowflake เนื่องจากในโปรเจคนี้มีกระบวนการทำ data pipeline ในแบบ ELT จึงเลือกที่จะ Load เข้าไปก่อนแล้วค่อย Split ใน Snowflake"
+    },
+    "missing": {
+      "title": "ข้อมูลสูญหาย (Missing Data)",
+      "description": "พบว่ามี Missing Values ใน 5 คอลัมน์จากการตรวจสอบทั้ง 100 แถว ดังตารางต่อไปนี้:",
+      "high": "สูง",
+      "medium": "ปานกลาง",
+      "low": "ต่ำ",
+      "columnName": "ชื่อคอลัมน์",
+      "missingCount": "จำนวนค่าว่าง",
+      "percentage": "เปอร์เซ็นต์สูญหาย",
+      "note": "หมายเหตุ",
+      "metacriticNote": "มีข้อมูลว่างระดับสูง (ข้อมูลหายไปถึงครึ่งหนึ่ง ซึ่งอาจส่งผลต่อการวิเคราะห์คะแนนโดยรวม)",
+      "boxOfficeNote": "มีข้อมูลว่างระดับปานกลาง (ข้อมูลรายได้หายไปจำนวนหนึ่ง)",
+      "lowNote": "มีข้อมูลว่างระดับต่ำ",
+      "solutionTitle": "การจัดการกับค่า Missing Data",
+      "solution": "ในส่วนของการจัดการกับค่า Missing Data ในช่วงแรกฉันอาจเลือกที่จะปล่อยเป็น NULL เอาไว้ก่อน ในตอนต้น การปล่อยเป็น NULL จะทำให้เรามีทางเลือกว่า \"จะให้ NULL นี้เป็นค่าเฉลี่ยไหม?\" หรือ \"จะให้มันแสดงผลว่า N/A ดี?\" เราสามารถเปลี่ยนใจได้ตลอดเวลาโดยไม่ต้องกลับไปแก้โค้ดใหม่"
+    },
+    "statistics": {
+      "title": "Statistical Summary",
+      "description": "จากการใช้:",
+      "resultTitle": "ผลที่ได้",
+      "summaryTitle": "สามารถสรุปผลที่ว่า:",
+      "yearSummary": "ภาพยนตร์ส่วนใหญ่อยู่ในช่วงกลางศตวรรษที่ 20 โดยมีภาพยนตร์ที่เก่าแก่ที่สุดในปี 1931 และใหม่ที่สุดในปี 2019",
+      "imdbSummary": "คะแนนเฉลี่ยอยู่ที่ 8.39 และคะแนนสูงสุดคือ 9.3",
+      "runtimeSummary": "ความยาวเฉลี่ยอยู่ที่ 130 นาที โดยมีภาพยนตร์ที่สั้นที่สุด 86 นาที และยาวที่สุด 222 นาที",
+      "boxOfficeSummary": "รายได้มีความผันผวนสูง (ค่า Std สูงมากที่ 270.32) โดยมีรายได้สูงสุด 1,119.9 ล้านดอลลาร์"
+    },
+    "outliers": {
+      "title": "การตรวจจับค่าผิดปกติ (Outlier Detection)",
+      "description": "การตรวจจับค่าผิดปกติ (Outlier Detection) คือกระบวนการระบุจุดข้อมูลที่มีความแตกต่างจากข้อมูลส่วนใหญ่อย่างมีนัยสำคัญ ซึ่งอาจบ่งชี้ถึงข้อผิดพลาดในข้อมูล ค่าผิดปกติเกิดขึ้นได้จากสองสาเหตุหลัก ได้แก่ ความผิดพลาดของข้อมูล (Errors) และค่าสุดโต่งที่เป็นข้อมูลจริง (Extreme Values)",
+      "purpose": "การตรวจจับค่าผิดปกติช่วยป้องกันค่าสถิติที่คลาดเคลื่อน และเปิดโอกาสในการค้นพบรูปแบบข้อมูลที่น่าสนใจ",
+      "codeIntro": "ในส่วนนี้ได้ดำเนินการตรวจจับค่าผิดปกติตามโค้ดด้านล่าง:",
+      "validation": "จากโค้ดข้างต้น:",
+      "yearRule": "ปีที่ออกฉายไม่ควรเก่ากว่าปี ค.ศ. 1800 หรือใหม่กว่าปีปัจจุบัน เนื่องจากข้อมูลทางประวัติศาสตร์ระบุว่าภาพยนตร์เริ่มมีขึ้นตั้งแต่ช่วงปี ค.ศ. 1800 เป็นต้นมา",
+      "imdbRule": "ต้องอยู่ในช่วง 0-10 คะแนน",
+      "runtimeRule": "ต้องไม่เป็นค่าลบหรือเท่ากับศูนย์",
+      "rottenRule": "เนื่องจากเป็นคะแนนร้อยละ จึงต้องอยู่ในช่วง 0-100",
+      "oscarsRule": "จำนวนรางวัลออสการ์ต้องไม่เป็นค่าลบ"
+    },
+    "summary": {
+      "title": "สรุป Phase 1: Data Profiling",
+      "description": "Phase นี้เป็นการศึกษาโครงสร้างข้อมูล ทำให้เราเห็นถึงปัญหาของที่มีอยู่ใน dataset ของโปรเจคนี้ เนื่องจากโปรเจคนี้มีการทำ data pipeline แบบ ELT เน้นการนำข้อมูลดิบเข้าสู่ระบบก่อน (Load) แล้วค่อยใช้ SQL ไปเลือกวิธีจัดการ (Transform) ในภายหลัง การทำ Data Profiling จึงมีความสำคัญอย่างยิ่งก่อนเริ่มต้นกระบวนการ Data pipeline เพื่อให้เกิดความเข้าใจในโครงสร้างข้อมูลและนำไปสู่การออกแบบที่ดี",
+      "finding1Title": "Duplicate Value",
+      "finding1": "พบค่า Duplicate จาก 'Title' จำนวน 5 คู่ โดยตัดวงเล็บ () ออก",
+      "finding2Title": "Multi-value",
+      "finding2": "ตามหลักการของ Database แล้วเราไม่สามารถเก็บข้อมูลที่มีหลายค่าภายในช่องเดียวได้ ช่องเดียวได้ - เพื่อให้เก็บข้อมูลเหล่านี้ได้ เราจะนำไปใช้ในการออกแบบ schema ใน Phase 2",
+      "finding3Title": "Missing Data",
+      "finding3": "ปล่อยเป็น NULL เอาไว้ก่อน Unknown ไว้",
+      "nextSteps": "ขั้นตอนต่อไป",
+      "nextStepsDescription": "Phase 2: ออกแบบ Data Model (Star Schema) เพื่อจัดโครงสร้างข้อมูลที่ได้จาก Data Profiling ให้อยู่ในรูปแบบที่เหมาะสมสำหรับการวิเคราะห์"
+    }
+  },
+  "phase2": {
+    "title": "Data Model Design",
+    "subtitle": "ออกแบบ Star Schema",
+    "navigation": {
+      "title": "หัวข้อใน Phase 2"
+    },
+    "intro": {
+      "title": "Data Model คืออะไร?",
+      "description": "จาก Phase 1 เราได้ผ่านการทำ Data Profiling มาแล้วทำให้เรารู้ถึงโครงสร้างของข้อมูลและวิธีการจัดการในระดับหนึ่ง ใน Phase 2 นี้ เราจะมาทำ Data Model กัน",
+      "purposeTitle": "จุดประสงค์ใน Phase 2",
+      "purpose": "สร้าง Data Model หรือแบบจำลองข้อมูล จะช่วยทำให้เราเห็นภาพการเชื่อมโยงของข้อมูลมากยิ่งขึ้น เข้าใจถึงความคิดหรือตรรกะสำหรับเก็บข้อมูล หากทำงานในระดับองค์กรหรือมีการทำงานร่วมกับผู้อื่น การสร้าง Data Model จะเป็นส่วนสำคัญที่ช่วยทำให้ทุกคนที่เกี่ยวข้องกับงานเข้าใจภาพรวมของข้อมูลและช่วยลดปัญหาในอนาคตได้อีกด้วย"
+    },
+    "sections": {
+      "problems": "เข้าใจปัญหาที่มีอยู่",
+      "division": "การแบ่งข้อมูล",
+      "erdiagram": "ER-Diagram",
+      "schema": "Star Schema"
+    },
+    "problems": {
+      "title": "เข้าใจปัญหาที่มีอยู่",
+      "description": "จาก Phase 1 การทำ Data Profiling ทำให้เราเห็นถึงปัญหาที่มีอยู่ใน dataset ของโปรเจคนี้ ไม่ว่าจะเป็น ข้อมูลซ้ำ, Multi-value และ Missing Data ปัญหาเหล่านี้เป็นตัวกำหนดทิศทางในการออกแบบ Data Modeling หากไม่รู้ว่าจะเริ่มต้นจากจุดไหน ให้คำนึงถึง \"ความสะอาด\" และ \"ความถูกต้อง\" ของข้อมูลเป็นหลัก ปัญหาที่ชัดเจนที่สุดในแง่ของโครงสร้างข้อมูลคือ Multi-value เพราะตามหลักการ Database เราไม่สามารถเก็บค่าหลายๆ ค่าไว้ในหนึ่งช่องได้ ทำให้ต้องแยกข้อมูลก่อนเป็นอันดับแรก",
+      "duplicate": "ข้อมูลซ้ำ (Duplicate)",
+      "multivalue": "Multi-value",
+      "multivalueDesc": "ตามหลักการ Database เราไม่สามารถเก็บค่าหลายๆ ค่าไว้ในหนึ่งช่องได้ ต้องมีการ Normalize เพื่อแก้ไขปัญหา Many-to-Many",
+      "missing": "Missing Data",
+      "focus": "ปัญหาที่ชัดเจนที่สุดในแง่ของโครงสร้างข้อมูลคือ Multi-value ในโปรเจคนี้จึงเริ่มสร้าง Data Modeling จากปัญหา Multi-value เป็นอันดับแรก เพราะตามหลักการ Database เราไม่สามารถเก็บค่าหลายๆ ค่าไว้ในหนึ่งช่องได้ ทำให้ต้องแยกข้อมูลก่อนเป็นอันดับแรก"
+    },
+    "division": {
+      "title": "การแบ่งข้อมูล",
+      "description": "จากหัวข้อที่ 1 ฉันได้บอกปัญหาจากที่ฉันสังเกตเห็นแล้ว ซึ่งก็คือ Multi-value หัวใจสำคัญของปัญหา Multi-value คือข้อมูลที่ถูกบีบอัดลงในหนึ่งช่อง ตามหลักการ Database \"หนึ่งช่องต้องมีหนึ่งค่า\" (Atomicity) หากเราฝืนเก็บไว้ในตารางเดียว เราจะ Query หาข้อมูลลำบากมาก ทำให้ต้องมีการแบ่งข้อมูลของโครงสร้างใหม่ หรืออธิบายง่ายๆ คือต้องมีการวิเคราะห์ตารางใหม่ เริ่มจากการตั้งคำถามง่ายๆ เพียง 3 ข้อ คือ:",
+      "q1": "เราวิเคราะห์อะไรเป็นหลักหรือสนใจเรื่องไหนเป็นหลัก?",
+      "q1Desc": "คำถามนี้นำไปสู่การสร้าง Fact Table ในโปรเจคนี้เราวิเคราะห์เรื่อง \"ภาพยนตร์\" (Movies) เป็นหลัก ดังนั้น ✅ Fact Table = movies",
+      "q2": "Fact Table ที่เราสนใจวัดผลด้วยอะไร?",
+      "q2Desc": "คำถามนี้ให้มองย้อนกลับไปที่ dataset ที่เรามี ส่วนใหญ่มักจะเป็นคอลัมน์ที่เป็นตัวเลขเชิงปริมาณหรือสถิติ ต้องเป็นค่าที่วัดได้จริง (measure) และเป็นค่าที่ไม่เปลี่ยนตามมุมมองการวิเคราะห์",
+      "q3": "อะไรบ้างที่มี Attribute เป็นของตัวเองและสามารถใช้ซ้ำได้?",
+      "q3Desc": "คำถามนี้ให้มองย้อนกลับไปที่ dataset ที่เรามีเหมือนเดิม คำถามนี้นำไปสู่การสร้าง Dimension Table",
+      "dimensionTitle": "Dimension Tables ในโปรเจคนี้",
+      "closing": "มาถึงตอนนี้เราได้ Fact Table และ Dimension Table แล้ว ในหัวข้อถัดไปเราจะลองวาด ER-Diagram กัน"
+    },
+    "erdiagram": {
+      "title": "วาด ER-Diagram (Chen diagram)",
+      "description": "ในหัวข้อนี้ฉันจะวาด ER-Diagram ตามหลัก Business Rules ที่ควรจะเป็น โดย Business Logic ของภาพนี้จัดขึ้นโดยตัวผู้จัดทำเองซึ่งไม่ได้อยู่ในแวดวงของการแสดงแม้แต่น้อย และคิดว่า Business Logic ค่อนข้างมีความสมเหตุสมผลอยู่บ้างจากการดูภาพยนตร์และซีรี่ย์ต่างๆ ER-diagram ของโปรเจคนี้สามารถสรุปความสัมพันธ์ได้ตามภาพนี้",
+      "manyToMany": "ความสัมพันธ์แบบ Many-to-Many (M:N)",
+      "manyToManyDesc": "จากภาพส่วนใหญ่มีความสัมพันธ์แบบ M : N (Many-to-Many) ตามหลักการเราไม่สามารถเก็บข้อมูลแบบ M : N ภายใน database หรือ โครงสร้างตาราง ได้โดยตรงได้ ดังนั้นเราจึงต้องใช้ bridge table เพื่อแก้ไขปัญหา M : N เมื่อเราสร้าง bridge table ในโปรเจคนี้จะประกอบไปด้วย",
+      "bridgeTitle": "Bridge Tables",
+      "bridgeDesc": "ทำให้เราสร้าง Data Modeling ตามภาพด้านล่างนี้"
+    },
+    "schema": {
+      "title": "Star Schema vs Snowflake Schema",
+      "description": "โดยปกติการทำ Data Warehouse จะเป็น <strong>Denormalized</strong> คือเราจะไม่ทำ Normalized (หรือทำให้น้อยที่สุด) แต่หากมีความสัมพันธ์แบบ <strong>Many-to-Many</strong> เราจะแก้ปัญหาโดยจัดระเบียบข้อมูลในรูปแบบที่เรียกว่า <strong>Dimensional Modeling</strong> ซึ่งประกอบไปด้วย:",
+      "recommended": "แนะนำ",
+      "star1": "Normalize แค่พื้นฐาน เพื่อแก้ Many-to-Many",
+      "star2": "Dimension Tables ไม่ Normalize ต่อ",
+      "star3": "เน้นความเร็วในการ Query",
+      "snowflake1": "Normalize มากกว่า (3NF-BCNF)",
+      "snowflake2": "Dimension Tables แยกย่อยต่อ (เช่น แยก country ออกมา)",
+      "snowflake3": "ประหยัด storage แต่ Query ช้ากว่า",
+      "projectChoice": "<strong>โปรเจคเรา:</strong> ใช้ <strong>Star Schema เราจะ</strong> Normalize เพียงขั้นพื้นฐาน เพื่อแก้ Many-to-Many เท่านั้นโดยใช้ Bridge Tables แก้ปัญหา N:M เราจะไม่ทำ Normalization ลึกๆ แบบ OLTP <strong>เพราะ DW เน้นความง่ายและเร็วในการ Query</strong>",
+      "finalDesc": "เมื่อแปลงเป็น Star Schema จะเป็นดังภาพนี้",
+      "noteTitle": "หมายเหตุ: Bridge Tables ≠ Snowflake Schema",
+      "noteText": "Bridge Tables เป็นเทคนิคในการแก้ปัญหา Many-to-Many ภายใน Star Schema ไม่ใช่ส่วนหนึ่งของ Snowflake Schema ภาพอาจดูคล้าย Snowflake Schema เพราะมีหลายตาราง แต่หลักการสำคัญคือ Dimension Tables ไม่ได้ normalize ต่อ นั่นคือจุดแยกระหว่าง Star กับ Snowflake Schema",
+      "modernNote": "อย่างไรก็ตามปัจจุบันนี้มีการก้าวหน้าไปมากและมีทางเลือกที่ยืดหยุ่นกว่า เช่น การทำให้ข้อมูลเป็นประเภทข้อมูล Array/Semi-structured เสียก่อนทำให้เก็บข้อมูลทุกอย่างไว้ในตารางเดียวแล้วค่อยใช้คำสั่ง SQL พิเศษ (เช่น FLATTEN ใน Snowflake) เพื่อดึงข้อมูลออกมาวิเคราะห์ได้เสมือนแยกตาราง แต่โปรเจคนี้ตัดสินใจเลือกใช้วิธีการ Normalization เพื่อให้เป็น Best Practice ต่อตนเองและผู้อ่านท่านอื่น"
+    },
+    "summary": {
+      "title": "สรุป Phase 2: Data Model Design",
+      "description": "Phase นี้เราได้ออกแบบ Data Model โดยใช้ Star Schema เพื่อจัดการกับปัญหา Multi-value และความสัมพันธ์แบบ Many-to-Many",
+      "finding1Title": "Fact Table",
+      "finding1": "fact_movie_performance สำหรับเก็บข้อมูลเชิงปริมาณของภาพยนตร์",
+      "finding2Title": "Bridge Tables",
+      "finding2": "สร้าง 5 Bridge Tables เพื่อแก้ไขปัญหา Many-to-Many",
+      "finding3Title": "Star Schema",
+      "finding3": "ใช้ Star Schema เพื่อความเร็วในการ Query และความง่ายในการทำความเข้าใจ",
+      "nextSteps": "ขั้นตอนต่อไป",
+      "nextStepsDescription": "Phase 3: ออกแบบ Architecture โดยใช้ Data Model ที่ออกแบบไว้มาวางแผนโครงสร้างระบบ"
+    }
+  },
+  "phase3": {
+    "title": "Architecture Design",
+    "subtitle": "ออกแบบ Architecture และ Tech Stack",
+    "navigation": {
+      "title": "หัวข้อใน Phase 3"
+    },
+    "sections": {
+      "purpose": "จุดประสงค์ใน Phase 3",
+      "concept": "จุดเริ่มต้นของแนวคิด",
+      "workflow": "Workflow ภายในโปรเจค",
+      "techstack": "การใช้ Tech Stack"
+    },
+    "purpose": {
+      "description": "Phase 3 เรามีจุดประสงค์เพื่อออกแบบ Architecture สำหรับช่วยให้เรามองเห็นว่าข้อมูลไหลจากไหนไปที่ไหน และใช้เครื่องมืออะไรบ้าง ลดความสับสน ทำให้ทุกคนมีความเข้าใจตรงกัน",
+      "outputTitle": "ผลลัพธ์ที่ได้จาก Phase นี้:",
+      "output1": "Architecture Diagram",
+      "output2": "รายการ Tech Stack"
+    },
+    "concept": {
+      "description": "จากจุดประสงค์ของโปรเจค ฉันเพียงต้องการใช้เครื่องมือที่ไม่ต้องมีการติดตั้งเครื่องมือมากมาย มีการใช้งานบน Cloud และมี Free Trial สำหรับฝึกหัด จากการศึกษาฉันมี 2 ตัวเลือกหลักที่น่าสนใจสำหรับ Data Warehouse โดยแต่ละตัวเลือกมีการนิยามตัวเองไว้สำหรับการเป็น Data Warehouse ด้วย:",
+      "toolCompareTitle": "เปรียบเทียบตัวเลือก Data Warehouse",
+      "tool": "เครื่องมือ",
+      "cloudBased": "Cloud-based",
+      "freeTrial": "Free Trial",
+      "easeOfUse": "ความง่ายในการใช้งาน",
+      "definition": "การนิยาม",
+      "snowflakeCloud": "ใช้ผ่าน Browser",
+      "snowflakeTrial": "30 วัน ($400 credits)",
+      "snowflakeEase": "ง่ายมาก",
+      "snowflakeDef": "\"Snowflake tables are ideal for data warehouses\"",
+      "bigqueryCloud": "ใช้ผ่าน GCP",
+      "bigqueryTrial": "90 วัน ($300 credits)",
+      "bigqueryEase": "ปานกลาง (เพราะ setup นานกว่า)",
+      "bigqueryDef": "\"Google Cloud's fully managed, petabyte-scale, and cost-effective analytics data warehouse\"",
+      "decision": "ฉันเลือก Snowflake เพราะ setup ง่ายกว่า ดังนั้นฉันจึงวางแพลนไว้ว่าจะใช้ Snowflake เป็น data warehouse สำหรับโปรเจคนี้",
+      "s3Concept": "เมื่อลองศึกษาข้อมูลมากยิ่งขึ้นประกอบกับการอยากลองใช้ Cloud platform อย่าง AWS พบว่าฉันสามารถใช้ AWS S3 เป็น Data Lake ได้ นั่นทำให้ฉันได้แนวคิดที่ว่า",
+      "s3Result": "ตอนนี้ฉันได้แนวคิดหลักของโปรเจคนี้แล้ว นั่นคือการใช้ S3(Data Lake) โหลดข้อมูลเข้า Snowflake ที่ทำหน้าที่เป็น Data warehouse",
+      "kaggleDesc": "หลังจากนี้ฉันต้องไปหาข้อมูลที่ทำหน้าที่เป็น Source data หรือ dataset ซึ่งฉันใช้ Kaggle ในการหาข้อมูลที่เป็น Source data และได้ dataset ที่มีชื่อว่า <a href=\"https://www.kaggle.com/datasets/shayanzk/imdb-top-100-movies-dataset-2025-edition\" target=\"_blank\" rel=\"noopener noreferrer\">IMDb Top 100 Movies Dataset (2025 Edition)</a> สำหรับการเป็น Source data ในโปรเจคนี้ ฉันเลือกเพราะเป็น dataset ที่มีขนาดเล็กเหมาะสำหรับฝึกฝนในการทำโปรเจค แล้วเมื่อฉันนำมาลองทำ Data profiling ใน phase 1 ฉันก็พอรู้แนวทางการ Transform อย่างคร่าวๆแล้ว ตอนนี้ฉันพอได้ Workflow สำหรับโปรเจคนี้แล้วคือ:",
+      "eltIntro": "มาถึงตอนนี้ ฉันได้แนวทางการทำ data pipeline สำหรับโปรเจคนี้แล้ว นั่นคือการทำ \"ELT\" นั่นเอง",
+      "eltCompareTitle": "ความแตกต่างระหว่าง ETL และ ELT",
+      "paradigm": "กระบวนทัศน์",
+      "order": "ลำดับขั้นตอน",
+      "transformLocation": "สถานที่ของการแปลง (T)",
+      "transformTool": "เครื่องมือที่ใช้ในการแปลง (T)",
+      "etlLocation": "นอก คลังข้อมูล (ใน Staging Area)",
+      "etlTool": "สคริปต์ภายนอก เช่น Python, Spark, Scala, Flink",
+      "eltLocation": "ภายใน คลังข้อมูล (บน Staging Tables)",
+      "eltTool": "สคริปต์ Native SQL",
+      "dbtReason": "ดังนั้นในโปรเจคนี้การทำ \"ELT\" ในขั้นตอน Transform จะเกิดขึ้นภายในคลังข้อมูล(Data warehouse) เครื่องมือที่ใช้ในการแปลงข้อมูลคือ สคริปต์ Native SQL ในโปรเจคนี้ฉันเลือกใช้ dbt สำหรับขั้นตอน Transform เพราะ dbt เป็น Native SQL ที่มี SQL บวกกับมีฟีเจอร์อื่นๆเพิ่มเติม จริงๆสามารถใช้ SQL แบบธรรมดาปกติทั่วไปได้แต่ ปัญหาของการ SQL แบบธรรมดาคือ ต้องรันตามลำดับ ถ้าสลับจะ error การใช้ dbt จะช่วยลดปัญหานี้เพราะ dbt มีระบบ DAG (Directed Acyclic Graph) อธิบายง่ายๆ คือ dbt มีระบบโครงสร้างการไหลของงานที่มีทิศทางที่ชัดเจน ไม่วนเป็นลูปวงกลม ทำให้รู้ว่าต้องรันอะไรก่อนหลังตามลำดับความสัมพันธ์ ซึ่งระบบนี้เข้ามาช่วยลดปัญหาหากมีการรันลำดับผิดใน SQL แบบธรรมดา",
+      "dagExplain": ""
+    },
+    "workflow": {
+      "description": "จุดประสงค์ของโปรเจคนี้คือเรียนรู้กระบวนการทำ data pipeline และฝึกปฏิบัติการใช้งานเครื่องมือที่ใช้กันอย่างแพร่หลาย เพื่อให้มองเห็นภาพรวม นี่คือกระบวนการที่เราใช้ทำโปรเจคนี้",
+      "layer": "ชั้นที่",
+      "layer1Title": "Docker Container",
+      "layer1Problem": "ถ้าเราพัฒนาโปรเจคบนเครื่อง Windows แล้วเอาไป deploy บน EC2 (Linux) แล้วมันใช้งานไม่ได้ล่ะ นั่นคือปัญหาใหญ่เลย",
+      "layer1SolutionIntro": "Docker เข้ามาแก้ปัญหานี้ โดยห่อหุ้มทุกอย่างไว้ใน container การใช้ Docker มีประโยชน์ดังนี้:",
+      "layer1Benefit1": "ทำให้รันได้ทุกเครื่อง ไม่ว่าจะเป็น Windows, Mac, Linux หรือแม้แต่บน Cloud (EC2)",
+      "layer1Benefit2": "Environment เหมือนกันหมด ทำให้ลดปัญหา \"รันบนเครื่องเราได้นะ ทำไมรันบนเครื่องเธอไม่ได้\"",
+      "layer1ExtractIntro": "หลังจากที่เรามีข้อมูล CSV อยู่ใน container แล้ว สิ่งแรกที่เราทำคือ นำข้อมูลออกจากเครื่อง local ไปเก็บบน Cloud ขั้นตอนนี้เราเรียกว่า Extract:",
+      "layer1ExtractLabel": "EXTRACT:",
+      "layer1Extract1": "Python script อ่านไฟล์ top_100_movies_full_best_effort.csv จากโฟลเดอร์ data",
+      "layer1Extract2": "Script ใช้ boto3 (AWS SDK) upload ไฟล์ขึ้นไปเก็บที่ S3 bucket",
+      "layer2Title": "Data Lake - Amazon S3",
+      "layer2Desc": "เมื่อ upload เสร็จ ข้อมูลจะอยู่ที่ S3 ซึ่งเป็น Data Lake ทำหน้าที่เป็น \"ที่เก็บข้อมูลดิบ\":",
+      "layer2Question": "หลายคนอาจสงสัยว่า ทำไมไม่ load เข้า Snowflake เลย ทำไมต้องแวะ S3 ด้วย?",
+      "layer2Answer": "คำตอบก็คือ เพราะเราต้องการ:",
+      "layer2Reason1": "Backup ข้อมูลต้นฉบับ - ถ้าเกิดพลาด เรายังมีข้อมูลดิบอยู่ใน Data Lake (S3)",
+      "layer2Reason2": "Snowflake ดึงข้อมูลจาก S3 ได้โดยตรง - ใช้ COPY INTO command ได้สะดวก",
+      "layer3Title": "Data Warehouse - RAW Layer",
+      "layer3Desc": "ตอนนี้ข้อมูลอยู่บน S3 แล้ว ขั้นต่อไปคือ นำเข้า Data Warehouse เพื่อให้พร้อมสำหรับการวิเคราะห์",
+      "layer3SchemaIntro": "ก่อนที่เราจะนำข้อมูลเข้าสู่ Data Warehouse เราจะแบ่งข้อมูลออกเป็นแต่ละ Layer โดยที่แต่ละ Layer แบ่งตาม Schema พูดง่ายๆ ก็คือ เราสร้าง Schema ออกเป็น 3 Schemas การแบ่ง Schema ออกเป็นหลายๆ ชั้นแบบนี้ส่งผลให้ข้อมูลถูกแบ่งเป็น Layers คือ:",
+      "layer3Schema1": "Raw Schema: เก็บข้อมูลดิบ ๆ ที่ยังไม่ได้แตะต้องอะไรเลย (Bronze Layer หรือ Raw Layer)",
+      "layer3Schema2": "Staging Schema: เก็บข้อมูลที่ clean แล้ว พร้อมใช้งาน (Silver Layer หรือ Staging Layer)",
+      "layer3Schema3": "Marts Schema: เก็บข้อมูลแบบ Star Schema หรือข้อมูลสำเร็จรูปที่พร้อมสำหรับ Analytics (Gold Layer หรือ Marts Layer)",
+      "layer3Note": "การแบ่งข้อมูลออกเป็นแต่ละ Layers ทำให้ข้อมูลไม่ปนกัน",
+      "layer3LoadIntro": "ในขั้นตอนนี้เราจะ Load ข้อมูลจาก S3 เข้าสู่ Data Warehouse:",
+      "layer3Load": "ใน Snowflake จะใช้คำสั่ง COPY INTO ดึงข้อมูลจาก S3 มาเก็บใน Raw Schema ก่อน",
+      "layer3Raw": "สิ่งสำคัญที่ต้องเข้าใจ คือ ชั้น RAW นี้เก็บข้อมูลดิบ ๆ ทุกอย่างยังไม่ได้ถูกแก้ไข ข้อมูลยังมีปัญหา NULL values , Duplicates และอื่นๆอยู่:",
+      "layer3WhyTitle": "แล้วทำไมไม่ clean ตั้งแต่ S3 ล่ะ?",
+      "layer3WhyAnswer": "เพราะเราต้องการเก็บข้อมูลดิบไว้ตามความเป็นจริง ถ้าเกิดว่า logic ที่เราใช้ clean ผิด เราสามารถกลับมา load ข้อมูลดิบใหม่ได้",
+      "layer4Title": "Data Transformation - dbt",
+      "layer4Desc": "ในขั้นตอนนี้เราจะ Transform โดยใช้ dbt (data build tool) ซึ่งเป็นเครื่องมือที่จะ transform ข้อมูลดิบให้กลายเป็นข้อมูลคุณภาพสูง เราจะ Transform ข้อมูลกันใน Staging Schema ในชั้นนี้ เราจะทำ data cleansing กัน",
+      "layer5Title": "Data Warehouse - MARTS Layer",
+      "layer5Desc": "หลังจากทำ data cleansing เสร็จเราจะได้ข้อมูลที่พร้อมใช้งานแล้ว เมื่อ dbt run เสร็จ ข้อมูลทั้งหมดจะถูกเก็บไว้ใน Marts Schema ของ Snowflake",
+      "layer6Title": "Dashboard - Power BI",
+      "layer6Desc": "ตอนนี้ข้อมูลพร้อมแล้ว ขั้นสุดท้ายคือ แสดงผล เราจะใช้ Power BI จะเชื่อมต่อกับ Snowflake Marts Schema แล้วดึงข้อมูลจาก Fact + Dimension tables มาสร้าง visualizations",
+      "layer7Title": "Orchestration - Apache Airflow",
+      "layer7Desc": "ในขั้นตอนนี้เราจะ automate ทุกอย่างเท่าที่จะเป็นไปได้ตั้งแต่ต้นจนจบ data pipeline"
+    },
+    "techstack": {
+      "description": "ในโปรเจคนี้มีการใช้เครื่องมือ ดังนี้",
+      "dockerTitle": "Docker",
+      "dockerDesc": "ทำหน้าที่เป็น Containerization ช่วยสร้างสภาพแวดล้อมในโปรเจคให้แยกส่วนกัน ทำให้ไม่เกิด dependency ที่ conflicts กัน ทำให้สร้าง Environment Consistency (สภาพแวดล้อมเดียวกัน) และทำหน้าที่เป็น Server hosting อีกด้วย",
+      "s3Title": "AWS S3",
+      "s3Desc": "S3 ย่อมาจาก Simple Storage Service เป็นบริการเก็บไฟล์บนคลาวด์ของ Amazon (เหมือน Google Drive) โดยที่ AWS S3 จะมีส่วนที่เรียกว่า Bucket ใช้เป็นโฟลเดอร์ขนาดใหญ่ สำหรับเก็บไฟล์ใน S3",
+      "s3Role1": "Data Lake: สำหรับเป็นพื้นที่เก็บข้อมูลดิบ (raw data)",
+      "s3Role2": "Staging Area (พื้นที่ชั่วคราว): เป็นพื้นที่สำหรับเก็บข้อมูลไว้ก่อนโหลดเข้า Snowflake",
+      "s3Role3": "Backup Storage (สำรองข้อมูล): เมื่อ Snowflake มีปัญหา ก็ยังมีข้อมูลใน S3 สำรองไว้อยู่",
+      "s3Role4": "Integration Point (จุดเชื่อมต่อ): เป็นจุดเชื่อมระหว่าง local machine กับ Snowflake",
+      "snowflakeTitle": "Snowflake",
+      "snowflakeDesc": "ทำหน้าที่เป็น Data Warehouse สำหรับโปรเจคนี้ โดยมีการเก็บข้อมูลทั้ง RAW (ข้อมูลดิบ) และ ANALYTICS ที่เกิดจากข้อมูลที่แปลงเป็น Star Schema แล้ว และใช้ query ข้อมูลสำหรับการวิเคราะห์และสร้าง dashboard",
+      "ec2Title": "AWS EC2",
+      "ec2Desc": "ทำหน้าที่เป็น Virtual Server ที่เสมือนรัน Airflow และ Docker บน Cloud ตลอด 24 ชั่วโมง",
+      "airflowTitle": "Apache Airflow",
+      "airflowDesc": "ทำหน้าที่เป็น Workflow Orchestration สำหรับติดตามและควบคุมการทำงานของ data pipelines ตั้งแต่ต้นจนจบ"
+    },
+    "summary": {
+      "title": "สรุป Phase 3: Architecture Design",
+      "description": "Phase นี้เราได้ออกแบบ Architecture สำหรับ data pipeline โดยเลือกใช้ ELT pattern กับ 7-layer architecture ที่ประกอบด้วย Docker, AWS S3, Snowflake, dbt, Power BI, Apache Airflow และ AWS EC2",
+      "finding1Title": "ELT Pattern",
+      "finding1": "เลือกใช้ ELT แทน ETL เพราะ Transform เกิดขึ้นภายใน Data Warehouse ด้วย Native SQL (dbt) ช่วยลดความซับซ้อนของ infrastructure",
+      "finding2Title": "7-Layer Architecture",
+      "finding2": "ออกแบบ Architecture 7 ชั้น ตั้งแต่ Docker Container จนถึง Power BI Dashboard ครอบคลุมทั้ง ELT pipeline",
+      "finding3Title": "Cloud-First Approach",
+      "finding3": "ใช้ Cloud services (AWS S3, EC2, Snowflake) เพื่อความยืดหยุ่น รองรับการเติบโต และสามารถรันได้ทุกที่",
+      "nextSteps": "ขั้นตอนต่อไป",
+      "nextStepsDescription": "Phase 4: ลงมือ Implement ตาม Architecture ที่ออกแบบไว้ เริ่มตั้งแต่การ setup Docker container และ environment"
+    }
+  },
+  "phase4": {
+    "title": "Environment Setup",
+    "subtitle": "ติดตั้ง Windows + Docker",
+    "navigation": {
+      "title": "ไปยังหัวข้อ"
+    },
+    "sections": {
+      "purpose": "จุดประสงค์ใน Phase 4",
+      "steps": "ขั้นตอนการติดตั้ง",
+      "summary": "สรุป Phase 4"
+    },
+    "purpose": {
+      "description": "ใน Phase 4 นี้มีจุดประสงค์เพื่อ: ติดตั้ง Docker และ ติดตั้ง Python เพื่อ Setup Environment สำหรับโปรเจคนี้ ฉันได้เรียบเรียงขั้นตอนให้คุณแล้ว คุณสามารถทำตามได้เลย"
+    },
+    "steps": {
+      "step1": {
+        "title": "ติดตั้ง Docker Desktop (สำคัญที่สุด!)",
+        "sub1Title": "ดาวน์โหลด Docker Desktop",
+        "sub1Code": "# เปิด browser ไปที่:\nhttps://www.docker.com/products/docker-desktop/",
+        "sub2Title": "ติดตั้ง Docker Desktop",
+        "sub2Warning": "สำคัญมาก! ตอนติดตั้งให้เลือก:",
+        "sub2Check": "\"Use WSL 2 instead of Hyper-V\" (แนะนำหากต้องใช้ WSL แต่ในโปรเจคนี้ไม่ใช้)",
+        "sub2Click": "คลิก OK และรอติดตั้ง",
+        "sub3Title": "Restart คอมพิวเตอร์",
+        "sub3Warn": "บังคับต้อง Restart ไม่งั้น Docker จะใช้งานไม่ได้",
+        "sub4Title": "เปิด Docker Desktop",
+        "sub4Step1": "หลัง restart, Docker Desktop ควรเปิดอัตโนมัติ",
+        "sub4Step2": "ดูที่ system tray (มุมขวาล่าง) จะมีไอคอน Docker",
+        "sub4Step3": "รอจนกว่าจะขึ้น \"Docker Desktop is running\"",
+        "sub5Title": "ทดสอบว่า Docker ติดตั้งสำเร็จ",
+        "sub5Intro": "เปิด CMD แล้วรันคำสั่งนี้:",
+        "sub5Code": "docker --version\ndocker-compose --version",
+        "sub5ResultLabel": "ผลลัพธ์ที่ฉันได้:",
+        "sub5Result": "Docker version 27.5.1, build 9f9e405\nDocker Compose version v2.32.4"
+      },
+      "step2": {
+        "title": "ติดตั้ง Python 3.11+",
+        "sub1Title": "ดาวน์โหลด Python",
+        "sub1Code": "# เปิด browser ไปที่:\nhttps://www.python.org/downloads/",
+        "sub1Note": "ดาวน์โหลด Python 3.11.x หรือ 3.12.x (เวอร์ชันล่าสุด)",
+        "sub2Title": "ติดตั้ง Python",
+        "sub2Warning": "สำคัญมาก! อย่าลืม! ตอนติดตั้ง ต้องเช็คถูกที่:",
+        "sub2Check": "\"Add Python to PATH\" (อยู่ด้านล่างของหน้าจอแรก)",
+        "sub2Note": "นี่คือขั้นตอนที่สำคัญที่สุด! ถ้าลืมเช็ค จะใช้ Python ใน CMD ไม่ได้",
+        "sub2Then": "จากนั้น:",
+        "sub2Click1": "คลิก \"Install Now\"",
+        "sub2Click2": "รอติดตั้งประมาณ 5 นาที",
+        "sub3Title": "ทดสอบว่าติดตั้งสำเร็จ",
+        "sub3Intro": "เปิด CMD ใหม่ (ต้องเปิดใหม่ ถ้าเปิดค้างไว้ก่อนหน้า) แล้วรัน:",
+        "sub3Code": "python --version\npip --version",
+        "sub3ResultLabel": "ผลลัพธ์ที่ฉันได้:",
+        "sub3Result": "Python 3.11.0\npip 25.3 from D:\\movies_pipeline\\venv\\Lib\\site-packages\\pip (python 3.11)"
+      },
+      "step3": {
+        "title": "ติดตั้ง Git (ถ้ายังไม่มี)",
+        "description": "เราติดตั้ง Git สำหรับจัดการ version control ของโค้ด และสร้าง .gitignore เพื่อป้องกันไม่ให้ commit ไฟล์ sensitive (เช่น .env) ก่อนที่จะ push ขึ้น GitHub",
+        "testLabel": "ทดสอบ Git:",
+        "testCode": "git --version"
+      },
+      "step4": {
+        "title": "สร้าง Project Folder Structure",
+        "sub1Title": "เปิด CMD แล้วรันคำสั่งนี้:",
+        "sub1Code": "# ไปที่ไดรฟ์ที่คุณต้องการเก็บโปรเจค (โปรเจคนี้เก็บไว้ที่ไดรฟ์ D:)\nD:\n\n# สร้างโฟลเดอร์โปรเจค\n# โปรเจคนี้ใช้ชื่อว่า movies_pipeline\nmkdir movies_pipeline\ncd movies_pipeline\n\n# สร้างโครงสร้างโฟลเดอร์ย่อย\nmkdir data\nmkdir scripts\n\n# ดูว่าสร้างครบหรือไม่\ndir",
+        "sub2Title": "คัดลอกไฟล์ CSV",
+        "sub2Note": "ให้คัดลอกไฟล์ top_100_movies_full_best_effort.csv ไปไว้ในโฟลเดอร์ data"
+      },
+      "step5": {
+        "title": "สร้าง Python Virtual Environment",
+        "description": "Virtual environment จะช่วยแยก packages ของโปรเจคนี้ไม่ให้ปะปนกับ Python ของระบบ",
+        "code": "# ไปที่โฟลเดอร์โปรเจค (ถ้ายังไม่ได้ cd เข้าไป)\nD:\ncd movies_data_pipeline\n\n# สร้าง virtual environment ชื่อ venv\npython -m venv venv\n\n# Activate virtual environment\nvenv\\Scripts\\activate",
+        "successLabel": "เมื่อ activate สำเร็จ จะเห็น (venv) ขึ้นหน้า:",
+        "successResult": "(venv) D:\\movies_pipeline>"
+      },
+      "step6": {
+        "title": "ติดตั้ง Python Packages",
+        "description": "ตอนนี้ venv เปิดอยู่แล้ว เราจะติดตั้ง packages ที่จำเป็นทั้งหมด:",
+        "code": "# Upgrade pip ให้เป็นเวอร์ชันล่าสุด\npython -m pip install --upgrade pip\n\n# ติดตั้ง packages หลัก\npip install pandas\npip install boto3\npip install snowflake-connector-python==3.12.2\npip install python-dotenv\npip install apache-airflow\npip install dbt-snowflake==1.8.4\npip install dbt-core==1.8.7\npip install apache-airflow-providers-snowflake==5.6.0",
+        "checkCode": "# ตรวจสอบว่าติดตั้งครบ\npip list | findstr \"airflow dbt snowflake pandas boto3 numpy python-dotenv\"",
+        "resultLabel": "ผลลัพธ์ที่ได้:"
+      },
+      "step7": {
+        "title": "สร้างไฟล์ requirements.txt",
+        "description": "สำหรับติดตั้ง packages ในครั้งต่อไป",
+        "sub1": "สร้างไฟล์ requirements.txt ใน VS Code:",
+        "sub2": "วางโค้ดนี้ใน requirements.txt:",
+        "code": "# ====================================\n# DBT + SNOWFLAKE\n# ====================================\ndbt-core==1.8.7\ndbt-snowflake==1.8.4\nsnowflake-connector-python==3.12.2\n\n# ====================================\n# AWS\n# ====================================\nboto3==1.42.34\n\n# ====================================\n# Snowflake Provider\n# ====================================\napache-airflow-providers-snowflake==5.6.0\n\n# ====================================\n# UTILITIES\n# ====================================\npython-dotenv==1.2.1"
+      }
+    },
+    "summary": {
+      "title": "Phase 4: Environment Setup COMPLETE!",
+      "description": "ติดตั้งทุก tool ที่จำเป็นสำหรับโปรเจคนี้เรียบร้อยแล้ว พร้อมสำหรับขั้นตอนถัดไป",
+      "item1": "Docker Desktop (running)",
+      "item2": "Python 3.11+ + pip",
+      "item3": "Git for Windows",
+      "item4": "Project folder structure",
+      "nextSteps": "ขั้นตอนต่อไป",
+      "nextStepsDescription": "Phase 5: ดำเนินการต่อด้วยการ setup AWS Infrastructure และเชื่อมต่อกับโปรเจค"
+    }
+  },
+  "phase5": {
+    "title": "Infrastructure Setup",
+    "subtitle": "AWS + Snowflake SETUP",
+    "backBtn": "← กลับหน้าหลัก",
+    "navTitle": "Phase 5 Topics",
+    "nav": {
+      "purpose": "จุดประสงค์ Phase 5",
+      "step1": "Step 1: AWS S3 Setup",
+      "step1_1": "  1.1 สร้าง AWS Account",
+      "step1_2": "  1.2 สร้าง S3 Bucket",
+      "step1_3": "  1.3 สร้าง Folder บน S3",
+      "step1_4": "  1.4 สร้าง IAM User",
+      "step1_5": "  1.5 AWS Credentials",
+      "step1_6": "  1.6 IAM Role",
+      "step2": "Step 2: Snowflake Setup",
+      "step2_1": "  2.1 สมัคร Snowflake",
+      "step2_2": "  2.2 สร้าง Warehouse",
+      "step2_3": "  2.3 สร้าง Database & Schema",
+      "step2_4": "  2.4 ตั้งค่า Context",
+      "step2_5": "  2.5 ตรวจสอบ Objects",
+      "step2_6": "  2.6 Storage Integration",
+      "step2_7": "  2.7 อัปเดต IAM Role",
+      "step2_8": "  2.8 สร้าง Stage",
+      "step2_9": "  2.9 File Format",
+      "step2_10": "  2.10 สร้างตาราง",
+      "step2_11": "  2.11 อัปเดต .env",
+      "summary": "Phase 5 Complete"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ใน Phase 5",
+      "desc1": "Phase 5 มีจุดประสงค์เพื่อ: Set up ใน AWS และ Snowflake โดยในเฟสนี้มีเป้าหมายคือสร้าง AWS Account, S3 Bucket, Snowflake Account ให้สามารถเชื่อมต่อกันได้",
+      "desc2": "ใน Phase 5 มี 2 step หลักๆ คือ Step 1 จะเป็นการตั้งค่าใน AWS เป็นหลัก และ Step 2 จะเป็นการตั้งค่าใน Snowflake",
+      "goal1Title": "Step 1: AWS S3 Setup",
+      "goal1_1": "สร้าง AWS Account (Free Tier)",
+      "goal1_2": "สร้าง S3 Bucket สำหรับเก็บไฟล์ CSV",
+      "goal1_3": "สร้าง IAM User พร้อม Access Keys",
+      "goal1_4": "ตั้งค่า AWS Credentials บนเครื่อง",
+      "goal1_5": "ทดสอบอัปโหลดไฟล์ CSV ขึ้น S3",
+      "goal2Title": "Step 2: Snowflake Setup",
+      "goal2_1": "สร้าง Snowflake Account (Free Trial)",
+      "goal2_2": "Database: movies_db",
+      "goal2_3": "Warehouse: movies_wh",
+      "goal2_4": "Schemas: raw, staging, analytics",
+      "goal2_5": "Storage Integration เชื่อมต่อ S3",
+      "goal2_6": "Table: movies_raw พร้อมข้อมูล 100 แถว"
+    },
+    "step1Header": {
+      "title": "☁️ Step 1: AWS S3 Setup",
+      "desc": "ใน Step นี้เราจะตั้งค่า AWS S3 เพื่อเก็บไฟล์ CSV บน Cloud กัน"
+    },
+    "step1_1": {
+      "title": "📋 Step 1.1: สร้าง AWS Account",
+      "goToAws": "ไปที่เว็บไซต์ AWS",
+      "note": "ในที่นี้จะไม่ได้ลงรายละเอียดการสร้าง AWS Account (Free Tier) อะไรมาก จะเน้นไปที่เป้าหมายข้อที่ 2-5 มากกว่า"
+    },
+    "step1_2": {
+      "title": "📋 Step 1.2: สร้าง S3 Bucket",
+      "desc": "อย่างที่ได้กล่าวไปใน phase 3: AWS S3 คือ บริการเก็บไฟล์บนคลาวด์ของ Amazon ในโปรเจคนี้เราจะใช้เป็น Data Lake สำหรับเก็บข้อมูลและใช้เป็น Staging Area (พื้นที่ชั่วคราว) สำหรับทำหน้าที่เป็น Backup Storage (สำรองข้อมูล) และ Integration Point ซึ่งเป็นจุดเชื่อมโยงระหว่าง local machine กับ Snowflake",
+      "s1Label": "เข้า AWS Management Console หรือ ค้นหา S3",
+      "s1a": "พิมพ์ \"S3\" ใน search bar ด้านบน",
+      "s1b": "คลิก \"S3\" (Scalable Storage in the Cloud)",
+      "s2Label": "สร้าง Bucket",
+      "s2a": "คลิกปุ่ม \"Create bucket\" (สีส้ม)",
+      "s2b": "Bucket name: (ต้องไม่ซ้ำกับใครในโลก!)",
+      "bucketNameComment": "ในโปรเจคนี้ฉันชื่อว่า:",
+      "s3Label": "ตรวจสอบ Region:",
+      "s3Desc": "โปรเจคนี้ใช้ค่าเริ่มต้นเพื่อให้ตรงกับ Snowflake region",
+      "s4Label": "Object Ownership: เลือก \"ACLs disabled (recommended)\"",
+      "s5Label": "Block Public Access settings:",
+      "s5a": "เช็คให้ครบทั้ง 4 ข้อ (Block all public access)",
+      "s5b": "เพราะฉันไม่ต้องการให้คนอื่นเข้าถึงข้อมูลได้",
+      "s6Label": "Bucket Versioning: เลือก \"Disable\"",
+      "s6Note": "(เพราะไม่จำเป็นสำหรับโปรเจคนี้ Versioning ทำให้เก็บไฟล์หลายเวอร์ชันได้ นั่นแปลว่าใช้ storage เยอะ และจะเสียเงินมากขึ้น)",
+      "s7Label": "Default encryption:",
+      "s7a": "เลือก \"Server-side encryption with Amazon S3 managed keys (SSE-S3)\" เพราะ จะทำให้เข้ารหัสข้อมูลอัตโนมัติ",
+      "s7b": "Enable (เปิดไว้)",
+      "s8Label": "Advanced settings → Object Lock: เลือก \"Disable\"",
+      "s9Label": "คลิก \"Create bucket\"",
+      "resultDesc": "หลังจากสร้าง Bucket แล้ว หน้าจอจะแสดง bucket ของคุณพร้อม: Bucket name, AWS Region และ Creation date"
+    },
+    "step1_3": {
+      "title": "📋 Step 1.3: สร้าง Folder บน S3",
+      "desc": "ในหัวข้อนี้เราจะสร้าง Folder ใน bucket ที่เราเพิ่งสร้างไป",
+      "item1": "ไปที่ Bucket ที่เราเพิ่งสร้างไป",
+      "item2": "คลิก create folder สร้าง Folder ชื่อ:",
+      "item3": "คลิกที่ raw folder ที่เพิ่งได้สร้างไป",
+      "item4": "อัปโหลดไฟล์ top_100_movies_full_best_effort.csv ลงไปในโฟลเดอร์"
+    },
+    "step1_4": {
+      "title": "📋 Step 1.4: สร้าง IAM User (สำคัญมาก)",
+      "iamDesc": "IAM หรือ \"Identity and Access Management\" คือ บริการที่ใช้จัดการตัวตนและสิทธิ์การเข้าถึงบริการต่างๆ ส่วน IAM User คือ 'ตัวตนของผู้ใช้งาน' ที่ถูกสร้างขึ้นภายในระบบ IAM โดยแต่ละ User จะมี username และสิทธิ์ (permissions) ของตัวเองเพื่อให้เกิดความปลอดภัยและสามารถควบคุมการเข้าถึงได้",
+      "choiceDesc": "ในโปรเจคนี้ เราเลือกใช้ Access Keys เพราะต้องการให้ระบบ data pipeline คุยกับ AWS แบบอัตโนมัติ มีใช้ Python Script ในการ Extract ข้อมูลจาก Local ไป S3 และต้องการใช้ Airflow บน EC2 ซึ่งต้องเข้าถึง S3 โดยไม่ต้อง login ด้วยมือ",
+      "stepsTitle": "การสร้าง IAM User ในโปรเจคนี้มีขั้นตอนดังนี้",
+      "s1Label": "ไปที่ IAM Service",
+      "s1a": "ค้นหา \"IAM\" ใน search bar",
+      "s1b": "คลิก \"IAM\" (Identity and Access Management)",
+      "s2Label": "สร้าง User ใหม่",
+      "s2a": "คลิก \"Users\" ที่ sidebar ซ้ายมือ",
+      "s2b": "คลิก \"Create user\"",
+      "s2Note": "Note: กรณีที่มี User อยู่แล้วคลิกที่ชื่อ user ที่คุณต้องการใช้ได้เลย",
+      "s3Label": "กรอกข้อมูล User:",
+      "s3Desc": "ในโปรเจคนี้ใช้ User name ว่า:",
+      "s4Label": "Permissions:",
+      "s4a": "เลือก \"Attach policies directly\"",
+      "s4b": "ค้นหาและเลือก: \"AmazonS3FullAccess\" (สำหรับเข้าถึง S3)",
+      "s5Label": "คลิก \"Next\" → \"Create user\"",
+      "s6Label": "สร้าง Access Keys (สำคัญมาก!)",
+      "s6a": "คลิกที่ User ที่เพิ่งสร้าง (movies-pipeline-user)",
+      "s6b": "คุณจะเห็น Tabs: Permissions, Groups, Tags, Security credentials, Last Accessed",
+      "s6c": "ไปที่แท็บ \"Security credentials\"",
+      "s6d": "Scroll ลงไปหา \"Access keys\"",
+      "s6e": "คลิก \"Create access key\"",
+      "s6f": "เลือก \"Command Line Interface (CLI)\"",
+      "s6g": "เช็คถูก ✅ ที่ \"I understand...\"",
+      "s6h": "คลิก \"Next\"",
+      "s6i": "Description tag (optional) ไม่เขียนก็ได้แต่ฉันเขียนกำกับไว้ว่า:",
+      "s6j": "คลิก \"Create access key\"",
+      "s7Label": "บันทึก Access Keys (⚠️ ขั้นตอนนี้สำคัญมาก!)",
+      "s7Desc": "คุณจะเห็น:",
+      "s7a": "คลิก \"Download .csv file\" (เก็บไฟล์ไว้ที่ปลอดภัย!)",
+      "s7b": "หรือคัดลอกทั้ง 2 ค่าไปเก็บไว้ในที่ปลอดภัย",
+      "warnText": "คำเตือน: Secret access key จะแสดงครั้งเดียว! ถ้าปิดหน้าจอนี้แล้วหาย ต้องสร้างใหม่ อย่าแชร์ keys เหล่านี้กับใคร!"
+    },
+    "step1_5": {
+      "title": "📋 Step 1.5: ตั้งค่า AWS Credentials บนเครื่อง",
+      "credDesc": "Credentials คือ \"ข้อมูลยืนยันตัวตน\" — เมื่อถึงเวลาใช้งาน ระบบ 2 ระบบจะคุยกัน มีระบบนึงถามว่า \"เธอคือใคร เธอมีพาสเวิร์ดไหม?\" อีกระบบก็จะตอบโต้ว่า \"นี้ไง Credentials — ฉันคือ Access key ID เลขนี้นะ และมีพาสเวิร์ด (Secret access key) ด้วย\" เมื่อแสดง Access key ID และ Secret access key ที่ถูกต้อง User นั้นก็สามารถเข้าถึงและใช้บริการ AWS ได้",
+      "goalLabel": "เป้าหมาย 🎯: ขั้นตอนนี้เราจะสร้างไฟล์ .env เพื่อเก็บ Credentials และค่าคงที่ต่างๆ เพื่อความปลอดภัย",
+      "item1": "สร้างไฟล์ .env ใน VS Code:",
+      "item2": "วางโค้ดนี้ในไฟล์ .env:",
+      "item3": "บันทึกไฟล์ (Ctrl+S)"
+    },
+    "step1_6": {
+      "title": "📋 Step 1.6: ตั้งค่า IAM Role",
+      "roleDesc": "IAM Role คือบทบาทในระบบ IAM ที่ใช้กำหนดสิทธิ์การเข้าถึงบริการต่างๆใน AWS พูดง่ายๆ คือ ถ้า IAM User คือ 'ตัวตน' ที่มี credentials ถาวร ส่วน IAM Role ก็จะ 'เป็นบทบาทที่สวมใส่' ซึ่งไม่มี credentials ถาวร",
+      "s1Label": "ไปที่ IAM Console:",
+      "s1a": "Search → \"IAM\"",
+      "s2Label": "สร้าง Role:",
+      "s2a": "ซ้ายมือ → \"Roles\" → \"Create role\"",
+      "imgCaption": "IAM Console → Roles → Create role",
+      "s3Label": "Trusted Entity:",
+      "s3a": "เลือก \"AWS account\"",
+      "s3b": "เลือก \"This AWS account\"",
+      "s3c": "✅ ติ๊ก \"Require external ID\"",
+      "s3d": "External ID: ใส่เลขวาง 0000 ไปก่อน",
+      "s3e": "คลิก \"Next\"",
+      "s4Label": "Add Permissions:",
+      "s4a": "Search: AmazonS3FullAccess",
+      "s4b": "✅ ติ๊กเลือก policy นี้",
+      "s4c": "คลิก \"Next\"",
+      "s5Label": "Name Role:",
+      "s5a": "Description: \"Allows Snowflake to full access from S3 bucket\"",
+      "s5b": "คลิก \"Create role\"",
+      "s6Label": "Copy Role ARN:",
+      "s6a": "เปิด role ที่สร้าง",
+      "s6b": "Copy \"ARN\" เพื่อนำไปใส่ในขั้นตอนสร้าง Storage Integration ในหัวข้อ 2.6",
+      "completeTitle": "✅ Step 1 COMPLETE!",
+      "completeSubtitle": "สิ่งที่คุณทำสำเร็จ:",
+      "complete1": "สร้าง AWS Account (Free Tier)",
+      "complete2": "สร้าง S3 Bucket สำหรับเก็บข้อมูล (movies-pipeline-data-22)",
+      "complete3": "สร้าง IAM User พร้อม Access Keys (movies-pipeline-user)",
+      "complete4": "ตั้งค่า AWS Credentials ใน .env",
+      "complete5": "สร้าง IAM Role (movies-pipeline-data-22-role)"
+    },
+    "step2Header": {
+      "title": "❄️ Step 2: Snowflake Setup",
+      "desc": "เป้าหมาย Step 2: สร้าง Snowflake Account, Database, Warehouse, Schemas, Storage Integration, Stage และ Table"
+    },
+    "step2_1": {
+      "title": "📋 Step 2.1: สมัคร Snowflake Account (Free Tier)",
+      "desc": "ในขั้นตอน 2.1 คุณสามารถทำเองได้เลย ไปที่:"
+    },
+    "step2_2": {
+      "title": "📋 Step 2.2: สร้าง Warehouse",
+      "whDesc": "Warehouse คือ Virtual Computer หรือ กลุ่มของ Server เปรียบเสมือน 'เครื่องจักร' ที่เราเปิดใช้เฉพาะตอนที่จะคำนวณข้อมูล ถ้าไม่ได้คำนวณ ก็ปิดไว้ประหยัดเงิน",
+      "whyTitle": "💡 ทำไมเราสร้าง Warehouse:",
+      "whyDesc": "เราสร้าง Warehouse เพื่อเป็นตัว \"ออกแรง\" ในการดึงข้อมูลมาประมวลผล (ใช้ CPU/RAM) และเพื่อให้เราแยกกันทำงานได้โดยไม่แย่งทรัพยากรกัน",
+      "rolesTitle": "💡 หน้าที่ของ Warehouse มีหลักๆ 3 อย่างคือ",
+      "role1": "Query คำสั่งต่างๆ เช่น รันคำสั่ง SELECT ต่างๆ (Join, Group By, Sort)",
+      "role2": "ขนย้ายข้อมูล เช่น รันคำสั่ง COPY INTO เพื่อโหลดข้อมูลเข้า หรือส่งข้อมูลออก",
+      "role3": "Transform ข้อมูลในตาราง เช่น รันคำสั่ง INSERT, UPDATE, DELETE, MERGE",
+      "codeTitle": "รายละเอียดโค้ดแต่ละส่วน:",
+      "code1": "CREATE WAREHOUSE IF NOT EXISTS movies_wh — สร้าง warehouse ชื่อ movies_wh เฉพาะเมื่อยังไม่มี",
+      "code2": "WAREHOUSE_SIZE = 'X-SMALL' — กำหนดขนาดเป็น X-Small ซึ่งเป็นขนาดเล็กที่สุด เหมาะกับงานที่ไม่หนักมาก ประหยัดค่าใช้จ่าย",
+      "code3": "AUTO_SUSPEND = 180 — หยุดทำงานอัตโนมัติหลังจากไม่มีการใช้งานเป็นเวลา 180 วินาที เพื่อประหยัดค่าใช้จ่าย",
+      "code4": "AUTO_RESUME = TRUE — เปิดใช้งานอัตโนมัติเมื่อมี query เข้ามา ไม่ต้องเปิดด้วยตนเอง",
+      "code5": "INITIALLY_SUSPENDED = TRUE — สถานะเริ่มต้นเป็น \"หยุด\" จะทำงานก็ต่อเมื่อมีคนใช้งาน"
+    },
+    "step2_3": {
+      "title": "📋 Step 2.3: สร้าง Database & Schema",
+      "dbTitle": "สร้าง Database",
+      "dbDesc": "Database คือ ชุดข้อมูลขนาดใหญ่ที่ถูกจัดเก็บและจัดระเบียบอย่างเป็นระบบ เมื่อ Warehouse เปรียบเสมือน 'เครื่องจักร' Database ก็เปรียบเสมือนคอนเทนเนอร์ขนาดใหญ่ที่ใช้เก็บข้อมูล เปรียบเสมือนกับ อาคาร โดยภายในประกอบด้วย Schema (ชั้นแต่ละชั้นภายในอาคาร) และ Tables (ห้องในแต่ละชั้น)",
+      "whyDbTitle": "💡 ทำไมต้องมี Database:",
+      "whyDbDesc": "เพื่อให้ข้อมูลเป็นระเบียบ ป้องกันการปะปนกัน และข้อมูลมีความปลอดภัย",
+      "dbRolesTitle": "💡 หน้าที่ของ Database มีหลักๆ 3 อย่างคือ",
+      "dbRole1": "จัดกลุ่มข้อมูลตาม Business Domain",
+      "dbRole2": "แยก Environment",
+      "dbRole3": "ควบคุม Access",
+      "schemaTitle": "สร้าง Schema",
+      "schemaDesc": "Schemas คือโฟลเดอร์ใน Database ที่ใช้จัดกลุ่ม Tables ให้เป็นระเบียบ ในส่วนของ Schemas เราจะแบ่งข้อมูลออกเป็น 3 Schemas แบ่งตาม layers ของข้อมูล:",
+      "schemaItem1": "raw schema: โหลดข้อมูลดิบจาก S3 (ยังไม่ได้ transform) สำหรับ RAW Layer",
+      "schemaItem2": "staging schema: สำหรับ cleansing ใน Staging Layer",
+      "schemaItem3": "analytics schema: เก็บข้อมูลที่ transform แล้ว (Star Schema) ใน Marts Layer"
+    },
+    "step2_4": {
+      "title": "📋 Step 2.4: ตั้งค่า Warehouse, Database และ Schema ให้เป็นค่าหลัก"
+    },
+    "step2_5": {
+      "title": "📋 Step 2.5: ตรวจสอบ Objects (Warehouse, Database, Schema) ที่สร้าง",
+      "resultLabel": "ผลลัพธ์ที่ได้:",
+      "imgCaption": "ผลลัพธ์จาก Snowflake: MOVIES_WH | MOVIES_DB | RAW | ACCOUNTADMIN | ZH"
+    },
+    "step2_6": {
+      "title": "📋 Step 2.6: สร้าง Storage Integration",
+      "desc": "ยังจำ Step ที่ 1 ได้มั้ย เราได้สร้าง S3 bucket ไว้ ในส่วนนี้ค่อนข้างท้าทายที่สุด เพราะเราจะทำให้ Snowflake สามารถอ่านข้อมูลจาก S3 bucket ได้ Storage Integration คือ \"ตัวกลาง\" ที่ทำหน้าที่เชื่อมต่อระหว่าง Snowflake กับ Cloud Storage (S3, Azure Blob, GCS)",
+      "s1Label": "สร้าง Storage Integration",
+      "s1Note": "แทนที่ STORAGE_AWS_ROLE_ARN ด้วย ARN จาก Step 1.6 และแก้ STORAGE_ALLOWED_LOCATIONS ด้วยชื่อ S3 bucket ของคุณ",
+      "s2Label": "ดูข้อมูล Integration",
+      "s3Label": "บันทึกค่าที่ได้",
+      "s3Desc": "คุณจะเห็น:",
+      "s3Note": "บันทึกค่า STORAGE_AWS_IAM_USER_ARN และ STORAGE_AWS_EXTERNAL_ID เอาไว้"
+    },
+    "step2_7": {
+      "title": "📋 Step 2.7: อัปเดต IAM Role",
+      "item1": "Roles → movies-pipeline-data-22-role",
+      "item2": "Trust relationships → Edit trust policy",
+      "item3": "แทนที่ด้วย JSON นี้:",
+      "item4": "คลิก Update policy"
+    },
+    "step2_8": {
+      "title": "📋 Step 2.8: สร้าง Stage",
+      "stageDesc": "Stage ใน Snowflake คือ \"พื้นที่จัดเก็บชั่วคราว\" (staging area) ที่ใช้สำหรับ:",
+      "item1": "โหลดข้อมูล เข้า Snowflake (COPY INTO)",
+      "item2": "ส่งออกข้อมูล จาก Snowflake (UNLOAD)",
+      "stageSummary": "คิดง่ายๆ คือ \"จุดพักข้อมูล\" ก่อนที่จะนำเข้าหรือส่งออก",
+      "resultLabel": "ผลลัพธ์ที่ได้:",
+      "successMsg": "✅ เห็นไฟล์ = เชื่อมต่อสำเร็จ!"
+    },
+    "step2_9": {
+      "title": "📋 Step 2.9: สร้าง File Format",
+      "ffDesc": "File Format คือ \"กฎการอ่านไฟล์\" ใช้สำหรับบอก Snowflake ว่าข้อมูลในไฟล์มีโครงสร้างแบบไหน เพื่อให้ Snowflake อ่านและโหลดข้อมูลได้ถูกต้อง ง่ายๆ คือ \"คู่มือการแปลงไฟล์\" ข้อดีของการสร้าง file format คือ สามารถนำไปใช้ซ้ำได้ทุกครั้งที่ต้องโหลดไฟล์ CSV ที่มีรูปแบบเดียวกัน",
+      "codeTitle": "รายละเอียดโค้ดแต่ละส่วน:",
+      "code1": "TYPE = 'CSV' — กำหนดประเภทไฟล์เป็น CSV (Comma-Separated Values)",
+      "code2": "FIELD_DELIMITER = ',' — กำหนดตัวคั่นระหว่างคอลัมน์เป็นเครื่องหมายจุลภาค",
+      "code3": "SKIP_HEADER = 1 — ข้ามบรรทัดแรกของไฟล์ (บรรทัดหัวตาราง) ไม่นำมาเป็นข้อมูล",
+      "code4": "FIELD_OPTIONALLY_ENCLOSED_BY = '\"' — อนุญาตให้ข้อมูลแต่ละช่องสามารถอยู่ในเครื่องหมายคำพูดคู่ได้",
+      "code5": "TRIM_SPACE = TRUE — ตัดช่องว่างหน้าและหลังข้อมูลในแต่ละช่องออกอัตโนมัติ",
+      "code6": "ERROR_ON_COLUMN_COUNT_MISMATCH = FALSE — ไม่แสดง error หากจำนวนคอลัมน์ในบางแถวไม่ตรงกับที่กำหนด"
+    },
+    "step2_10": {
+      "title": "📋 Step 2.10: สร้างตาราง",
+      "desc": "สร้างตาราง movies_raw พร้อมชื่อคอลัมน์ โดยที่ชื่อคอลัมน์ไม่จำเป็นต้องทำเหมือนใน dataset ที่เรามีก็ได้ เพื่อความสะดวกมากยิ่งขึ้น ฉันได้ทำการ rename ชื่อคอลัมน์ใหม่"
+    },
+    "step2_11": {
+      "title": "📋 Step 2.11: อัปเดตไฟล์ .env",
+      "item1": "เปิด .env ใน VS Code",
+      "item2": "เพิ่มข้อมูล Snowflake:"
+    },
+    "summary": {
+      "title": "PHASE 5 COMPLETE!",
+      "subtitle": "สรุปสิ่งที่ได้คือ:",
+      "item1Title": "Snowflake Account",
+      "item1Desc": "30 วัน, $400 credits",
+      "item2Title": "MOVIES_WH",
+      "item2Desc": "Warehouse (XSMALL)",
+      "item3Title": "MOVIES_DB",
+      "item3Desc": "Database",
+      "item4Title": "RAW / STAGING / ANALYTICS",
+      "item4Desc": "Schemas",
+      "item5Title": "S3_INTEGRATION",
+      "item5Desc": "เชื่อมต่อ S3",
+      "item6Title": "MOVIES_S3_STAGE",
+      "item6Desc": "อ่านไฟล์จาก S3",
+      "item7Title": "CSV_FORMAT",
+      "item7Desc": "รูปแบบ CSV",
+      "item8Title": "MOVIES_RAW Table",
+      "item8Desc": "พร้อมข้อมูล 100 แถว",
+      "nextTitle": "ขั้นตอนต่อไป",
+      "nextDesc": "Phase 6: Docker & Airflow Setup — ติดตั้งและตั้งค่า Docker และ Airflow"
+    },
+    "navBtn": {
+      "prev": "← Phase 4: Environment Setup",
+      "next": "Phase 6: Docker & Airflow Setup →"
+    }
+  },
+  "phase6": {
+    "title": "Docker + Airflow Setup",
+    "subtitle": "DOCKER + AIRFLOW SETUP",
+    "backBtn": "← กลับหน้าหลัก",
+    "navTitle": "หัวข้อ Phase 6",
+    "nav": {
+      "purpose": "จุดประสงค์ Phase 6",
+      "docker": "Docker คืออะไร?",
+      "step1": "Step 1: Airflow Settings",
+      "step2": "Step 2: สร้างโฟลเดอร์",
+      "step3": "Step 3: .dockerignore",
+      "step4": "Step 4: Dockerfile",
+      "step5": "Step 5: docker-compose.yaml",
+      "step6": "Step 6: Custom docker-compose.yaml",
+      "step6p1": "  Part 1: Base Configuration",
+      "step6p2": "  Part 2: Services",
+      "summary": "Phase 6 สำเร็จ"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ใน Phase 6 Docker + Airflow",
+      "desc": "ใน Phase นี้ เราจะทำการติดตั้งและตั้งค่า Docker + Airflow เพื่อสร้างสภาพแวดล้อม Data Pipeline สำหรับรันของเราแบบอัตโนมัติ"
+    },
+    "docker": {
+      "title": "🐳 Docker คืออะไร?",
+      "desc1": "Docker คือ platform environment ที่ใช้แก้ปัญหาในเรื่อง code library ลองคิดดูว่า ถ้าปัจจุบันที่สร้างโปรเจคนี้เราใช้เครื่องมือแบบนี้ เวอร์ชั่นนี้ วันนึงในอนาคตเราอยากพัฒนาโปรเจคของเราต่อ หรือมีคนอื่นอยากมาสานต่อโปรเจคของเรา พอเราให้ source code ที่เราพัฒนาขึ้นเอง ทั้งตัวเราหรือคนที่มาสานโปรเจคต่อต้องมานั่งดูว่า code ที่เคยเขียนไปแล้วมี library เวอร์ชั่นไหนบ้าง ใช้ได้กับเครื่องของผู้พัฒนาตอนนี้ไหม ทำให้ต้องมานั่งเสียเวลามา config environment ใหม่อีก",
+      "desc2": "Docker แก้ปัญหานี้ด้วย Container ซึ่งสามารถห่อหุ้ม code หรือ environment เอาไว้ ทำให้โค้ดที่เราสร้างไว้ยังคงอยู่ใน environment เดิม ทีนี้พอเราจะกลับมาต่อยอดโปรเจคหรือมีคนอื่นมาสานต่อ ก็แค่เอาโค้ดที่ถูกห่อหุ้มด้วย Docker มารันต่อได้เลย ทำให้มี environment เหมือนเดิมเป๊ะๆ",
+      "vocabTitle": "คำศัพท์ที่ควรรู้:",
+      "imageTitle": "Docker Image",
+      "imageDesc": "โค้ดที่ถูกห่อหุ้มแล้วให้สามารถทำงานร่วมกับ Docker ได้ เปรียบเสมือนกับเป็น blueprint แม่แบบ หรือ recipe นั่นเอง",
+      "containerTitle": "Container",
+      "containerDesc": "การนำ Docker Image มา run ในเครื่องๆหนึ่ง หรือเรียกว่า instance ก็ได้ ซึ่งสามารถเป็นได้หลาย 1 image สามารถสร้าง Container ได้หลายตัว โดยมีที่มาจาก Image เดียวกัน การทำงานก็จะเหมือนกัน"
+    },
+    "step1": {
+      "title": "⚙️ Step 1: Airflow Settings",
+      "desc": "ในการตั้งค่า Airflow และ dbt เพื่อให้ Docker รู้ว่าเราเป็นใคร เราต้องระบุ User ID และ Group ID ด้วยโค้ดนี้:",
+      "uidDesc": "AIRFLOW_UID= User ID (UID) ที่ Airflow กำหนดให้ใช้ภายใน Docker Container",
+      "gidDesc": "AIRFLOW_GID= Group ID (GID) สำหรับกำหนดสิทธิ์การเข้าถึงไฟล์ตามกลุ่ม",
+      "gidNote": "GID สามารถเป็นเลขอะไรก็ได้ เช่น: 0 = root group (กลุ่มที่มีสิทธิ์สูงสุด), 1000 = กลุ่มของ user ทั่วไป, 50 = กลุ่ม staff, 100 = กลุ่ม users",
+      "osTitle": "ในส่วนนี้ขอแบ่งออกเป็น 2 ส่วน:",
+      "linuxTitle": "Linux:",
+      "linuxDesc": "หากใช้ Linux ซึ่งมีระบบ permission ที่เข้มงวด เมื่อเราจะใช้งาน Airflow ที่ถูก Docker รัน เราต้องตั้งค่า UID ใน Docker ให้ตรงกับ user ของเครื่องเรา โดยใช้คำสั่ง echo \"AIRFLOW_UID=$(id -u)\" >> .env รันในเทอร์มินอล หาก UID ใน container ≠ UID ของ host เท่ากับว่า permission denied",
+      "windowsTitle": "Windows:",
+      "windowsDesc": "หากใช้ Windows ใน Windows ไม่มีระบบ UID/GID อยู่แล้ว แต่ Docker Desktop จะใช้ WSL 2 เป็นตัวกลางในการจัดการไฟล์ WSL 2 จะจัดการ file permissions แบบพิเศษ ทำให้ Windows user เข้าถึงไฟล์ได้หมดโดยไม่ต้องเช็ค UID ในโปรเจคนี้ฉันใช้ระบบปฏิบัติการ Windows เมื่อลองสืบค้นในเว็บของ Airflow แล้วพบว่า มีการใช้ AIRFLOW_UID=50000",
+      "stepsTitle": "ขั้นตอนการทำ:",
+      "s1": "ไปที่ไฟล์ .env ใน VS Code",
+      "s2": "เพิ่ม code:"
+    },
+    "step2": {
+      "title": "📁 Step 2: สร้างโครงสร้างโฟลเดอร์",
+      "desc": "สร้างโฟลเดอร์ dags, logs, config และ plugins:",
+      "imageCaption": "โครงสร้างโฟลเดอร์ที่ได้ใน VS Code"
+    },
+    "step3": {
+      "title": "🚫 Step 3: สร้างไฟล์ .dockerignore",
+      "desc": "การสร้างไฟล์ .dockerignore คือการลิสต์รายการที่เราไม่ต้องการนำสิ่งเหล่านี้เข้า Docker Image เช่น cache ขยะ ทำให้ประหยัดพื้นที่เพิ่มมากขึ้น สรุปง่ายๆคือ เราสร้างไฟล์ .dockerignore เพื่อบอกว่าอย่านำรายการในลิสต์ภายในไฟล์ .dockerignore เข้ามานะ",
+      "s1": "สร้างไฟล์: .dockerignore",
+      "s2": "ใส่เนื้อหานี้ทั้งหมดลงในไฟล์:"
+    },
+    "step4": {
+      "title": "🐳 Step 4: สร้าง Dockerfile",
+      "desc": "Dockerfile คือ ไฟล์ที่รวมคำสั่งเพื่อสร้าง Docker Image",
+      "s1": "สร้างไฟล์ใน VS Code: Dockerfile",
+      "s2": "Copy เนื้อหานี้ทั้งหมดลงในไฟล์:",
+      "learnMore": "ศึกษาการเขียนการสร้าง Airflow Image ได้ที่:"
+    },
+    "step5": {
+      "title": "📄 Step 5: สร้างไฟล์ docker-compose.yaml",
+      "desc": "ในขั้นตอนนี้เราจะดาวน์โหลดเทมเพลต docker-compose.yaml มาจาก Airflow แล้วเราค่อยมา custom ให้เหมาะกับโปรเจคของเรากัน",
+      "s1": "ไปที่เว็บ Airflow:",
+      "s2": "ดาวน์โหลดไฟล์ docker-compose.yaml จาก Airflow",
+      "s2cmd": "คำสั่งดาวน์โหลด:",
+      "s3": "ย้ายไฟล์ docker-compose.yaml ที่ดาวน์โหลดมาเข้าไปที่โปรเจคของเรา"
+    },
+    "step6": {
+      "title": "⚙️ Step 6: Custom docker-compose.yaml file",
+      "desc": "ใน Step นี้เราจะ custom ไปทีละส่วน ซึ่งมีขั้นตอนการทำดังนี้:",
+      "part1Title": "Part 1: ปรับส่วน Base Configuration",
+      "before": "เดิม:",
+      "changeTo": "เปลี่ยนเป็น:",
+      "pointsTitle": "จุดที่ต้องแก้ไขคือ:",
+      "c1Title": "1. Image Build เปลี่ยนจากการใช้ image สำเร็จรูปเป็นการ build เอง:",
+      "c1n1": "Comment บรรทัด image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.10.4} โดยใส่ # ข้างหน้า",
+      "c1n2": "Uncomment บรรทัด build: . โดยเอา # ออก เพื่อให้ Docker ไปอ่านและ build dbt-snowflake จาก Dockerfile ที่เราเขียนไว้ ถ้าไม่แก้ตรงนี้ มันจะไปดึง Image มาตรฐานที่ไม่มี dbt ติดมาด้วย",
+      "c1n3": "เพิ่มบรรทัด env_file: - .env ทำให้ Docker โหลดค่า environment variables จากไฟล์ .env อัตโนมัติ",
+      "c2Title": "2. เปลี่ยน Executor:",
+      "c2Note": "ถ้าเราใช้ CeleryExecutor เราต้องรันทั้ง Redis และ Airflow Worker เพิ่มขึ้นมา แต่ถ้าใช้ LocalExecutor ต้องลบ redis, flower และ airflow-worker ออกจากไฟล์ docker-compose.yaml ด้วย เหตุผลที่เราใช้ LocalExecutor: โปรเจคนี้มีสเกลขนาดเล็ก การที่งานรันอยู่ใน Process เดียวกับ Scheduler จะช่วยให้การ Debug ทำได้ง่ายกว่าการส่งงานข้ามไปข้ามมาในระบบคิวของ Celery",
+      "c3Title": "3. ลบ Celery Config 2 บรรทัด:",
+      "c3Note": "เราลบทั้งสองบรรทัดเพราะเราไม่ได้ใช้ CeleryExecutor แล้ว RESULT_BACKEND มีไว้สำหรับเก็บผลลัพธ์ของงาน และ BROKER_URL มีไว้สำหรับการเชื่อมต่อกับ Redis เมื่อเราเปลี่ยนเป็น LocalExecutor ระบบจะรันงานภายในตัวมันเองโดยตรง ไม่ผ่าน Redis อีกต่อไป การลบทั้งสองค่านี้ช่วยลดความสับสนในอนาคต",
+      "c4Title": "4. เปลี่ยน Load Examples:",
+      "c4Note": "เราเปลี่ยนเพราะหากตั้งค่า default เป็น 'true' จะแสดงตัวอย่าง DAG ออกมาเยอะมากทำให้เราหา DAG ของเราเองได้ยากขึ้น เพื่อความสะดวกสบายเราตั้งค่าเป็น 'false' เพื่อให้เห็นแค่ DAG ของเราเอง",
+      "c5Title": "5. แก้ไข depends_on:",
+      "c5Note": "เพราะว่าเราเปลี่ยนจาก CeleryExecutor มาเป็น LocalExecutor แล้วระบบของ Airflow จะไม่ใช้ Redis เป็นตัวส่งผ่านงานอีกต่อไป งานทุกอย่างจะรันอยู่ภายในตัว Scheduler เอง ดังนั้น ถ้าเราไม่ลบบรรทัด Redis ออกไป เมื่อเราใช้คำสั่ง docker compose up จะทำให้ระบบรันไม่ขึ้น",
+      "c6Title": "6. แก้ไข Pause DAGs:",
+      "c6Note": "เมื่อตั้งเป็น 'false' จะทำให้ DAG ที่สร้างใหม่เริ่มทำงานทันทีโดยอัตโนมัติ ไม่ต้อง unpause ด้วยตนเอง แต่ก็มีข้อควรระวังคือ หาก DAG มี schedule และยังไม่พร้อมใช้งาน อาจรันโดยไม่ตั้งใจ ดังนั้นควรตรวจสอบให้แน่ใจก่อน deploy",
+      "c7Title": "7. เพิ่ม Snowflake + dbt:",
+      "c7Note": "เพิ่มก่อน _PIP_ADDITIONAL_REQUIREMENTS เพื่อให้ Airflow เชื่อมต่อกับ S3 ได้และเพื่อให้นำข้อมูลเข้าสู่ Snowflake ได้ เราต้องเพิ่ม environment ตัวแปรเหล่านี้ลงใน docker-compose.yaml ด้วย และระบุให้ dbt รู้ว่า profiles.yml ไฟล์อยู่ที่ไหนใน Container สรุปง่ายๆคือ env_file: - .env ทำหน้าที่โหลดไฟล์ .env เข้า container แบบดิบๆ เมื่อเราเพิ่มตัวแปรเหล่านี้ลงใน environment เพื่อบังคับให้ Docker Compose อ่านค่าจาก .env แล้วแทนที่ ${ชื่อตัวแปร} ด้วยค่าจริงก่อนส่งเข้า container",
+      "part2Title": "Part 2: ปรับส่วน Service ใน Airflow",
+      "p2Intro": "ก่อนที่เราจะปรับส่วน Service ฉันอยากเขียน Service ต่างๆที่อยู่ใน Airflow ซึ่งฉันได้เขียนสรุปเป็นตารางไว้แล้วดังนี้:",
+      "tableH1": "Service",
+      "tableH2": "คำอธิบายแบบละเอียด",
+      "keepTitle": "สำหรับโปรเจคนี้ (LocalExecutor) เราเลือก Service ดังนี้:",
+      "e1Title": "1. แก้ไข postgres",
+      "e1Note": "ปกติ Docker Container จะตั้งชื่อให้เราแบบสุ่มหรือตามชื่อโฟลเดอร์ การระบุชื่อเองทำให้เราสามารถจัดการได้ง่ายกว่า นอกจากนี้ฉันได้เพิ่ม Port สำหรับ PostgreSQL ด้วย โดยใช้ Standard Port ที่ 5432 เพื่อให้สามารถเข้ามาดูตาราง database ใน Postgres ได้",
+      "e2Title": "2. แก้ไข webserver",
+      "e2Note": "เพิ่ม container_name: movies_airflow_webserver เพื่อให้ระบุชื่อได้ชัดเจน",
+      "e3Title": "3. ลบ Services ที่ไม่ต้องการ",
+      "e3Note": "ลบ 4 services นี้ออกทั้งหมด: redis, airflow-worker, airflow-cli และ flower",
+      "e4Title": "4. แก้ไข airflow-scheduler",
+      "e4Note": "เมื่อเรารันโปรเจคการระบุชื่อที่ชัดเจนจะทำให้เราไม่สับสน ไม่เผลอไปสั่งปิดหรือสั่งรันผิดตัว อีกทั้งเราได้ลบ Redis service ไปแล้ว ดังนั้นเราไม่สามารถใช้ <<: *airflow-common-depends-on จากเดิมได้เพราะมันดึงเอาลิสต์ที่ต้องรอทั้ง Postgres และ Redis มาใช้ เมื่อเราลบ Redis service ออกเราจึงต้องระบุแค่ postgres ไม่งั้น Scheduler จะติดสถานะรอค้าง (Pending)",
+      "e5Title": "5. แก้ไข airflow-init",
+      "e5Note": "การระบุชื่อ container มีเหตุผลเดียวกับส่วนอื่นคือเพื่อให้มีการจัดการที่ง่ายขึ้นและเป็นระบบ",
+      "e6Title": "6. แก้ไข volumes",
+      "e6Note": "เราระบุชื่อเพิ่มเพื่อจะได้ไม่สับสน ถ้าหากในอนาคตมีหลายโปรเจคเราจะรู้ได้ทันทีว่า นี่คือข้อมูลของโปรเจกต์ Movies Docker Volume ปกติถ้าไม่ระบุชื่อ จะตั้งชื่อให้ตามชื่อโฟลเดอร์ อาจทำให้สับสนได้"
+    },
+    "services": {
+      "postgresDesc": "เป็นฐานข้อมูลที่ Airflow ใช้เก็บข้อมูลสำคัญทุกอย่างตั้งแต่รายชื่อ DAGs, สถานะการรันงาน, ประวัติการทำงาน รวมถึงการตั้งค่าต่างๆ ถ้าไม่มีตัวนี้ Airflow ทุกครั้งที่ปิดเปิดข้อมูลจะหายหมด",
+      "redisDesc": "เป็นตัวกลางส่งข้อความระหว่างส่วนต่างๆของ Airflow โดยเฉพาะเมื่อมีหลายเครื่องทำงานพร้อมกันหรือต้องการรันงานระดับหมื่น Task พร้อมกัน Redis จะใช้ Queue เป็นที่พักงานก่อนส่งให้ airflow-worker",
+      "webserverDesc": "ทำหน้าที่เชื่อมต่อกับโปรแกรมอื่นที่ต้องการสั่งให้ Airflow ทำอะไร ใน Airflow 3 จะใช้ชื่อ airflow-apiserver แทน",
+      "schedulerDesc": "เป็นส่วนที่สั่งให้งานต่างๆรันตามเวลาที่กำหนดและดูแลความสัมพันธ์ระหว่างงาน กรณีที่ใช้ LocalExecutor มันจะสั่งงานและทำงานตัวเอง Service นี้ต้องมีทุกกรณี ไม่งั้น Airflow จะไม่ทำงาน",
+      "dagProcessorDesc": "สิ่งใหม่ที่เพิ่มเข้ามาใน Airflow 3 แยกออกมาจาก Scheduler ทำหน้าที่อ่านไฟล์ DAG และตรวจสอบว่าเขียนถูกต้องไหม ก่อนหน้านี้ Scheduler ทำงานนี้เองแต่ถ้ามีไฟล์เยอะจะทำให้งานอื่นช้า จึงแยก Service ออกมา",
+      "workerDesc": "ทำหน้าที่รับงานจาก Scheduler มาทำ (CeleryExecutor) สำหรับ LocalExecutor คือให้ Scheduler สั่งงานและทำงานด้วยตัวเอง เปรียบเสมือนกับมี \"พนักงานคนเดียว\" ถ้าสเกลใหญ่ขึ้นการมีพนักงานคนเดียวจะทำให้รันงานช้า จึงต้องเพิ่ม worker เข้ามา",
+      "triggererDesc": "เป็น Service \"พิเศษ\" ที่คอยดูแลงานประเภท \"รอคอย\" เช่นรอไฟล์จาก S3 นาน 5 ชั่วโมง ถ้าใช้วิธีปกติ Scheduler หรือ Worker ต้องคอยรอทำงานตลอดซึ่งเปลืองทรัพยากร Triggerer จึงออกแบบมาให้รอแบบประหยัดไม่กินแรงเครื่อง",
+      "initDesc": "ย่อมาจาก Initialize ทำงานแค่ครั้งเดียวตอนติดตั้ง Airflow ใหม่ โดยจะสร้างตารางต่างๆในฐานข้อมูล Postgres สร้างบัญชีผู้ดูแลระบบ และตั้งค่าพื้นฐานต่างๆ หลังจากรันเสร็จแล้ว Service นี้จะปิดเองไม่ทำงานต่อ",
+      "flowerDesc": "Dashboard เป็นหน้าจอสำหรับดูสุขภาพของ Celery Worker โดยเฉพาะ แสดงสถานะของ Worker ทั้งหมด ว่า Worker ตัวไหนทำงานหนักไปหรือไม่ แต่ละตัวกำลังทำอะไรอยู่ มีงานค้างเท่าไหร่"
+    },
+    "summary": {
+      "title": "Phase 6 สำเร็จ!",
+      "subtitle": "สรุปสิ่งที่ทำใน Phase 6:",
+      "item1Title": "ตั้งค่า Docker",
+      "item1Desc": "สภาพแวดล้อม Docker พร้อมใช้งาน",
+      "item2Title": "ตั้งค่า Airflow",
+      "item2Desc": "LocalExecutor setup",
+      "item3Title": "โครงสร้างโฟลเดอร์",
+      "item3Desc": "dags, logs, config, plugins",
+      "item4Title": ".dockerignore",
+      "item4Desc": "ไม่รวมไฟล์ที่ไม่ต้องการ",
+      "item5Title": "Dockerfile",
+      "item5Desc": "Custom Airflow 2.10.4 image",
+      "item6Title": "docker-compose.yaml",
+      "item6Desc": "ดาวน์โหลดและปรับแต่งแล้ว",
+      "item7Title": "Services พร้อม",
+      "item7Desc": "postgres, scheduler, triggerer, init",
+      "item8Title": "Credentials Setup",
+      "item8Desc": "AWS + Snowflake + dbt env vars",
+      "nextTitle": "ขั้นตอนต่อไป",
+      "nextDesc": "Phase 7: ตั้งค่า DAGs และรัน Data Pipeline อัตโนมัติ"
+    },
+    "navBtn": {
+      "prev": "← Phase 5: Infrastructure Setup",
+      "next": "Phase 7: DAG Configuration →"
+    }
+  },
+  "phase7": {
+    "title": "dbt Setup & Configuration",
+    "subtitle": "DBT SETUP & CONFIGURATION",
+    "backBtn": "← กลับหน้าหลัก",
+    "navTitle": "หัวข้อ Phase 7",
+    "nav": {
+      "purpose": "จุดประสงค์ Phase 7",
+      "concepts": "แนวคิดพื้นฐาน",
+      "workflow": "Workflow",
+      "projectStructure": "โครงสร้าง dbt Project",
+      "sqlModel": "โครงสร้าง SQL Model",
+      "step1": "Step 1: Prerequisites",
+      "step2": "Step 2: เตรียม Environment",
+      "step3": "Step 3: ติดตั้ง dbt-snowflake",
+      "step4": "Step 4: สร้าง dbt Project",
+      "step5": "Step 5: Configure profiles.yml",
+      "step6": "Step 6: Update dbt_project.yml",
+      "step7": "Step 7: สร้าง sources.yml",
+      "step8": "Step 8: ทดสอบ dbt compile",
+      "summary": "Phase 7 สำเร็จ"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ใน Phase 7: dbt Setup & Configuration",
+      "desc": "ในเฟสนี้เรามีจุดประสงค์เพื่อติดตั้งและตั้งค่า dbt (Data Build Tool) ขอเรียกเฟสนี้ง่ายๆว่า การ dbt Setup ในเฟสนี้เป็นการวางโครงสร้างเพื่อให้สามารถเขียนโค้ดแปลงข้อมูล (Transformation) ในเฟสถัดไปได้อย่างเป็นระเบียบ ปลอดภัย และตรวจสอบได้",
+      "overviewTitle": "Overview: สิ่งที่เราจะทำในเฟสนี้ คือ",
+      "o1": "ติดตั้ง dbt-snowflake",
+      "o2": "สร้าง dbt project",
+      "o3": "Configure Snowflake connection",
+      "o4": "สร้าง sources (อ้างอิง MOVIES_RAW)",
+      "o5": "ทดสอบ connection",
+      "o6": "สร้างโครงสร้าง project",
+      "o7": "Verify setup"
+    },
+    "concepts": {
+      "title": "1. dbt คืออะไร?",
+      "desc": "dbt (data build tool) = เครื่องมือสำหรับแปลงข้อมูลใน Data Warehouse โดยใช้ SQL ในเฟสนี้เราจะทำการ Setup dbt ตามจุดประสงค์ที่ได้กล่าวไปข้างต้น"
+    },
+    "workflow": {
+      "title": "2. เข้าใจ Workflow",
+      "desc": "Workflow ของโปรเจคนี้มีลักษณะดังนี้:",
+      "flow": "CSV File → S3 Bucket → RAW Layer → STAGING Layer → MARTS Layer",
+      "layersTitle": "จาก workflow จะเห็นว่าเรามีการแบ่งโครงสร้างเป็น 3 Layers ใน Snowflake:",
+      "raw": "RAW Layer: คือที่เก็บข้อมูลดิบที่เราดูดมาจากแหล่งอื่น (S3) ซึ่งอาจจะมีข้อมูลซ้ำหรือรูปแบบยังไม่สวยงาม ไม่มีการแก้ไขข้อมูล (Immutable)",
+      "staging": "Staging Layer: คือชั้นที่มีการทำความสะอาดข้อมูล (cleansing)",
+      "marts": "Marts Layer: คือชั้นข้อมูลที่ผ่านการ Transform แล้ว สำหรับ analytics พร้อมสำหรับการนำไปทำรายงานหรือ Dashboard ในโปรเจคนี้เราจะทำ Dimension Tables และ Fact Tables",
+      "note": "หมายเหตุ: อย่าสับสนกับ S3 Bucket — ไม่ใช่ Staging Layer แต่เป็น 'Staging Storage' (พื้นที่เก็บชั่วคราว)"
+    },
+    "projectStructure": {
+      "title": "3. โครงสร้างของ dbt Project",
+      "desc": "ในโปรเจคนี้เราจะตั้งชื่อว่า movies_dbt ซึ่งโครงสร้างของ dbt Project มีลักษณะเป็นประมาณแบบนี้:",
+      "modelsTitle": "จากโครงสร้างนี้เราจะลงรายละเอียดที่โฟลเดอร์ models:",
+      "modelsDesc": "models/ เป็น Folder สำคัญที่สุด ใช้เป็นที่เก็บ SQL files ที่เราเขียน dbt จะรัน files เหล่านี้ใน Snowflake แต่ละไฟล์จะกลายเป็น VIEW หรือ TABLE (1 SQL file = 1 model)",
+      "stagingDesc": "models/staging/ ประกอบด้วย SQL files สำหรับสร้าง Staging Layer ไฟล์สำคัญได้แก่ sources.yml และ schema.yml หน้าที่ของโฟลเดอร์นี้คือ รับข้อมูลจาก Raw Layer มาทำความสะอาดและส่งข้อมูลสะอาดไปยัง MARTS Layer",
+      "martsDesc": "models/marts/ ประกอบด้วย SQL files สำหรับสร้าง Marts Layer ทำหน้าที่รับข้อมูลจาก Staging Layer เพื่อมา Analytics สำหรับสร้าง Star Schema (Dimension + Fact Tables) ให้สอดคล้องกับ data modeling ที่เราได้ทำการออกแบบไปก่อนหน้านี้"
+    },
+    "sqlModel": {
+      "title": "4. โครงสร้างของ SQL Model",
+      "desc": "ใน dbt นั้น Model คือไฟล์ .sql ที่เราเขียนคำสั่งต่างๆ โดยที่ 1 file = 1 model = 1 table/view ใน Snowflake",
+      "jinjaTitle": "SQL Models มีการใช้ Jinja Template ซึ่งข้อดีของการใช้ Jinja:",
+      "jinjaDesc": "ไม่ต้องเขียนชื่อตารางยาวๆ ซ้ำๆ และเราสามารถเขียนคำสั่งที่ใช้บ่อยๆ เก็บไว้เป็น 'ฟังก์ชัน' ได้ (ใน dbt เรียกว่า Macros)",
+      "syntaxTitle": "เครื่องหมายที่ต้องจดจำมีดังนี้:",
+      "s1": "{{ ... }} — Expressions: ใช้สำหรับพิมพ์ค่าออกมา เช่น การเรียกชื่อตาราง",
+      "s2": "{% ... %} — Statements: ใช้สำหรับตรรกะ เช่น การทำ Loop หรือเงื่อนไข if",
+      "s3": "{# ... #} — Comments: ใช้สำหรับเขียนบันทึกใน Code ที่ dbt จะไม่อ่าน",
+      "examplesTitle": "การใช้ Jinja Template ในโปรเจคนี้:"
+    },
+    "step1": {
+      "title": "⚙️ Step 1: Prerequisites",
+      "desc": "ต้องมีก่อนเริ่ม:",
+      "p1": "Phase 1–6 เสร็จแล้ว",
+      "p2": "Python 3.11 (มีอยู่แล้ว)",
+      "p3": "Snowflake account + credentials",
+      "p4": "ตาราง movies_db.raw.movies_raw มีข้อมูล",
+      "verifyTitle": "ตรวจสอบใน Snowflake:"
+    },
+    "step2": {
+      "title": "💻 Step 2: เตรียม Environment",
+      "s1": "เปิด Command Prompt (CMD)",
+      "s2": "ไปที่ Project Directory:",
+      "s3": "ตรวจสอบ:",
+      "s4": "Activate Virtual Environment:",
+      "s5": "อัปเดต pip:"
+    },
+    "step3": {
+      "title": "📦 Step 3: ติดตั้ง dbt-snowflake",
+      "s1": "ตรวจสอบว่าติดตั้งไปรึยัง:",
+      "s2": "ติดตั้ง dbt-snowflake (กรณีที่ยังไม่ได้ติดตั้ง):",
+      "s3": "ตรวจสอบ Installation:"
+    },
+    "step4": {
+      "title": "🚀 Step 4: สร้าง dbt Project และทดสอบการเชื่อมต่อ",
+      "desc": "ในส่วนนี้คือการสร้าง dbt Project ซึ่งฉันได้อธิบายโครงสร้างไปก่อนหน้านี้ ในส่วนนี้เราจะสร้าง dbt Project ที่มีชื่อว่า movies_dbt",
+      "s1": "สร้าง Project:",
+      "cmdDesc": "อธิบายคำสั่ง dbt init สำหรับสร้างโปรเจคนี้:",
+      "c1": "dbt init — คือคำสั่งสำหรับสร้างโปรเจค dbt (data build tool) ใหม่",
+      "c2": "movies_dbt — คือชื่อของโปรเจค dbt ที่จะสร้างขึ้น",
+      "c3": "คำสั่งนี้จะสร้างโครงสร้างโฟลเดอร์และไฟล์เริ่มต้นสำหรับโปรเจค movies_dbt ซึ่งจะประกอบด้วยโฟลเดอร์ models, tests, macros และไฟล์ config ต่างๆ ที่จำเป็นสำหรับการทำ data transformation",
+      "questionsTitle": "จากนั้นจะมีคำถาม — ตอบดังนี้:",
+      "q1": "Which database: พิมพ์ 1 (snowflake) แล้ว Enter",
+      "q2": "account: ใส่ Snowflake account ของคุณ",
+      "q3": "user: ใส่ username ของคุณ",
+      "q4": "Authentication type: พิมพ์ 1 (password)",
+      "q5": "password: ใส่ password ของคุณ",
+      "q6": "role: ACCOUNTADMIN (หรือ role ของโปรเจคคุณ)",
+      "q7": "warehouse: movies_wh",
+      "q8": "database: movies_db",
+      "q9": "schema: analytics (final output schema)",
+      "q10": "threads: 10",
+      "resultTitle": "ผลลัพธ์:",
+      "result": "ไฟล์ profiles.yml ถูกสร้างขึ้นใน C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "s2": "ทดสอบการเชื่อมต่อ dbt ↔ Snowflake:",
+      "successMsg": "ถ้าเห็น \"All checks passed!\" แปลว่าเราสามารถเชื่อม Snowflake กับ dbt ได้แล้ว",
+      "s3": "ตรวจสอบโครงสร้าง:"
+    },
+    "step5": {
+      "title": "🔧 Step 5: Configure profiles.yml file",
+      "desc": "หลังจากเราได้เชื่อมต่อระหว่าง Snowflake กับ dbt ไปแล้วใน Step 4 ใน Step 5 นี้เราจะปรับเปลี่ยน profiles.yml นิดหน่อย แต่ก่อนอื่นเรามารู้จักไฟล์ profiles.yml กันก่อนว่าคืออะไร",
+      "whatTitle": "profiles.yml คืออะไร?",
+      "whatDesc": "ทำหน้าที่เป็น 'ตัวกลาง' ในการเก็บข้อมูลการเชื่อมต่อระหว่าง dbt กับ Snowflake ภายในไฟล์ต้องมีการระบุ: Connection Details (account, user, password), Roles & Warehouse และ Database & Schema (ปลายทางที่ข้อมูลที่แปลงเสร็จแล้วจะไปวางไว้ — MOVIES_DB และ analytics)",
+      "securityNote": "เพื่อรักษาความปลอดภัย dbt จึงออกแบบมาให้เก็บไฟล์นี้ไว้นอกโปรเจค เพื่อป้องกันไม่ให้เราเผลออัปโหลดรหัสผ่านขึ้นไปบน GitHub",
+      "location": "Windows location: C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "s1": "หาไฟล์ profiles.yml โดยไปที่ C:\\Users\\<<YourName>>\\.dbt\\profiles.yml",
+      "s2": "เปิดไฟล์ profiles.yml ด้วย VS Code หรือ Notepad พอเปิดไฟล์แล้วจะเห็นไฟล์มีหน้าตาประมาณนี้:",
+      "s3": "Copy-paste โค้ดนี้:",
+      "envTitle": "แยกออกเป็น 2 environments:",
+      "devTitle": "dev (Development):",
+      "devDesc": "ใช้สำหรับทดสอบระหว่างพัฒนา เขียนข้อมูลไปที่ schema: staging ถ้า schema นี้ยังไม่เคยถูกสร้างมาก่อน dbt จะสร้างให้อัตโนมัติเมื่อรันคำสั่ง dbt run ในเฟสถัดไป ปลอดภัย ทดลองผิดพลาดได้ไม่กระทบ production",
+      "prodTitle": "prod (Production):",
+      "prodDesc": "ใช้สำหรับระบบจริง เขียนข้อมูลไปที่ schema: analytics ข้อมูลที่ Dashboard จะดึงไปใช้",
+      "targetNote": "เราสามารถสลับ target ได้ตลอดเวลา โดยใช้คำสั่ง dbt run --target dev หากต้องการใช้ dev environment หรือ dbt run --target prod หากต้องการใช้ระบบจริง",
+      "s4": "บันทึกไฟล์: Ctrl+S",
+      "s5": "ตรวจสอบไฟล์:",
+      "s6": "ทดสอบการเชื่อมต่ออีกครั้ง:"
+    },
+    "step6": {
+      "title": "📝 Step 6: Update dbt_project.yml",
+      "desc": "ในส่วนนี้เกี่ยวข้องกับไฟล์ dbt_project.yml ไฟล์นี้หลักๆ จะเอาไว้ กำหนด materialization (table / view / incremental), แยก schema ตาม environment (dev / prod) และจัดการโครงสร้าง models (staging / marts)",
+      "s1": "เปิดโฟลเดอร์ movies_dbt ใน VS Code หาไฟล์ dbt_project.yml",
+      "s2": "แก้ไขเนื้อหา — หาบรรทัดเหล่านี้และแก้ไข:",
+      "s2Before": "เดิม:",
+      "s2After": "แก้เป็น:",
+      "s3": "เพิ่ม Configuration ในไฟล์ dbt_project.yml — เลื่อนลงมาด้านล่าง หาบรรทัดนี้และแก้ไข:",
+      "s3Before": "เดิม:",
+      "s3After": "แก้เป็น:",
+      "configNote1": "movies_dbt ต้องตรงกับ name: ที่ระบุด้านบน",
+      "configNote2": "+materialized บอก dbt ว่าจะสร้าง model เป็นอะไรใน database",
+      "configNote3": "staging models จะเป็น view คือ เวลา query ทุกครั้งไม่เก็บข้อมูลไว้ สำหรับรับข้อมูลจาก Raw Layer มาทำความสะอาดและส่งข้อมูลสะอาดไปยัง MARTS Layer",
+      "configNote4": "marts models จะเป็น table คือ เวลา query ทุกครั้งมีการเก็บข้อมูลไว้ สำหรับรับข้อมูลจาก Staging Layer เพื่อมา Analytics สำหรับสร้าง Star Schema (Dimension + Fact Tables)",
+      "configNote5": "+schema คือชื่อที่จะต่อท้าย base schema จาก profiles.yml ช่วยแยก models ตาม layer"
+    },
+    "step7": {
+      "title": "📋 Step 7: สร้างไฟล์ Sources.yml",
+      "desc": "sources.yml เป็น YAML file ที่ 'ประกาศ' ข้อมูลต้นทาง (source data) ว่า 'ข้อมูลดิบของโปรเจคนี้ตั้งอยู่ที่ไหนใน Snowflake' สิ่งที่ต้องระบุประกอบด้วย: Database ไหน, Schema ไหน, Table ไหน, Columns อะไรบ้าง",
+      "benefitTitle": "ข้อดีของการสร้าง sources.yml:",
+      "benefitDesc": "เราไม่ต้องพิมพ์ชื่อตารางยาวๆ อย่าง movies_db.raw.movies_raw ซ้ำไปซ้ำมาหลายรอบ เราแค่ตั้งชื่อเรียกสั้นๆว่า raw แทน ทำให้ลดข้อผิดพลาด",
+      "s1": "ไปที่โฟลเดอร์ movies_dbt จากนั้นไปที่โฟลเดอร์ย่อย models:",
+      "s2": "สร้าง sources.yml ไปที่ Location: models/staging/sources.yml:",
+      "s3": "บันทึกไฟล์: Ctrl+S"
+    },
+    "step8": {
+      "title": "🧪 Step 8: ทดสอบไฟล์ Sources.yml ด้วย dbt compile",
+      "desc": "เปิด Terminal เราจะใช้คำสั่ง dbt compile สำหรับแปลง dbt model ให้กลายเป็น SQL ล้วนๆโดยไม่แตะ database พูดง่ายๆ ก็คือ 'dbt ดูว่าจะ SQL เขียนออกมายังไงจริงๆ โดยไม่แตะ database เลย'",
+      "s1": "รันคำสั่งนี้:",
+      "resultTitle": "ผลลัพธ์ที่ได้:",
+      "resultDesc": "อาจมี Warnings เป็นเพราะในไฟล์ dbt_project.yml เราตั้งค่า config สำหรับ path ไว้ที่ models.movies_dbt.staging และ models.movies_dbt.marts แต่ dbt หา model (.sql) ที่อยู่ใต้ path เหล่านี้ไม่เจอเลยเลยขึ้น Warning",
+      "successNote": "Compile สำเร็จ Warnings เป็นเรื่องปกติเพราะยังไม่มีไฟล์ .sql models"
+    },
+    "summary": {
+      "title": "Phase 7 สำเร็จ!",
+      "subtitle": "สรุปสิ่งที่ทำใน Phase 7:",
+      "item1Title": "ติดตั้ง dbt-snowflake",
+      "item1Desc": "version 1.8.4",
+      "item2Title": "สร้าง dbt Project",
+      "item2Desc": "movies_dbt project",
+      "item3Title": "ทดสอบการเชื่อมต่อ",
+      "item3Desc": "dbt debug — All checks passed!",
+      "item4Title": "ตั้งค่า profiles.yml",
+      "item4Desc": "dev (staging) + prod (analytics)",
+      "item5Title": "อัปเดต dbt_project.yml",
+      "item5Desc": "staging (view) + marts (table)",
+      "item6Title": "สร้าง sources.yml",
+      "item6Desc": "ประกาศ raw.movies_raw",
+      "item7Title": "กำหนด Tests",
+      "item7Desc": "not_null, unique",
+      "item8Title": "dbt compile ผ่าน",
+      "item8Desc": "Setup verified",
+      "nextTitle": "ขั้นตอนต่อไป",
+      "nextDesc": "Phase 8: เขียน SQL transformation models (staging + marts)"
+    },
+    "navBtn": {
+      "prev": "← Phase 6: Docker & Airflow Setup",
+      "next": "Phase 8: Manual Scripts →"
+    }
+  },
+  "phase8": {
+    "title": "Manual Scripts (Local → S3)",
+    "subtitle": "MANUAL SCRIPTS (LOCAL → S3)",
+    "backBtn": "← กลับหน้าหลัก",
+    "navTitle": "หัวข้อ Phase 8",
+    "nav": {
+      "purpose": "จุดประสงค์ใน Phase 8",
+      "part1": "Part 1: Update docker-compose.yml",
+      "part1_1": "  1. ลบ Config File",
+      "part1_2": "  2. เพิ่ม Performance Config",
+      "part1_3": "  3. แก้ไข Volumes",
+      "part1_4": "  4. ลด airflow-init",
+      "part1_5": "  5. ปรับ environment",
+      "part2": "Part 2: การรัน Airflow",
+      "part3": "Part 3: สร้างไฟล์ upload_to_s3.py",
+      "part4": "Part 4: Verification",
+      "part5": "Part 5: Load data in Snowflake UI",
+      "summary": "Phase 8 สำเร็จ"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ใน Phase 8",
+      "desc": "ในเฟสนี้เรามีจุดประสงค์เพื่อ:",
+      "o1": "Update ไฟล์ docker-compose.yml สำหรับ Airflow",
+      "o2": "รัน Airflow และทดสอบ",
+      "o3": "สร้าง Python script สำหรับอัปโหลดไฟล์ CSV จาก Local ไป S3",
+      "o4": "โหลดข้อมูลจาก S3 เข้า Snowflake (RAW Layer)"
+    },
+    "part1": {
+      "title": "Part 1: Update docker-compose.yml",
+      "desc": "หลังจากที่เราได้ไป dbt Setup และ config dbt กันมาแล้วในเฟสที่ 7 เราจะกลับมา Update ไฟล์ docker-compose.yml กันต่อก่อนที่เราจะรัน Airflow",
+      "c1Title": "1. ลบ Config File",
+      "c1BeforeLabel": "เดิม (ลบบรรทัดนี้):",
+      "c1Note": "ถ้าเราใช้ AIRFLOW_CONFIG หมายถึงกำลังบอก Airflow ให้อ่าน config จากไฟล์ airflow.cfg ซึ่งหมายความว่าเราต้องเขียนไฟล์ airflow.cfg แยกและต้อง config ไฟล์ 2 ไฟล์ทั้งไฟล์ airflow.cfg และไฟล์ .env ซึ่งซับซ้อนเกินไป วิธีที่ดีที่สุดคือลบบรรทัดนี้แล้วเรา config แค่ไฟล์ .env ก็เพียงพอ",
+      "c2Title": "2. เพิ่ม Performance Config",
+      "c2Intro": "เพิ่ม:",
+      "c2n1": "ทำให้ Airflow สามารถรัน task ได้พร้อมกันสูงสุด 32 tasks ในเวลาเดียวกัน (ทั้งระบบ)",
+      "c2n2": "แต่ละ DAG รัน task ได้พร้อมกันสูงสุด 16 tasks",
+      "c2n3": "แต่ละ DAG สามารถมีการรันพร้อมกันได้สูงสุด 16 runs",
+      "c2n4": "บอก Airflow ว่าให้อ่าน DAG files จากโฟลเดอร์ไหน",
+      "c2n5": "กำหนดให้ Scheduler จะตรวจสอบ DAG folder ทุกๆ 30 วินาที",
+      "c3Title": "3. แก้ไข Volumes",
+      "c3BeforeLabel": "เดิม:",
+      "c3AfterLabel": "เปลี่ยนเป็น:",
+      "c3Note": "ลบ /config เพราะเราตัดการใช้ไฟล์ airflow.cfg ออกไปแล้ว เราเพิ่ม /movies_dbt เพื่อให้ Airflow สามารถรันคำสั่ง dbt ได้ ซึ่ง Airflow จำเป็นต้องเข้าถึงไฟล์โปรเจกต์ dbt (เช่น models, dbt_project.yml) ที่เราเขียนไว้ในเครื่อง และเราต้องเข้าถึงไฟล์ข้อมูลดิบด้วย ดังนั้นเพิ่ม /data เพื่อเข้าถึงไฟล์ดิบ ส่วน /scripts เป็นโฟลเดอร์สำหรับเก็บ Python scripts ที่ใช้ใน Airflow DAGs เป็นไฟล์ Python ที่ไม่ใช่ DAG แต่ถูกเรียกใช้โดย DAGs",
+      "c4Title": "4. ลด command ใน airflow-init",
+      "c4Intro": "ใน airflow-init command: ตอนนี้มีประมาณ 100+ บรรทัด เราสามารถเก็บแบบเดิมได้หรือแทนที่ด้วยแบบสั้นนี้:",
+      "c5Title": "5. ปรับ environment",
+      "c5Intro": "เพิ่มเติมในส่วนของ environment:"
+    },
+    "part2": {
+      "title": "Part 2: การรัน Airflow",
+      "s1": "Build Docker Image:",
+      "s1Note": "ขั้นตอนนี้จะสร้าง Docker image จาก Dockerfile, ติดตั้ง dependencies จาก requirements.txt และเตรียม environment สำหรับ Airflow",
+      "s2": "Initialize Airflow Database:",
+      "s2Intro": "ขั้นตอนนี้จะ:",
+      "s2n1": "มีการสร้าง database schema สำหรับ Airflow",
+      "s2n2": "มีการสร้าง username: airflow  password: airflow ตามไฟล์ docker-compose.yml",
+      "s2n3": "มีการสร้าง folders ที่จำเป็น (logs, dags, plugins, movies_dbt และ data)",
+      "s2n4": "ตั้งค่า permissions",
+      "s2n5": "ถ้าเห็น 'Airflow initialization complete!' หมายถึงสำเร็จแล้ว",
+      "s3": "Start Airflow Services:",
+      "s3Note": "Start services ทั้งหมด (webserver, scheduler, postgres)",
+      "s4": "เปิด Web UI ที่ http://localhost:8080",
+      "loginLabel": "Login:"
+    },
+    "part3": {
+      "title": "Part 3: สร้างไฟล์ upload_to_s3.py",
+      "desc": "ในขั้นตอนนี้เราจะสร้างไฟล์เพื่ออัปโหลดไฟล์ CSV จาก Local (Docker Container) ไปยัง AWS S3 ไฟล์นี้เป็นจุดเริ่มต้นของ Data Pipeline ทั้งหมด ไฟล์นี้จะทำหน้าที่รับไฟล์ CSV จาก /opt/airflow/data/ และอัปโหลดไปยัง S3 bucket ที่กำหนดเอาไว้",
+      "step1Title": "Step 1: ตรวจสอบไฟล์ใน Folder data/",
+      "step1Result": "ผลลัพธ์: ควรเห็นไฟล์ top_100_movies_full_best_effort.csv ถ้าไม่มีให้วางไฟล์ CSV ลงไปในโฟลเดอร์ data/",
+      "step2Title": "Step 2: สร้างไฟล์ upload_to_s3.py ใน Folder scripts/",
+      "step2s1": "1. ตรวจสอบ Folder scripts/ จริงๆ เราสร้างโฟลเดอร์นี้ไว้ตั้งแต่ phase 4 แล้ว:",
+      "step2s2": "2. สร้างไฟล์ upload_to_s3.py ใน Folder scripts/",
+      "step2s3": "3. เขียน code ในไฟล์ upload_to_s3.py:",
+      "resultLabel": "ผลลัพธ์ที่ได้:"
+    },
+    "part4": {
+      "title": "Part 4: Verification",
+      "s1Title": "1. ตรวจสอบใน AWS S3",
+      "method1Label": "วิธีที่ 1: ใช้ AWS CLI",
+      "method2Label": "วิธีที่ 2: เข้า AWS Console",
+      "m2s1": "ไป S3 → Buckets → movies-pipeline-data-22",
+      "m2s2": "เข้า folder raw/",
+      "m2s3": "ต้องเห็น top_100_movies_full_best_effort.csv",
+      "s2Title": "2. ตรวจสอบใน Snowflake:",
+      "resultLabel": "ผลลัพธ์ที่ได้:"
+    },
+    "part5": {
+      "title": "Part 5: Load data in Snowflake UI",
+      "desc": "ในขั้นตอนนี้เราจะโหลดข้อมูลเข้าสู่ Raw schema ซึ่งข้อมูลยังคงอยู่ในระดับ Raw layer",
+      "s1": "เปิด Snowflake",
+      "s2": "Open Worksheet",
+      "s3": "Copy โค้ดนี้วางใน Worksheet:"
+    },
+    "summary": {
+      "title": "Phase 8 สำเร็จ!",
+      "subtitle": "สรุปสิ่งที่ทำใน Phase 8:",
+      "item1Title": "อัปเดต docker-compose.yml",
+      "item1Desc": "Performance config + volumes",
+      "item2Title": "รัน Airflow สำเร็จ",
+      "item2Desc": "webserver, scheduler, postgres",
+      "item3Title": "สร้าง upload_to_s3.py",
+      "item3Desc": "script อัปโหลด CSV ไป S3",
+      "item4Title": "ตรวจสอบสำเร็จ",
+      "item4Desc": "AWS S3 + Snowflake Stage",
+      "item5Title": "โหลดข้อมูลสำเร็จ",
+      "item5Desc": "S3 → Snowflake RAW Layer",
+      "item6Title": "ตรวจสอบ 100 แถว",
+      "item6Desc": "ตาราง movies_raw พร้อมใช้งาน",
+      "nextTitle": "ขั้นตอนต่อไป",
+      "nextDesc": "Phase 9: Data Cleansing & Staging — ทำความสะอาดข้อมูลและสร้าง Staging Models"
+    },
+    "navBtn": {
+      "prev": "← Phase 7: dbt Setup & Configuration",
+      "next": "Phase 9: Data Cleansing →"
+    }
+  },
+  "phase9": {
+    "title": "Data Cleansing & Staging Models",
+    "subtitle": "สร้าง Staging Layer — ชั้นแรกของ Data Transformation ด้วย dbt",
+    "backBtn": "← กลับหน้าหลัก",
+    "navTitle": "เนื้อหา",
+    "nav": {
+      "purpose": "จุดประสงค์ใน Phase 9",
+      "overview": "Overview",
+      "step1": "Step 1: stg_movies_cleaned.sql",
+      "step1Verify": "Verify Step 1",
+      "step2": "Step 2: stg_movies_enriched.sql",
+      "step2Verify": "Verify Step 2",
+      "step3": "Step 3: data_quality_report.sql",
+      "step4": "Step 4: schema.yml",
+      "step5": "Step 5: Generate Documentation",
+      "summary": "Summary"
+    },
+    "info": {
+      "title": "Phase 9 Info",
+      "models": "Models สร้าง",
+      "inputRows": "Input Rows",
+      "outputRows": "Output Rows",
+      "duplicatesRemoved": "Duplicates Removed",
+      "newColumns": "New Columns",
+      "tool": "Tool"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ใน Phase 9",
+      "desc": "ในเฟสนี้เราจะสร้าง Staging Layer ซึ่งเป็นชั้นแรกของการทำ Data Transformation โดยมีหน้าที่:",
+      "o1": "ทำความสะอาดข้อมูลดิบจาก RAW schema",
+      "o2": "แปลงข้อมูลให้อยู่ในรูปแบบที่พร้อมใช้งาน",
+      "o3": "จัดการกับ Missing Values และ Data Quality Issues",
+      "o4": "เตรียมข้อมูลสำหรับสร้าง Dimensional Model ในเฟสถัดไป"
+    },
+    "overview": {
+      "heading": "Overview",
+      "subh1": "1. Data Quality Issues (จาก Phase 1)",
+      "desc1": "จาก Phase 1 เราพบปัญหาเหล่านี้:",
+      "problem1": "ปัญหาที่ 1: Missing Data",
+      "thCol": "ชื่อคอลัมน์",
+      "thCount": "จำนวนค่าว่าง",
+      "thPct": "เปอร์เซ็นต์สูญหาย",
+      "thNote": "หมายเหตุ",
+      "note1": "มีข้อมูลว่างระดับสูง (ข้อมูลหายไปถึงครึ่งหนึ่ง ซึ่งอาจส่งผลต่อการวิเคราะห์คะแนนโดยรวม)",
+      "note2": "มีข้อมูลว่างระดับปานกลาง (ข้อมูลรายได้หายไปจำนวนหนึ่ง)",
+      "note3": "มีข้อมูลว่างระดับต่ำ",
+      "note4": "มีข้อมูลว่างระดับต่ำ",
+      "note5": "มีข้อมูลว่างระดับต่ำ",
+      "problem2": "ปัญหาที่ 2: ข้อมูลซ้ำ (Duplicate data)",
+      "problem2Desc": "พบว่ามีค่า Duplicate จำนวน 5 คู่ หรือจำนวน 10 แถว:",
+      "subh2": "สิ่งที่ทำใน Phase 9",
+      "subh2Desc": "ใน Phase 9 เราจะสร้าง 3 SQL Models ใน models/staging/ ดังนี้:",
+      "m1Desc": "Layer 1: Basic Cleaning — จัดการ Data Quality Issues จาก Phase 1",
+      "m2Desc": "Layer 2: Business Logic — จัดการค่า NULL และสร้างคอลัมน์ใหม่",
+      "m3Desc": "Quality Metrics — เช็คคุณภาพของข้อมูลหลังจากทำสองโมเดลแรก"
+    },
+    "step1": {
+      "heading": "Step 1: สร้าง stg_movies_cleaned.sql (Layer 1: Basic Cleaning)",
+      "infoHeading": "เป้าหมายของไฟล์ stg_movies_cleaned.sql",
+      "infoDesc": "เป็น staging model ชั้นแรกที่ทำความสะอาดข้อมูลพื้นฐาน ได้แก่:",
+      "i1": "Rename columns",
+      "i2": "Trim whitespace: ลบช่องว่างเกิน",
+      "i3": "Keep NULLs: ไม่แทนด้วย 0",
+      "i4": "แปลง empty strings เป็น NULL: ใช้ nullif()",
+      "i5": "Remove duplicates: ใช้ QUALIFY",
+      "subh": "วิธีสร้างไฟล์ stg_movies_cleaned.sql",
+      "s1": "1. เปิด Command Prompt (CMD):",
+      "s2": "2. Copy code นี้ทั้งหมดใส่ลงไป:",
+      "s3": "3. Compile:",
+      "s4": "4. Run:",
+      "result": "ผลลัพธ์ที่ได้:",
+      "warning": "หมายเหตุ: WARNING ที่เกิดเป็นเพราะเรายังไม่ได้สร้างโฟลเดอร์ marts ทำให้ dbt หา paths ไม่เจอ ซึ่งเราจะสร้างโฟลเดอร์นี้ในเฟส 10"
+    },
+    "step1Verify": {
+      "heading": "ขั้นตอน Verify ใน Snowflake (Step 1)",
+      "goal": "เป้าหมาย: ตรวจสอบความถูกต้องของข้อมูลระหว่าง Raw schema และ Staging schema (analytics_staging)",
+      "infoTitle": "ทำไมเป็น analytics_staging ไม่ใช่แค่ staging?",
+      "infoDesc": "dbt รวมชื่อ schema จาก 2 ที่: Target schema (analytics) + Custom schema (staging) วิธีการรวม: {target_schema}_{custom_schema} → ผลลัพธ์: analytics_staging",
+      "subh1": "ส่วนที่ 1: ตรวจสอบข้อมูลใน raw schema",
+      "v1": "1. ตรวจสอบจำนวนแถว (Total Rows)",
+      "v2": "2. ดูข้อมูล 5 rows แรก (Sample Data)",
+      "v3": "3. ตรวจสอบ NULL values",
+      "v4": "4. Duplicate Analysis",
+      "v5": "5. Unique Titles",
+      "cap1": "✅ ครบ 100 rows ตรงกับ Data Profiling (Phase 1)",
+      "cap2": "✅ ตรงกับ Data Profiling (Phase 1)",
+      "cap3": "✅ ตรงกับ Data Profiling (Phase 1)",
+      "subh2": "ส่วนที่ 2: ตรวจสอบข้อมูลใน analytics_staging schema",
+      "a1": "1. Total Rows",
+      "a3": "3. NULL Check",
+      "a4": "4. Duplicate Check (should be 0)",
+      "a5": "5. Unique Titles"
+    },
+    "step2": {
+      "heading": "Step 2: สร้าง stg_movies_enriched.sql (Layer 2: Business Logic)",
+      "infoHeading": "เป้าหมายของไฟล์ stg_movies_enriched.sql",
+      "infoDesc": "เป็น staging model ชั้นที่ 2 ที่มีการจัดการค่า NULL และสร้างคอลัมน์เพื่อวิเคราะห์ทางธุรกิจ",
+      "ib1": "ข้อมูลข้อความ (director, country, language): แทนที่ NULL ด้วย 'Unknown'",
+      "ib2": "ตัวเลข (runtime_mins, oscars_won, box_office_millions): แทนที่ NULL ด้วย 0",
+      "ib3": "คะแนนรีวิว (imdb_rating, rotten_tomatoes_pct, metacritic_score): เก็บ NULL ไว้ เพราะ 'ไม่มีข้อมูล' ≠ 'คะแนน 0'",
+      "subh": "วิธีสร้างไฟล์ stg_movies_enriched.sql",
+      "s1": "1. เปิด Command Prompt (CMD):",
+      "s2": "2. Copy code นี้ทั้งหมดใส่ลงไป:",
+      "s3": "3. Compile:",
+      "s4": "4. Run:",
+      "derivedTitle": "6 Derived Columns ที่สร้างใหม่",
+      "d1Basis": "IMDb score",
+      "d2Basis": "Box office revenue",
+      "d3Basis": "Oscars won",
+      "d4Basis": "Release year",
+      "d5Basis": "Release year",
+      "d6Basis": "Runtime in minutes"
+    },
+    "step2Verify": {
+      "heading": "ขั้นตอน Verify ใน Snowflake (Step 2)",
+      "topMovies": "Top Masterpiece Movies:"
+    },
+    "step3": {
+      "heading": "Step 3: สร้าง data_quality_report.sql — รายงานคุณภาพข้อมูล",
+      "s1": "1. เปิด Command Prompt (CMD):",
+      "s2": "2. Copy code นี้ทั้งหมดใส่ลงไป:",
+      "s3": "3. Run:",
+      "s4": "4. Verify — เปิด Snowflake Web UI → Worksheet → Run:",
+      "caption": "ผลลัพธ์: 13 checks — PASS 76.9%, INFO 23.1%"
+    },
+    "step4": {
+      "heading": "Step 4: สร้างไฟล์ schema.yml",
+      "desc": "schema.yml เป็น YAML file ที่ 'ประกาศ' models ที่เราสร้าง — บอก dbt ว่าตารางใหม่ที่เราทำขึ้นมามีหน้าตาและกฎเกณฑ์อย่างไร สามารถระบุกฎการตรวจสอบ เช่น คอลัมน์ movie_id ต้องห้ามว่าง (not_null) และห้ามซ้ำ (unique)",
+      "thFile": "ไฟล์",
+      "thUsedFor": "ใช้สำหรับ",
+      "thGoal": "เป้าหมายหลัก",
+      "sourceDesc": "ข้อมูลดิบ (ต้นทาง)",
+      "sourceGoal": "บอก dbt ว่า 'ข้อมูลดิบอยู่ที่ไหน'",
+      "schemaDesc": "ข้อมูลที่เราสร้างใหม่ (ปลายทาง)",
+      "schemaGoal": "บอก dbt ว่าตารางใหม่ที่เราทำขึ้นมามีหน้าตาและกฎเกณฑ์อย่างไร",
+      "s1": "1. เปิด Command Prompt (CMD):",
+      "s2": "2. ใส่เนื้อหาต่อไปนี้:",
+      "s3": "3. Run Tests:"
+    },
+    "step5": {
+      "heading": "Step 5: Generate Documentation",
+      "infoBox": "หลังจากรันโค้ดจะเปิด browser ให้อัตโนมัติ หรือเปิด browser ที่: http://localhost:8001",
+      "caption": "dbt Docs UI — แสดงโครงสร้าง project และ models ทั้งหมดใน analytics_staging"
+    },
+    "summary": {
+      "heading": "Phase 9: Data Cleansing & Staging Models COMPLETE!",
+      "subtext": "สรุป Phase 9: สิ่งที่ทำสำเร็จ",
+      "modelsTitle": "สร้าง Models สำเร็จ 3 models:",
+      "m1": "Layer 1: Basic Cleaning",
+      "m2": "Layer 2: Business Logic",
+      "m3": "Quality Monitoring",
+      "fixedTitle": "แก้ไข Data Quality Issues",
+      "thCol": "ชื่อคอลัมน์",
+      "thCount": "จำนวนค่าว่าง",
+      "thPct": "%สูญหาย",
+      "thHandling": "วิธีจัดการ",
+      "h1": "เก็บ NULL ไว้",
+      "h2": "แทนด้วย 0 (ไม่มีข้อมูล ≠ ขาดทุน)",
+      "h3": "เก็บ NULL ไว้",
+      "h4": "เก็บ NULL ไว้",
+      "h5": "แทนด้วย 0",
+      "dupTitle": "Duplicate Data — เก็บ rank ที่ดีกว่าไว้:",
+      "d1": "Rashomon: rank 45 ✅ เก็บไว้ / rank 79 ❌ ลบทิ้ง",
+      "d2": "Paths of Glory: rank 76 ✅ / rank 92 ❌",
+      "d3": "The Bridge on the River Kwai: rank 73 ✅ / rank 97 ❌",
+      "d4": "The Third Man: rank 47 ✅ / rank 71 ❌",
+      "d5": "The Great Dictator: rank 43 ✅ / rank 75 ❌",
+      "newColsTitle": "6 คอลัมน์ใหม่ใน stg_movies_enriched.sql",
+      "nc1": "Masterpiece, Excellent, Very Good, Good",
+      "nc2": "Blockbuster, Major Hit, Hit, Modest",
+      "nc3": "Oscar Winner (5+), (3-4), (1-2), No Oscar",
+      "nc4": "1930, 1940, ..., 2019",
+      "nc5": "Modern Era (2010s+), 2000s, 1990s, 1970s, 1950s, etc.",
+      "nc6": "Epic, Long, Standard, Short",
+      "finalBox": "Data Tests ผ่านทั้งหมด ✅ — 13 checks: PASS 76.9%, INFO 23.1%"
+    },
+    "navBtn": {
+      "prev": "← Phase 8: Manual Scripts",
+      "next": "Phase 10: Dimensional Modeling →"
+    }
+  },
+  "phase12": {
+    "backBtn": "← หน้าหลัก",
+    "title": "Testing & Documentation",
+    "subtitle": "สร้าง dbt tests เพื่อตรวจสอบคุณภาพข้อมูลและสร้างเอกสาร",
+    "navTitle": "เนื้อหา Phase 12",
+    "nav": {
+      "purpose": "จุดประสงค์ใน Phase 12",
+      "step1": "Step 1: schema.yml",
+      "step1_dims": "— Dimension Tables",
+      "step1_bridges": "— Bridge Tables",
+      "step1_fact": "— Fact Table",
+      "step2": "Step 2: Business Logic Tests",
+      "step3": "Step 3: Install dbt_utils",
+      "step4": "Step 4: Run Tests",
+      "step5": "Step 5: Generate Docs",
+      "summary": "สรุป"
+    },
+    "info": {
+      "title": "ข้อมูลสรุป"
+    },
+    "labels": {
+      "createFile": "สร้างไฟล์:",
+      "code": "Code:",
+      "run": "Run:",
+      "result": "ผลลัพธ์ที่ได้:"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ใน Phase 12",
+      "desc": "เพื่อทดสอบความถูกต้องของข้อมูลและตรวจสอบความถูกต้องของ Logic โดยเฟสนี้มีเป้าหมายคือ สร้าง dbt tests เพื่อตรวจสอบคุณภาพข้อมูล"
+    },
+    "step1": {
+      "heading": "STEP 1: สร้าง schema.yml สำหรับการทดสอบทั่วไป",
+      "infoText": "จุดประสงค์ที่สร้างไฟล์ schema.yml คือ เพื่อกำหนดโครงสร้างใน Dimension tables, bridge tables และ fact tables ส่งผลให้การตรวจสอบความถูกต้องและคุณภาพของข้อมูลมีคุณภาพมากยิ่งขึ้น",
+      "dimsHeading": "DIMENSION TABLES",
+      "bridgesHeading": "BRIDGE TABLES",
+      "factHeading": "FACT TABLE",
+      "saveNote": "บันทึกไฟล์ (Ctrl+S)"
+    },
+    "step2": {
+      "heading": "STEP 2: Business Logic Tests (การทดสอบกฎทางธุรกิจ)",
+      "desc": "ในขั้นตอนนี้เราจะต้องสร้างไฟล์แยกกันเพราะเราต้องการทดสอบว่าตรรกะที่เราเขียนนั้นคำนวณถูกต้อง เริ่มจากไฟล์",
+      "file1": "assert_movie_count.sql",
+      "file1desc": "ไฟล์ที่ 1 assert_movie_count.sql: ตรวจสอบว่ามีภาพยนตร์ 95 เรื่องไหม (หลังลบ duplicate แล้ว) เพราะข้อมูลต้นทางมี 100 แถว หลัง cleansing ต้องเหลือพอดี 95 เรื่อง ถ้าไม่ได้ 95 เรื่องแปลว่ามีปัญหาใน data cleansing",
+      "file2": "assert_no_orphan_bridges.sql",
+      "file2desc": "ไฟล์ที่ 2 assert_no_orphan_bridges.sql: ตรวจสอบว่าทุก Bridge Table เชื่อมกับตารางหลักถูกต้อง",
+      "file3": "assert_rating_consistency.sql",
+      "file3desc": "ไฟล์ที่ 3 assert_rating_consistency.sql: ตรวจสอบว่าคำนวณคอลัมน์ is_masterpiece ถูกต้องไหม โดยถ้า imdb_rating >= 9.0 ให้แทนเป็น is_masterpiece = 1 (ผลงานชั้นเยี่ยม) ถ้า imdb_rating < 9.0 ให้แทนเป็น is_masterpiece = 0 ในไฟล์นี้เราต้องการเช็คว่า rating กับ is_masterpiece ตรงกันทุกเรื่องไหม ถ้าตรงกันทุกเรื่องผลจะเป็น PASS แต่ถ้าไม่ตรงกันทุกเรื่องผลจะเป็น FAIL"
+    },
+    "step3": {
+      "heading": "STEP 3: Install dbt_utils Package",
+      "createFile": "1. สร้าง packages.yml:",
+      "addContent": "2. เพิ่ม:",
+      "install": "3. Install:"
+    },
+    "step4": {
+      "heading": "STEP 4: Run Tests",
+      "desc": "รัน tests ทั้งหมด:"
+    },
+    "step5": {
+      "heading": "STEP 5: Generate Documentation Site"
+    },
+    "summary": {
+      "heading": "Phase 12 เสร็จสมบูรณ์!",
+      "desc": "สร้าง dbt tests (schema.yml + 3 custom tests) และสร้าง dbt documentation site เสร็จสมบูรณ์",
+      "whatDone": "สรุปสิ่งที่ทำใน Phase 12:",
+      "thStep": "STEP",
+      "thFile": "ไฟล์ / คำสั่ง",
+      "thDesc": "รายละเอียด",
+      "row1": "กำหนดโครงสร้างและ tests สำหรับ MARTS tables ทั้ง 13 ตาราง",
+      "row2": "ตรวจสอบว่ามีภาพยนตร์ 95 เรื่องหลังลบ duplicate",
+      "row3": "ตรวจสอบว่าทุก bridge record มี foreign keys ถูกต้อง",
+      "row4": "ตรวจสอบว่า is_masterpiece flag สอดคล้องกับ IMDb rating",
+      "row5": "เพิ่ม dbt_utils v1.1.1",
+      "row6": "รัน schema + singular tests ทั้งหมด",
+      "row7": "สร้างและ serve dbt documentation site"
+    },
+    "navBtn": {
+      "prev": "← Phase 11: Bridge & Fact Tables",
+      "next": "Phase 13: DAG Development →"
+    }
+  },
+  "phase11": {
+    "backBtn": "← หน้าหลัก",
+    "title": "Bridge Tables and Fact Table",
+    "subtitle": "สร้าง Bridge Tables และ Fact Table สำหรับความสัมพันธ์แบบ Many-to-Many ใน Star Schema",
+    "navTitle": "เนื้อหา Phase 11",
+    "nav": {
+      "purpose": "จุดประสงค์ใน Phase 11",
+      "structure": "Project Structure",
+      "tables": "Tables Overview",
+      "part1": "PART 1: Bridge Tables",
+      "step1": "Step 1: bridge_movie_genre",
+      "step2": "Step 2: bridge_movie_actor",
+      "step3": "Step 3: bridge_movie_country",
+      "step4": "Step 4: bridge_movie_language",
+      "step5": "Step 5: bridge_movie_director",
+      "bridges_summary": "Bridges Summary",
+      "part2": "PART 2: Fact Table",
+      "final_verify": "Final Verification",
+      "summary": "สรุป"
+    },
+    "info": {
+      "title": "ข้อมูลสรุป"
+    },
+    "labels": {
+      "createFile": "สร้างไฟล์:",
+      "code": "Code:",
+      "run": "Run:",
+      "verify": "Verify:",
+      "result": "ผลลัพธ์ที่ได้:"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ใน Phase 11",
+      "desc1": "เป็นขั้นตอนที่ต่อเนื่องมาจาก Phase 10 เพื่อจัดการความสัมพันธ์ของข้อมูลที่ซับซ้อนใน Data Model",
+      "desc2": "จุดประสงค์หลักคือการแก้ปัญหาความสัมพันธ์แบบ Many-to-Many (M:N) ระหว่างตาราง Fact และ Dimension ที่ไม่สามารถเชื่อมต่อกันโดยตรงได้ ซึ่งในเฟสนี้มีเป้าหมายเพื่อ:",
+      "goal1": "สร้าง Bridge Tables สำหรับ many-to-many relationships",
+      "goal2": "สร้าง Fact Table เป็นหัวใจของ Star Schema"
+    },
+    "structure": {
+      "heading": "Project Structure"
+    },
+    "tables": {
+      "heading": "Tables ที่จะสร้างทั้งหมด: 13 Tables",
+      "dimTitle": "Dimension Tables (7 tables) สร้างเสร็จแล้วใน Phase 10:",
+      "bridgeTitle": "Bridge Tables ที่จะสร้างทั้งหมด 5 tables ในเฟสนี้:",
+      "factTitle": "Fact Table (1 table) ที่จะสร้างในเฟสนี้:"
+    },
+    "part1": {
+      "heading": "PART 1: BRIDGE TABLES",
+      "desc": "Bridge tables จัดการ Many-to-Many relationships"
+    },
+    "step1": {
+      "heading": "STEP 1: bridge_movie_genre"
+    },
+    "step2": {
+      "heading": "STEP 2: bridge_movie_actor"
+    },
+    "step3": {
+      "heading": "STEP 3: bridge_movie_country"
+    },
+    "step4": {
+      "heading": "STEP 4: bridge_movie_language"
+    },
+    "step5": {
+      "heading": "STEP 5: bridge_movie_director"
+    },
+    "bridges_summary": {
+      "heading": "Bridges Summary",
+      "runAll": "Run All Bridges:",
+      "verifyAll": "Verify All:"
+    },
+    "part2": {
+      "heading": "PART 2: FACT TABLE",
+      "desc": "Fact table สำหรับ movie performance metrics | Grain: หนึ่ง row ต่อหนึ่ง movie | Input: dim_movies, dim_time | Output: 95 rows"
+    },
+    "final_verify": {
+      "heading": "FINAL VERIFICATION",
+      "runAll": "รันทุกอย่าง:",
+      "completeCounts": "Complete Table Counts:"
+    },
+    "summary": {
+      "heading": "Phase 11 เสร็จสมบูรณ์!",
+      "desc": "สิ่งที่ทำใน Phase 11 คือ Bridge Tables (5 Tables) และ Fact table (1 table) ดังนั้นเรามี 6 Models",
+      "modelsBuilt": "Models ที่สร้างใน Phase 11:",
+      "totalModels": "เมื่อนำมารวมกับ Dimension tables (7 tables) และ Staging Layer จะได้รวมทั้งหมด 16 Models:",
+      "thCategory": "CATEGORY",
+      "thTable": "TABLE_NAME",
+      "thRows": "ROW_COUNT"
+    },
+    "navBtn": {
+      "prev": "← Phase 10: Dimensional Modeling",
+      "next": "Phase 12: Testing & Documentation →"
+    }
+  },
+  "phase10": {
+    "backBtn": "← หน้าหลัก",
+    "title": "Dimensional Modeling",
+    "subtitle": "สร้าง Dimensional Models ในรูปแบบ Star Schema ด้วย dbt",
+    "navTitle": "เนื้อหา Phase 10",
+    "nav": {
+      "purpose": "จุดประสงค์ใน Phase 10",
+      "structure": "Project Structure",
+      "step1": "Step 1: Setup Folders",
+      "step2": "Step 2: dim_movies",
+      "step3": "Step 3: dim_genres",
+      "step4": "Step 4: dim_directors",
+      "step5": "Step 5: dim_actors",
+      "step6": "Step 6: dim_countries",
+      "step7": "Step 7: dim_languages",
+      "step8": "Step 8: dim_time",
+      "summary": "Dimensions Summary"
+    },
+    "info": {
+      "title": "ข้อมูลสรุป"
+    },
+    "labels": {
+      "createFile": "สร้างไฟล์:",
+      "run": "Run:",
+      "verify": "Verify:",
+      "result": "ผลลัพธ์ที่ได้:"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ใน Phase 10",
+      "desc": "สร้าง Dimensional Models ในรูปแบบ Star Schema เพื่อให้ Dashboard และ Analytics สามารถ Query ข้อมูลได้อย่างมีประสิทธิภาพ"
+    },
+    "structure": {
+      "heading": "Project Structure",
+      "listTitle": "Dimension Tables ที่จะสร้างทั้งหมด (7 tables):"
+    },
+    "step1": {
+      "heading": "Step 1: Setup Folders",
+      "cmd": "Windows CMD:",
+      "verify": "Verify:"
+    },
+    "step2": {
+      "heading": "Step 2: dim_movies (Main Dimension)",
+      "infoText": "Movie dimension ที่มีข้อมูลครบถ้วน | Input: stg_movies_enriched | Output: 95 rows | materialized='table', schema='marts'",
+      "result": "ผลลัพธ์ที่ได้:"
+    },
+    "step3": {
+      "heading": "Step 3: dim_genres",
+      "infoText": "Genre lookup dimension | Input: stg_movies_enriched | Output: 21 rows | ใช้ LATERAL FLATTEN แยก genres_raw"
+    },
+    "step4": {
+      "heading": "Step 4: dim_directors",
+      "infoText": "Director lookup dimension | Input: stg_movies_cleaned (ใช้ cleaned เพราะต้องใช้ director_raw) | Output: 61 rows"
+    },
+    "step5": {
+      "heading": "Step 5: dim_actors",
+      "infoText": "Actor lookup dimension | Input: stg_movies_enriched | Output: 152 rows"
+    },
+    "step6": {
+      "heading": "Step 6: dim_countries",
+      "infoText": "Country lookup dimension | Input: stg_movies_enriched | Output: 16 rows | Split by country_list"
+    },
+    "step7": {
+      "heading": "Step 7: dim_languages",
+      "infoText": "Language lookup dimension | Input: stg_movies_enriched | Output: 12 rows | Split by language_list"
+    },
+    "step8": {
+      "heading": "Step 8: dim_time",
+      "infoText": "Time dimension (year-based) | Input: stg_movies_enriched | Output: 54 rows | หนึ่ง row ต่อหนึ่ง unique year"
+    },
+    "summary": {
+      "heading": "Dimensions Summary",
+      "runAll": "Run All Dimensions:",
+      "verifyAll": "Verify All:",
+      "completeMsg": "Phase 10: Dimensional Modeling (Star Schema) COMPLETE!",
+      "tablesBuilt": "เราได้สร้าง Dimension tables ไป 7 ตาราง ดังนี้:",
+      "thTable": "TABLE_NAME",
+      "thRows": "ROW_COUNT",
+      "thKey": "KEY FIELD",
+      "thDesc": "คำอธิบาย",
+      "d1Desc": "Actor ทั้งหมดจากทุกหนัง",
+      "d2Desc": "ประเทศทั้งหมดจากทุกหนัง",
+      "d3Desc": "ผู้กำกับทั้งหมดจากทุกหนัง",
+      "d4Desc": "ประเภทหนังทั้งหมด",
+      "d5Desc": "ภาษาทั้งหมดจากทุกหนัง",
+      "d6Desc": "ข้อมูลหนังทั้งหมดพร้อม attributes",
+      "d7Desc": "ปีที่ไม่ซ้ำกัน พร้อม time attributes"
+    },
+    "navBtn": {
+      "prev": "← Phase 9: Data Cleansing & Staging",
+      "next": "Phase 11: Bridge Tables & Fact Table →"
+    }
+  },
+  "phase13": {
+    "backBtn": "← หน้าหลัก",
+    "title": "DAG Development & Orchestration",
+    "subtitle": "สร้างระบบอัตโนมัติที่น่าเชื่อถือเพื่อจัดการ Task Dependencies",
+    "navTitle": "เนื้อหา Phase 13",
+    "nav": {
+      "purpose": "จุดประสงค์ของ Phase 13",
+      "step1": "Step 1: test_airflow_setup.py",
+      "step2": "Step 2: movies_pipeline_dag.py",
+      "step3": "Step 3: Snowflake Connection",
+      "step4": "Step 4: ทดสอบ DAG",
+      "summary": "สรุป"
+    },
+    "info": {
+      "title": "ข้อมูล Phase 13",
+      "dag1": "Test DAG",
+      "dag2": "Main DAG",
+      "tasks": "จำนวน Task",
+      "schedule": "ตารางเวลา",
+      "version": "Airflow Version",
+      "conn": "Snowflake Conn"
+    },
+    "labels": {
+      "openCmd": "เปิด CMD",
+      "paste": "Copy-Paste โค้ดนี้:"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ของ Phase 13",
+      "desc": "ในการพัฒนา Data Pipeline ในเฟสนี้เรามีจุดประสงค์ที่จะสร้างระบบที่สามารถทำงานอัตโนมัติ มีความน่าเชื่อถือ เพื่อกำหนดลำดับการทำงาน (Task Dependencies) อย่างชัดเจนและป้องกันการทำงานผิดลำดับ"
+    },
+    "step1": {
+      "heading": "Step 1: สร้าง test_airflow_setup.py",
+      "infoText": "ไฟล์นี้เป็นไฟล์ DAG ทดสอบ เพื่อตรวจสอบว่า Airflow ถูกติดตั้งและทำงานได้ถูกต้องก่อนที่จะเริ่มสร้าง DAG จริงสำหรับ Movies Pipeline"
+    },
+    "step2": {
+      "heading": "Step 2: สร้าง movies_pipeline_dag.py",
+      "infoText": "ไฟล์นี้เป็นไฟล์ที่สำคัญมาก เราจะสร้าง DAG ทุกขั้นตอนของ Movies Data Pipeline ตั้งแต่ CSV จนถึง Star Schema ใน Snowflake โดยอัตโนมัติ",
+      "tasksLabel": "Pipeline Tasks (8 tasks):",
+      "depsLabel": "Task Dependencies:"
+    },
+    "step3": {
+      "heading": "Step 3: Setup Snowflake Connection ใน Airflow",
+      "openAirflow": "1. เปิด Airflow",
+      "openUI": "2. เปิด Web UI",
+      "loginLabel": "Login:",
+      "setupLabel": "3. Setup Snowflake Connection ใน Airflow:",
+      "goto": "ไปที่ Admin → Connections",
+      "clickAdd": "คลิก + (Add a new record)",
+      "fillInfo": "กรอกข้อมูล Connection:",
+      "clickSave": "คลิก Save"
+    },
+    "step4": {
+      "heading": "Step 4: ทดสอบ DAG",
+      "step1Label": "1. ไปที่หน้า Dags หรือหน้าหลักของเรา:",
+      "step1Desc": "จะเห็นว่า DAG ถูก Toggle ON ไว้แล้ว แต่ถ้ายังให้ Trigger DAG ที่มุมซ้าย → คลิก toggle ให้เป็น ON (blue)",
+      "step2Label": "2. กด Trigger DAG ทั้งสอง",
+      "step3Label": "3. ดู Progress"
+    },
+    "summary": {
+      "heading": "สรุป",
+      "desc": "เราสร้างระบบ Orchestration ด้วย Apache Airflow สำเร็จแล้ว โดยมีทั้งหมด 8 tasks ตั้งแต่อัปโหลด CSV ไปจนถึงสร้าง dbt documentation อัตโนมัติ",
+      "whatDone": "สิ่งที่สร้างใน Phase 13:",
+      "thStep": "Step",
+      "thFile": "ไฟล์ / เครื่องมือ",
+      "thDesc": "รายละเอียด",
+      "row1": "Test DAG สำหรับตรวจสอบการทำงานของ Airflow",
+      "row2": "Main DAG ควบคุม Movies Data Pipeline ครบ 8 tasks",
+      "row3": "ตั้งค่า Snowflake connection ใน Airflow Admin",
+      "row4": "Trigger และตรวจสอบ DAG ทั้งสองสำเร็จ"
+    },
+    "navBtn": {
+      "prev": "← Phase 12: Testing & Documentation",
+      "next": "Phase 14: Dashboard →"
+    }
+  },
+  "phase14": {
+    "title": "Dashboard Creation with Power BI",
+    "subtitle": "การสร้าง Dashboard ด้วย Power BI เพื่อนำเสนอข้อมูลจาก Snowflake",
+    "backBtn": "← กลับหน้าหลัก",
+    "navTitle": "เนื้อหาในหน้านี้",
+    "sidebar": {
+      "quickInfo": "ข้อมูลสรุป",
+      "tool": "เครื่องมือ",
+      "dataSource": "แหล่งข้อมูล",
+      "schema": "Schema",
+      "tables": "Tables",
+      "dashboardPages": "Dashboard Pages",
+      "visuals": "Visuals"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ใน Phase 14",
+      "description": "เฟสนี้เป็นขั้นตอนสุดท้ายสำหรับการทำ data pipeline ในเฟสก่อนๆ เราได้จัดเตรียม ทำความสะอาด และจัดโครงสร้างมาแล้ว ในเฟสนี้มีจุดประสงค์เพื่อเชื่อมต่อกับ Snowflake เพื่อดึงข้อมูลจาก Star Schema และนำเสนอคุณค่าด้วย Data Visualization ที่เข้าใจง่ายและใช้งานได้จริง",
+      "infoboxTitle": "🎬 Phase 14 จะครอบคลุม:",
+      "coverage": [
+        "การติดตั้ง Power BI Desktop",
+        "การเชื่อมต่อกับ Snowflake",
+        "การ Import ข้อมูลจาก Star Schema (13 tables)",
+        "การตรวจสอบ Data Model และ Relationships",
+        "การสร้าง Dashboard 2 หน้าพร้อม 7+ Visualizations",
+        "การวิเคราะห์ข้อมูลภาพยนตร์ 95 เรื่อง จาก IMDb Top 100"
+      ]
+    },
+    "step1": {
+      "heading": "STEP 1: Install Power BI Desktop",
+      "description": "เราไม่ได้ลงรายละเอียดใน step นี้ การติดตั้งใช้เวลาไม่นานนัก สามารถทำเองได้",
+      "note": "💡 หมายเหตุ:",
+      "noteText": "สามารถดาวน์โหลด Power BI Desktop ได้จาก Microsoft Store หรือเว็บไซต์ทางการของ Microsoft"
+    },
+    "step2": {
+      "heading": "STEP 2: Connect to Snowflake",
+      "goal": "เป้าหมาย:",
+      "goalText": "เชื่อมต่อ Power BI กับ Snowflake เพื่อดึงข้อมูล",
+      "subsection1": {
+        "title": "2.1 เตรียม Snowflake Credentials",
+        "description": "ข้อมูลที่ต้องเตรียม:"
+      },
+      "subsection2": {
+        "title": "2.2 Connect to Snowflake",
+        "step1Title": "Step 1: Get Data",
+        "step1Items": [
+          "เปิด Power BI Desktop",
+          "คลิก \"Get data\" (Home tab)",
+          "หรือ: Home → Get Data → More..."
+        ],
+        "step2Title": "Step 2: Search for Snowflake",
+        "step2Description": "ใน \"Get Data\" dialog:",
+        "step2Items": [
+          "Search box: พิมพ์ \"Snowflake\"",
+          "เลือก \"Snowflake\"",
+          "คลิก \"Connect\""
+        ],
+        "step3Title": "Step 3: Enter Snowflake Details",
+        "step3Description": "Snowflake Connection Dialog จะขึ้นมา:",
+        "warningTitle": "⚠️ สำคัญ:",
+        "warningItems": [
+          "ต้องมี .snowflakecomputing.com ต่อท้าย",
+          "ห้าม https://"
+        ],
+        "step4Title": "Step 4: Authentication",
+        "step4Description": "Authentication dialog จะขึ้น:",
+        "step4Items": [
+          "เลือก \"Database\" (tab ซ้าย)",
+          "กรอก Username และ Password",
+          "คลิก \"Connect\""
+        ],
+        "step5Title": "Step 5: Navigator (Select Tables)",
+        "step5Description": "Navigator window จะแสดง databases:",
+        "step5Info": "จะเห็น tables 13 tables:",
+        "tables": [
+          "✅ DIM_MOVIES",
+          "✅ DIM_GENRES",
+          "✅ DIM_DIRECTORS",
+          "✅ DIM_ACTORS",
+          "✅ DIM_COUNTRIES",
+          "✅ DIM_LANGUAGES",
+          "✅ DIM_TIME",
+          "✅ BRIDGE_MOVIE_GENRE",
+          "✅ BRIDGE_MOVIE_ACTOR",
+          "✅ BRIDGE_MOVIE_COUNTRY",
+          "✅ BRIDGE_MOVIE_LANGUAGE",
+          "✅ BRIDGE_MOVIE_DIRECTOR",
+          "✅ FACT_MOVIE_PERFORMANCE"
+        ]
+      },
+      "subsection3": {
+        "title": "2.3 Verify Connection",
+        "items": [
+          "คลิกที่ DIM_MOVIES",
+          "ดู Preview ด้านขวา: ควรเห็น columns: MOVIE_ID, MOVIE_TITLE, RELEASE_YEAR...",
+          "ถ้าเห็นข้อมูล = เชื่อมต่อสำเร็จ!"
+        ]
+      }
+    },
+    "step3": {
+      "heading": "STEP 3: Import Data",
+      "goal": "เป้าหมาย:",
+      "goalText": "Import tables ที่ต้องใช้จาก Snowflake",
+      "subsection1": {
+        "title": "3.1 เลือก Tables",
+        "description": "วิธีเลือก:",
+        "items": [
+          "✅ Click checkbox ข้างชื่อ table",
+          "หรือ Ctrl+Click หลาย tables"
+        ],
+        "info": "ใน Navigator window: Select ทั้งหมด 13 tables, Dimensions (7), Bridges (5) และ Fact (1)"
+      },
+      "subsection2": {
+        "title": "3.2 Load Data",
+        "items": [
+          "คลิก \"Load\"",
+          "รอ loading..."
+        ]
+      },
+      "subsection3": {
+        "title": "3.3 Verify Data Loaded",
+        "description": "Check ใน \"Fields\" pane (ด้านขวา): ควรเห็น 13 tables",
+        "successTitle": "✅ เมื่อโหลดเสร็จ",
+        "successText": "คุณจะเห็น 13 tables ปรากฏใน Fields pane พร้อมใช้งาน ประกอบด้วย:",
+        "successItems": [
+          "Dimensions: 7 tables (Movies, Genres, Directors, Actors, Countries, Languages, Time)",
+          "Bridges: 5 tables (Movie-Genre, Movie-Actor, Movie-Country, Movie-Language, Movie-Director)",
+          "Fact: 1 table (Movie Performance)"
+        ]
+      }
+    },
+    "step4": {
+      "heading": "STEP 4: Data Model",
+      "subsection1": {
+        "title": "4.1 เข้า Model View",
+        "description": "คลิกที่ไอคอน \"Model\" ทางด้านซ้าย เพื่อตรวจสอบความสัมพันธ์ระหว่าง tables",
+        "infoTitle": "🔗 Power BI จะสร้าง Relationships อัตโนมัติ",
+        "infoText": "ระหว่าง Fact table และ Dimension tables ตาม Foreign Keys ที่กำหนดไว้ใน Snowflake ตรวจสอบว่า:",
+        "infoItems": [
+          "Bridge tables เชื่อมระหว่าง Fact กับ Dimensions อย่างถูกต้อง",
+          "Cardinality เป็น Many-to-One (*:1) ตามที่ออกแบบไว้",
+          "ไม่มี Ambiguous Relationships (เส้นสีแดง)"
+        ]
+      }
+    },
+    "step5": {
+      "heading": "STEP 5: Build Dashboards",
+      "subsection1": {
+        "title": "1. Create Page",
+        "description": "เปลี่ยนชื่อ page:",
+        "items": [
+          "Right-click \"Page 1\" (ล่างสุด)",
+          "Rename → \"Executive Summary\""
+        ],
+        "canvasTitle": "Canvas Setting:"
+      },
+      "subsection2": {
+        "title": "2. สร้าง Measures Table",
+        "description": "ก่อนสร้าง Visuals เราต้องสร้าง Measures ก่อน:",
+        "steps": [
+          "Home → Enter Data",
+          "ตั้งชื่อ table: \"DAX_Metrics\"",
+          "ลบ columns ทั้งหมด",
+          "Load"
+        ],
+        "daxTitle": "สร้าง DAX Measures:"
+      }
+    },
+    "kpi": {
+      "heading": "KPI Cards: ตัวเลขสำคัญ",
+      "goal": "เป้าหมาย:",
+      "goalText": "แสดงตัวเลขสำคัญที่สุดของภาพยนตร์ทั้งหมด",
+      "steps": [
+        "Insert → Card (4 cards)",
+        "เลือก Fields: Total Movies, Total Revenue, Total Oscars, Avg IMDb Rating",
+        "จัดเรียงเป็น 4 cards แนวตั้ง"
+      ],
+      "resultsTitle": "การอ่านผลลัพธ์:",
+      "results": {
+        "movies": "95 เรื่อง",
+        "moviesDesc": "มีภาพยนตร์ทั้งหมด 95 เรื่อง (5 เรื่องที่เหลือถูกลบไปเพราะเป็นแถวซ้ำ)",
+        "revenue": "$16,621M",
+        "revenueDesc": "รายได้รวม 16.6 พันล้านดอลลาร์ (เฉลี่ยต่อเรื่อง ~$210M)",
+        "oscars": "173",
+        "oscarsDesc": "รางวัล Oscar รวม (เฉลี่ย 1.8 รางวัล/เรื่อง)",
+        "rating": "8.40",
+        "ratingDesc": "คะแนน IMDb เฉลี่ย (ถือว่าสูงมาก > 8.0 = Excellent)"
+      }
+    },
+    "visual1": {
+      "heading": "Visual 1: Top 10 Movies by Revenue",
+      "goal": "เป้าหมาย:",
+      "goalText": "แสดงภาพยนตร์ที่ทำเงินได้มากที่สุด 10 อันดับแรก",
+      "steps": [
+        "Insert → Clustered bar chart",
+        "X-axis: DIM_MOVIES[MOVIE_TITLE]",
+        "Y-axis: DAX_Metrics[Total Revenue]",
+        "Add Top 10 Filter → Sort by Total Revenue Descending"
+      ],
+      "resultsTitle": "ผลลัพธ์ที่ได้:",
+      "topMoviesTitle": "อันดับ 1-3 เป็น Blockbusters ระดับพันล้าน:",
+      "topMovies": [
+        "1. The Lord of the Rings: Return of the King - $1,119.9M",
+        "2. The Dark Knight - $1,004.9M",
+        "3. The Lion King - $968.5M"
+      ],
+      "observation": "สังเกต:",
+      "observationText": "2 ใน 3 เป็น Trilogies ที่ประสบความสำเร็จ (LOTR trilogy)"
+    },
+    "visual2": {
+      "heading": "Visual 2: Revenue by Decade",
+      "goal": "เป้าหมาย:",
+      "goalText": "แสดงแนวโน้มรายได้ของภาพยนตร์ในแต่ละทศวรรษ",
+      "steps": [
+        "Insert → Line chart",
+        "X-axis: DIM_TIME[DECADE]",
+        "Y-axis: DAX_Metrics[Total Revenue]"
+      ],
+      "resultsTitle": "ผลลัพธ์ที่ได้:",
+      "goldenEra": "ยุค 2000s เป็นยุคทอง:",
+      "goldenEraText": "รายได้สูงสุดที่ ~$5,747M พร้อมคะแนน IMDb เฉลี่ย 8.5",
+      "growth": "การเติบโต:",
+      "growthText": "จาก <$100M (1930s-1940s) → $1,000M (1970s) → $5,300M (1990s) → Peak $6,000M (2000s)",
+      "decline": "ยุค 2010s:",
+      "declineText": "ลดลงเหลือ $2,000M (-67%) เนื่องจาก dataset มีข้อมูลถึงปี 2019 เท่านั้น"
+    },
+    "visual3": {
+      "heading": "Visual 3: Number of Movies by Genre",
+      "goal": "เป้าหมาย:",
+      "goalText": "แสดงจำนวนภาพยนตร์ในแต่ละ Genre",
+      "steps": [
+        "Insert → Clustered bar chart",
+        "X-axis: DIM_GENRES[GENRE_NAME]",
+        "Y-axis: BRIDGE_MOVIE_GENRE[MOVIE_ID] → Count (Distinct)",
+        "Sort by Count Descending"
+      ],
+      "resultsTitle": "ผลลัพธ์ที่ได้:",
+      "drama": "Drama ครองเจ้า:",
+      "dramaText": "69 เรื่อง = 72.6% ของภาพยนตร์ทั้งหมด (มากกว่า Crime อันดับ 2 ถึง 2.5 เท่า)",
+      "middle": "กลุ่มกลาง:",
+      "middleText": "Crime (27), Adventure (17), Comedy (16), Mystery (15), Thriller (13)",
+      "bottom": "กลุ่มล่าง:",
+      "bottomText": "Action, Fantasy, Romance, Sci-Fi เท่ากันที่ 11 เรื่อง",
+      "note": "หมายเหตุ:",
+      "noteText": "จำนวนรวม > 95 เพราะ 1 ภาพยนตร์มีหลาย genres"
+    },
+    "visual4": {
+      "heading": "Visual 4: Global Movie Production",
+      "goal": "เป้าหมาย:",
+      "goalText": "ดูความหลากหลายทางภูมิศาสตร์ของภาพยนตร์",
+      "steps": [
+        "Insert → Treemap",
+        "Category: DIM_COUNTRIES[COUNTRY_NAME]",
+        "Values: BRIDGE_MOVIE_COUNTRY[MOVIE_ID] → Count (Distinct)"
+      ],
+      "resultsTitle": "ผลลัพธ์ที่ได้:",
+      "us": "🇺🇸 United States ครองอุตสาหกรรม:",
+      "usText": "76 เรื่อง (80.0%)",
+      "uk": "🇬🇧 UK เป็นรองสอง:",
+      "ukText": "17 เรื่อง (17.9%) น้อยกว่า US ถึง 4.5 เท่า",
+      "others": "ประเทศอื่นๆ:",
+      "othersText": "Japan (5), Germany (4), Italy/France/NZ/Korea (3 เรื่อง)",
+      "takeaway": "Key Takeaway:",
+      "takeawayText": "Hollywood ครอง 80% ของภาพยนตร์คุณภาพสูงระดับโลก"
+    },
+    "visual5": {
+      "heading": "Visual 5: Rating Distribution",
+      "goal": "เป้าหมาย:",
+      "goalText": "แสดงการกระจายตัวของคะแนน IMDb",
+      "steps": [
+        "Insert → Clustered Column Chart",
+        "X-axis: Rating Range (7.5-7.9, 8.0-8.4, 8.5-8.9, 9.0-10.0)",
+        "Y-axis: Movies with IMDb (DAX measure ที่กรอง NULL)"
+      ],
+      "resultsTitle": "ผลลัพธ์ที่ได้:",
+      "great": "Great (8.0-8.4):",
+      "greatText": "51 เรื่อง (54.3%) - กลุ่มใหญ่ที่สุด",
+      "excellent": "Excellent (8.5-8.9):",
+      "excellentText": "36 เรื่อง (38.3%) - เกือบเท่ากับ Great",
+      "masterpiece": "Masterpiece (9.0-10.0):",
+      "masterpieceText": "5 เรื่อง (5.3%) - หายากมาก (Shawshank 9.3, Godfather 9.2, Dark Knight 9.0)",
+      "good": "Good (7.5-7.9):",
+      "goodText": "2 เรื่อง (2.1%) - คะแนนต่ำสุด (Social Network 7.7, Breakfast Club 7.8)"
+    },
+    "visual6": {
+      "heading": "Visual 6: Top 10 Oscar-Awarded Movies",
+      "goal": "เป้าหมาย:",
+      "goalText": "แสดงภาพยนตร์ที่ได้รับรางวัล Oscar มากที่สุด",
+      "steps": [
+        "Insert → Clustered bar chart",
+        "Y-axis: DIM_MOVIES[MOVIE_TITLE]",
+        "X-axis: Oscar Wins (Awarded Only) - DAX measure ที่กรอง > 0",
+        "Add Top 10 Filter"
+      ],
+      "resultsTitle": "ผลลัพธ์ที่ได้:",
+      "rank1": "🏆 อันดับ 1:",
+      "rank1Text": "The Lord of the Rings: Return of the King - 11 รางวัล (IMDb 8.90)",
+      "rank2": "อันดับ 2:",
+      "rank2Text": "On the Waterfront - 8 รางวัล (IMDb 8.10)",
+      "ranks36": "อันดับ 3-6:",
+      "ranks36Text": "4 เรื่องได้ 7 รางวัล (Lawrence of Arabia, Schindler's List, Bridge on River Kwai, The Sting)",
+      "note": "หมายเหตุ:",
+      "noteText": "47 เรื่องไม่มีรางวัล Oscar (49.5%)"
+    },
+    "visual7": {
+      "heading": "Visual 7: Quality vs Commercial Success",
+      "goal": "เป้าหมาย:",
+      "goalText": "แสดงความสัมพันธ์ระหว่างคุณภาพ (IMDb Rating) กับรายได้",
+      "steps": [
+        "Insert → Scatter chart",
+        "X-axis: FACT_MOVIE_PERFORMANCE[IMDB_RATING]",
+        "Y-axis: FACT_MOVIE_PERFORMANCE[BOX_OFFICE_MILLIONS]",
+        "Values: DIM_MOVIES[MOVIE_TITLE]",
+        "Enable Trend Line (Analytics pane)"
+      ],
+      "resultsTitle": "ผลลัพธ์ที่ได้:",
+      "trendline": "Trend Line เอียงขึ้น (Positive Slope):",
+      "trendlineText": "โดยรวม \"ยิ่งคะแนนสูง ยิ่งมีแนวโน้มทำเงินมากขึ้น\"",
+      "exceptionsTitle": "⚠️ แต่มีข้อยกเว้นมาก:",
+      "exceptions": [
+        "Masterpiece movies (9.0+) มีรายได้ต่างกันถึง 1,000 เท่า ($1M - $1,005M)",
+        "Shawshank Redemption (9.3) ทำเงินเพียง $58M",
+        "The Dark Knight (9.0) ทำเงินถึง $1,005M",
+        "Social Network (7.7) ทำเงิน $225M สูงกว่า Shawshank ถึง 4 เท่า"
+      ],
+      "conclusion": "สรุป:",
+      "conclusionText": "คะแนนเป็นเพียง 1 ปัจจัยในหลายปัจจัยที่ส่งผลต่อรายได้"
+    },
+    "dashboards": {
+      "heading": "Dashboard Pages - Final Result",
+      "description": "เมื่อจัดเรียง Visuals ทั้งหมดเข้าด้วยกัน จะได้ Dashboard 2 หน้าที่สมบูรณ์:",
+      "page1Title": "Page 1: Executive Summary (Overview)",
+      "page1InfoTitle": "Page 1 ประกอบด้วย:",
+      "page1Components": [
+        "KPI Cards (4 cards) - แสดงตัวเลขสำคัญ",
+        "Top 10 Movies by Revenue - แสดง Blockbusters",
+        "Revenue by Decade - แสดงแนวโน้มรายได้ตามยุคสมัย",
+        "Number of Movies by Genre - แสดงความนิยมของ Genre",
+        "Global Movie Production - แสดงการผลิตตามประเทศ"
+      ],
+      "page2Title": "Page 2: Deep Dive Analysis",
+      "page2InfoTitle": "Page 2 ประกอบด้วย:",
+      "page2Components": [
+        "Movies with IMDb by Rating Range - การกระจายตัวของคะแนน",
+        "Top 10 Most Oscar-Awarded Movies - ภาพยนตร์ที่ได้รางวัลมากที่สุด",
+        "Quality vs Commercial Success - ความสัมพันธ์ระหว่างคะแนนกับรายได้"
+      ]
+    },
+    "summary": {
+      "heading": "สรุป Phase 14",
+      "completeTitle": "✅ Phase 14: Dashboard Creation with Power BI — COMPLETE!",
+      "completeText": "คุณได้สร้าง Dashboard แบบ Interactive ที่สามารถนำเสนอข้อมูลจาก Data Pipeline ได้อย่างมีประสิทธิภาพ",
+      "accomplishedTitle": "สิ่งที่ได้ทำใน Phase 14:",
+      "tableHeaders": {
+        "step": "Step",
+        "details": "รายละเอียด",
+        "result": "ผลลัพธ์"
+      },
+      "steps": [
+        {
+          "step": "Step 1",
+          "details": "Install Power BI Desktop",
+          "result": "ติดตั้ง Power BI สำเร็จ"
+        },
+        {
+          "step": "Step 2",
+          "details": "Connect to Snowflake",
+          "result": "เชื่อมต่อ Snowflake และดึงข้อมูลจาก analytics_marts"
+        },
+        {
+          "step": "Step 3",
+          "details": "Import Data",
+          "result": "นำเข้า 13 tables (7 Dimensions, 5 Bridges, 1 Fact)"
+        },
+        {
+          "step": "Step 4",
+          "details": "Data Model",
+          "result": "ตรวจสอบ Relationships ระหว่าง tables"
+        },
+        {
+          "step": "Step 5",
+          "details": "Build Dashboards",
+          "result": "สร้าง Dashboard 2 หน้าพร้อม 7+ Visualizations"
+        }
+      ],
+      "pipelineCompleteTitle": "🎬 Data Pipeline สมบูรณ์แล้ว!",
+      "pipelineCompleteText": "จาก Phase 1-14 คุณได้สร้าง End-to-End Data Pipeline ตั้งแต่การเก็บข้อมูล, ทำความสะอาด, จัดเก็บใน Data Warehouse, ประมวลผลด้วย dbt, Orchestrate ด้วย Airflow, และนำเสนอผลลัพธ์ด้วย Power BI Dashboard ที่สมบูรณ์แบบ!",
+      "insightsTitle": "Key Insights จาก Dashboard:",
+      "insights": [
+        "95 ภาพยนตร์ ในฐานข้อมูล ด้วยคะแนน IMDb เฉลี่ย 8.40 (Excellent)",
+        "$16,621M รายได้รวมจากภาพยนตร์ทั้งหมด (เฉลี่ย $210M/เรื่อง)",
+        "173 รางวัล Oscar ที่ภาพยนตร์เหล่านี้คว้าไป (เฉลี่ย 1.8 รางวัล/เรื่อง)",
+        "Drama ครองความนิยม ด้วย 72.6% ของภาพยนตร์ทั้งหมด",
+        "United States ผลิตภาพยนตร์ 80% ของชุดข้อมูล (Hollywood dominance)",
+        "ยุค 2000s เป็นยุคทอง ด้วยรายได้เกือบ $6,000M และคะแนนสูง",
+        "LOTR: Return of the King ทำเงินและได้รางวัลมากที่สุด ($1,120M, 11 Oscars)",
+        "Masterpiece movies (9.0+) มีเพียง 5 เรื่อง แต่รายได้แตกต่างกันมาก"
+      ],
+      "learnedTitle": "สิ่งที่ได้เรียนรู้:",
+      "learnedSubtitle": "📊 Data Visualization Best Practices:",
+      "learned": [
+        "เลือก Visual Type ที่เหมาะสมกับข้อมูล (Bar, Line, Scatter, Treemap, Cards)",
+        "ใช้สีที่สื่อความหมายและสอดคล้องกันทั้ง Dashboard",
+        "จัดวาง Layout ให้สื่อเรื่องราว (Storytelling with Data)",
+        "สร้าง DAX Measures เพื่อคำนวณค่าที่ต้องการ",
+        "ใช้ Filters และ Slicers เพื่อให้ผู้ใช้ Explore ข้อมูลได้",
+        "เพิ่ม Trend Lines และ Analytics เพื่อเห็น Patterns"
+      ],
+      "nextSteps": "ขั้นตอนต่อไป",
+      "nextStepsDescription": "Phase 15: การ Deploy ระบบขึ้น AWS EC2 เพื่อให้ Data Pipeline ทำงานอัตโนมัติบน Cloud ตลอด 24/7 และสามารถเข้าถึงได้จากทุกที่ผ่าน Internet"
+    }
+  },
+  "phase15": {
+    "title": "EC2 Deployment",
+    "subtitle": "Deploy to AWS EC2 for 24/7 Cloud Operation",
+    "backBtn": "← กลับหน้าหลัก",
+    "navTitle": "สารบัญ",
+    "sidebar": {
+      "quickInfo": "ข้อมูลสรุป",
+      "tool": "เครื่องมือ",
+      "platform": "แพลตฟอร์ม",
+      "instance": "Instance Type",
+      "os": "ระบบปฏิบัติการ",
+      "services": "Services",
+      "deployment": "Deployment Method"
+    },
+    "purpose": {
+      "heading": "จุดประสงค์ของ Phase 15",
+      "description": "ในเฟสนี้มีจุดประสงค์เพื่อนำ Movies Data Pipeline ที่พัฒนาบนเครื่องเราไปขึ้น Production บน AWS EC2 เพื่อให้ระบบรันได้ 24/7 บน Cloud (ไม่ต้องเปิดเครื่องตัวเอง) และสามารถทำให้ Airflow ทำงานอัตโนมัติตาม Schedule ที่กำหนด นอกจากนี้ยังสามารถเข้าถึงได้จากทุกที่ ผ่าน Internet อีกด้วย",
+      "infoboxTitle": "ประโยชน์ของการ Deploy บน EC2:",
+      "benefits": [
+        "รันได้ 24/7 ไม่ต้องเปิดเครื่องตัวเอง",
+        "Airflow ทำงานอัตโนมัติตาม Schedule",
+        "เข้าถึงได้จากทุกที่ผ่าน Internet",
+        "มีความเสถียรและปลอดภัยมากกว่า Local",
+        "สามารถ Scale ขึ้นได้เมื่อต้องการ"
+      ]
+    },
+    "step1": {
+      "heading": "Step 1: สร้าง profiles.yml ใน Root Project",
+      "description": "ในขั้นตอนนี้เราเคยสร้างไฟล์ profiles.yml แล้วในเฟส 7 เมื่อเราเชื่อมต่อ dbt เข้ากับ Snowflake แล้วเราจะได้ไฟล์ profiles.yml ใน C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "roleTitle": "บทบาทของ profiles.yml:",
+      "roleDesc": "profiles.yml ทำหน้าที่เป็น \"ตัวกลาง\" ในการเก็บข้อมูลการเชื่อมต่อระหว่าง dbt กับ Snowflake",
+      "details": [
+        "ที่อยู่และตัวตน: ต้องระบุว่า dbt ต้องวิ่งไปที่ Account ไหนของ Snowflake, ใช้ Username อะไร, และรหัสผ่านอะไร",
+        "กำหนดสิทธิ์การทำงาน: บอก dbt ว่าเมื่อเข้าไปแล้ว ให้ใช้สิทธิ์ (Role) ระดับไหน และใช้เครื่องประมวลผล (Warehouse) ตัวไหนทำงาน",
+        "ระบุปลายทาง: กำหนดว่าข้อมูลที่แปลงเสร็จแล้วจะให้ไปวางไว้ที่ Database และ Schema ชื่ออะไร"
+      ],
+      "twoFiles": "โปรเจคนี้ใช้ profiles.yml 2 ไฟล์:",
+      "globalFile": "ไฟล์ที่ 1: profiles.yml ที่เป็น Global",
+      "globalLocation": "Location: C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "globalPurpose": "วัตถุประสงค์: ใช้สำหรับพัฒนาและทดสอบบนเครื่อง",
+      "projectFile": "ไฟล์ที่ 2: profiles.yml ที่เป็น Project",
+      "projectLocation": "Location: D:\\movies_pipeline\\movies_dbt\\profiles.yml",
+      "projectPurpose": "วัตถุประสงค์: ใช้สำหรับ deploy บน Docker/Airflow/EC2",
+      "createTitle": "วิธีสร้างไฟล์ profiles.yml (Project):",
+      "createStep1": "เปิด CMD และไปที่ movies_dbt",
+      "createStep2": "Copy-Paste โค้ดนี้จาก C:\\Users\\YourName\\.dbt\\profiles.yml แล้วทำให้ไม่อยู่ในแบบ hardcode",
+      "testConnection": "ทดสอบ Connection:",
+      "testDesc": "dbt จะค้นหาไฟล์ profiles.yml ตามลำดับ: 1) ใน folder ปัจจุบัน (ถ้ามี) → ใช้ไฟล์นี้, 2) ถ้าไม่เจอ → ไปหาที่ C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "testSteps": [
+        "ตั้งค่าตัวแปรสภาพแวดล้อม (environment variables)",
+        "ตรวจสอบว่าตั้งค่าสำเร็จ: echo %SNOWFLAKE_ACCOUNT%",
+        "รัน dbt debug",
+        "ถ้าเห็น 'All checks passed!' = สำเร็จ!"
+      ]
+    },
+    "step2": {
+      "heading": "Step 2: สร้าง EC2 Instance",
+      "console": "1. เข้าสู่ EC2 Console",
+      "consoleSteps": [
+        "Login เข้า AWS Console: https://console.aws.amazon.com",
+        "ตรวจสอบว่าคุณอยู่ใน Region: US East (N. Virginia)",
+        "ค้นหา 'EC2' ในช่องค้นหา แล้วคลิก 'EC2'",
+        "คลิก 'Launch Instance' (ปุ่มสีส้ม)"
+      ],
+      "configure": "2. กำหนดค่า Instance",
+      "nameTag": "Name and Tags: movies-pipeline-airflow",
+      "ami": "Application and OS Images (AMI):",
+      "amiDetails": [
+        "AMI: Ubuntu Server 22.04 LTS (HVM), SSD Volume Type",
+        "Architecture: 64-bit (x86)",
+        "คลิก 'Quick Start' tab → เลือก 'Ubuntu'",
+        "เลือก 'Ubuntu Server 22.04 LTS' (มีป้าย 'Free tier eligible')"
+      ],
+      "instanceType": "Instance Type: m7i-flex.large",
+      "instanceTypeDesc": "ในช่องค้นหา พิมพ์ 'm7i-flex.large' และเลือก (มีป้าย 'Free tier eligible')",
+      "keyPair": "Key Pair (Login):",
+      "keyPairNew": "ถ้ายังไม่มี Key Pair:",
+      "keyPairSteps": [
+        "คลิก 'Create new key pair'",
+        "Key pair name: movies-pipeline-key",
+        "Key pair type: RSA",
+        "Private key file format: .pem (ถ้าใช้ Mac/Linux) ← โปรเจคนี้ใช้อันนี้",
+        "คลิก 'Create key pair'",
+        "ไฟล์ .pem จะถูกดาวน์โหลด - เก็บไฟล์นี้ไว้อย่างปลอดภัย!"
+      ],
+      "networkSettings": "Network Settings:",
+      "networkSteps": [
+        "คลิก 'Edit' ใน Network settings",
+        "VPC: Default VPC (ปล่อยเป็น default)",
+        "Subnet: No preference",
+        "Auto-assign public IP: Enable (ต้องเปิดเพื่อ access ผ่าน internet)"
+      ],
+      "securityGroup": "Firewall (Security Groups):",
+      "sgName": "Security group name: movies-pipeline-sg",
+      "sgDesc": "Description: Security group for Airflow server",
+      "sgRules": "Inbound Security Group Rules:",
+      "rule1": "Rule 1: SSH - Type: SSH, Protocol: TCP, Port: 22, Source type: My IP",
+      "rule2": "Rule 2: Custom TCP (Airflow Webserver) - Port: 8080, Source type: My IP",
+      "rule3": "Rule 3: Custom TCP (Postgres) - Port: 5432, Source type: My IP",
+      "rule4": "Rule 4: HTTPS - Port: 443, Source type: Anywhere (0.0.0.0/0)",
+      "launch": "3. Launch Instance",
+      "launchSteps": [
+        "ดู Summary ทางขวามือ ตรวจสอบว่า Instance type: m7i-flex.large, Number of instances: 1",
+        "คลิก 'Launch instance' (ปุ่มสีส้มด้านล่างขวา)",
+        "รอ 1-2 นาทีให้ instance เริ่มทำงาน",
+        "คลิก 'View all instances' เพื่อดู instance ที่สร้าง"
+      ],
+      "verify": "4. ตรวจสอบ Instance Status",
+      "verifyDesc": "ใน EC2 Dashboard ควรเห็น Instance state: Running (สีเขียว), Status check: 2/2 checks passed (รอประมาณ 2-3 นาที), Public IPv4 address: คัดลอกเก็บไว้"
+    },
+    "step3": {
+      "heading": "Step 3: Connect to EC2",
+      "prepareKey": "1. เตรียม SSH Key (Windows)",
+      "keySteps": [
+        "เปิด PowerShell",
+        "ย้าย key ไปยัง folder .ssh (recommended)",
+        "ตรวจสอบว่ามีโฟลเดอร์ .ssh ไหม: dir $HOME\\.ssh",
+        "(ถ้าไม่มี) สร้าง folder .ssh: mkdir $HOME\\.ssh",
+        "ย้ายไฟล์ .pem: move $HOME\\Downloads\\movies-pipeline-key.pem $HOME\\.ssh\\",
+        "ตั้งค่า permission"
+      ],
+      "permissions": "ตั้งค่าสิทธิ์ไฟล์:",
+      "permSteps": [
+        "รีเซ็ต Permission: icacls.exe movies-pipeline-key.pem /reset",
+        "ให้สิทธิ์แบบ Replace: icacls.exe movies-pipeline-key.pem /grant:r \"$(env:USERNAME):(R)\"",
+        "ปิด Inheritance: icacls.exe movies-pipeline-key.pem /inheritance:r",
+        "เช็คว่าสิทธิ์ถูกต้อง: icacls movies-pipeline-key.pem"
+      ],
+      "connect": "2. Connect SSH เข้า EC2",
+      "connectCmd": "ssh -i \"movies-pipeline-key.pem\" ubuntu@<EC2_IP>",
+      "firstConnect": "ครั้งแรกที่ connect จะถาม 'Are you sure you want to continue connecting (yes/no)?'",
+      "firstConnectAction": "พิมพ์ yes แล้วกด Enter",
+      "successMsg": "เมื่อ connect สำเร็จ จะเห็น: Welcome to Ubuntu 22.04.3 LTS"
+    },
+    "step4": {
+      "heading": "Step 4: ติดตั้ง Software บน EC2",
+      "update": "1. Update ระบบ",
+      "updateCmd": "sudo apt update && sudo apt upgrade -y",
+      "docker": "2. ติดตั้ง Docker",
+      "dockerSteps": [
+        "ติดตั้ง dependencies",
+        "เพิ่ม Docker repository",
+        "ติดตั้ง Docker",
+        "ให้ user ubuntu ใช้ docker ได้โดยไม่ต้อง sudo",
+        "ต้อง logout แล้ว login ใหม่"
+      ],
+      "dockerVerify": "ตรวจสอบ Docker:",
+      "dockerCmds": [
+        "docker --version (ควรได้ Docker version 29.2.1 หรือใหม่กว่า)",
+        "docker compose version (ควรได้ Docker Compose version v5.0.2 หรือใหม่กว่า)"
+      ],
+      "projectDir": "3. สร้าง Project Directory ใหม่",
+      "projectDirCmd": "mkdir -p ~/movies-pipeline && cd ~/movies-pipeline",
+      "git": "4. ติดตั้ง Git",
+      "gitCmd": "sudo apt install -y git && git --version"
+    },
+    "step5": {
+      "heading": "Step 5: ย้ายโค้ดขึ้น EC2",
+      "github": "1. สร้าง GitHub Repository",
+      "githubSteps": [
+        "ไปที่ https://github.com",
+        "Login",
+        "คลิก '+' มุมขวาบน → 'New repository'",
+        "ตั้งชื่อ: movies-data-pipeline",
+        "เลือก Private (ถ้าไม่อยากให้คนอื่นเห็น)",
+        "อย่าเช็ค 'Add a README'",
+        "คลิก 'Create repository'"
+      ],
+      "push": "2. Push โค้ดจากเครื่อง",
+      "pushDesc": "ไปที่โฟลเดอร์โปรเจคของคุณ และรันคำสั่ง:",
+      "pushCmds": [
+        "git init",
+        "git add .",
+        "git commit -m 'Prepare for EC2 Deployment'",
+        "git branch -M main",
+        "git remote add origin https://github.com/yourusername/movies-pipeline.git",
+        "git push -u origin main"
+      ]
+    },
+    "step6": {
+      "heading": "Step 6: Clone Project จาก GitHub",
+      "description": "บน EC2 (อยู่ใน ~/movies-pipeline แล้ว)",
+      "cmd": "git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git .",
+      "note": "หมายเหตุ: มี . (จุด) ท้ายสุด = clone เข้า folder ปัจจุบัน"
+    },
+    "step7": {
+      "heading": "Step 7: ตรวจสอบไฟล์สำคัญ",
+      "checks": [
+        "ตรวจสอบว่ามี CSV file ใน data/: ls -la data/",
+        "ตรวจสอบว่ามี DAG files: ls -la dags/",
+        "ตรวจสอบ dbt project: ls -la movies_dbt/"
+      ]
+    },
+    "step8": {
+      "heading": "Step 8: สร้าง .env File",
+      "create": "1. สร้าง .env file",
+      "createCmd": "cd ~/movies_pipeline && nano .env",
+      "content": "2. ใส่ข้อมูลทั้งหมด",
+      "sections": [
+        "AIRFLOW SETTINGS",
+        "AWS Credentials",
+        "Snowflake Credentials"
+      ],
+      "save": "บันทึก: Ctrl + X, Y, Enter",
+      "verify": "ตรวจสอบ .env:",
+      "verifyCmds": [
+        "ดูว่าสร้างแล้ว: ls -la .env",
+        "ดูเนื้อหา: cat .env"
+      ],
+      "warning": "⚠️ คำเตือน: ไฟล์ .env มีข้อมูลสำคัญ ต้องเก็บไว้อย่างปลอดภัย และห้ามอัปโหลดขึ้น GitHub!"
+    },
+    "step9": {
+      "heading": "Step 9: Setup Permissions",
+      "setUid": "ตั้งค่า AIRFLOW_UID: export AIRFLOW_UID=50000",
+      "createDirs": "สร้าง directories (logs, plugins): mkdir -p logs plugins",
+      "setOwnership": "ตั้ง ownership: sudo chown -R 50000:0 logs dags plugins data movies_dbt",
+      "setPerms": "ตั้ง permissions: chmod -R 775 logs dags plugins data movies_dbt",
+      "verify": "ตรวจสอบ: ls -la"
+    },
+    "step10": {
+      "heading": "Step 10: Build Docker Images",
+      "cmd": "docker compose build",
+      "verify": "ตรวจสอบ Images ที่สร้าง: docker images | grep movies-pipeline",
+      "expected": "ควรเห็น: movies-pipeline-airflow-webserver, airflow-scheduler, airflow-triggerer, airflow-init"
+    },
+    "step11": {
+      "heading": "Step 11: Initialize Airflow Database",
+      "cmd": "docker compose up airflow-init",
+      "description": "คำสั่งนี้จะสร้าง database สำหรับ Airflow"
+    },
+    "step12": {
+      "heading": "Step 12: Start All Services",
+      "cmd": "docker compose up -d",
+      "description": "Start services (detached mode - รันเบื้องหลัง)"
+    },
+    "step13": {
+      "heading": "Step 13: Check Services Status",
+      "cmd": "docker compose ps",
+      "description": "ดู status ของ containers ทั้งหมด"
+    },
+    "step14": {
+      "heading": "Step 14: Access Airflow UI",
+      "url": "เปิด Browser: http://<EC2_IP>:8080",
+      "login": "Login:",
+      "username": "Username: airflow",
+      "password": "Password: airflow"
+    },
+    "step15": {
+      "heading": "Step 15: สร้าง Snowflake Connection ใน Airflow UI",
+      "steps": [
+        "ไปที่ Admin → Connections",
+        "คลิก + (Add a new record)",
+        "กรอกข้อมูล Connection"
+      ],
+      "fields": "กรอกข้อมูลดังนี้:",
+      "connectionId": "Connection Id: snowflake_default",
+      "connectionType": "Connection Type: Snowflake",
+      "schema": "Schema: RAW",
+      "login": "Login: YOUR_SNOWFLAKE_ACCOUNT",
+      "passwordField": "Password: YOUR_SNOWFLAKE_PASSWORD",
+      "extraFields": "Extra Fields Json:",
+      "save": "คลิก Save",
+      "enableDag": "เปิด DAG (Toggle ON)",
+      "viewProgress": "ดู Progress",
+      "sub1": {
+        "title": "ไปที่ Admin → Connections"
+      },
+      "sub2": {
+        "title": "กรอกข้อมูล Connection"
+      },
+      "sub3": {
+        "title": "เพิ่ม Extra Fields JSON"
+      },
+      "sub4": {
+        "title": "บันทึกการตั้งค่า"
+      },
+      "sub5": {
+        "title": "เปิด DAG และดู Progress"
+      }
+    },
+    "step16": {
+      "heading": "Step 16: กลับไปตรวจสอบใน Snowflake",
+      "useDb": "ใช้ database: USE DATABASE movies_db;",
+      "checkRaw": "ตรวจสอบ RAW schema:",
+      "rawCmds": [
+        "USE SCHEMA raw;",
+        "SELECT COUNT(*) as total_movies FROM movies_raw; -- ควรได้ 100 rows",
+        "SELECT * FROM movies_raw LIMIT 10;"
+      ],
+      "checkMarts": "ตรวจสอบ ANALYTICS_MARTS:",
+      "martsCmds": [
+        "USE SCHEMA ANALYTICS_MARTS;",
+        "SHOW TABLES; -- ควรเห็น 13 tables"
+      ],
+      "tables": "Tables ที่ควรมี:",
+      "tableList": [
+        "DIM_MOVIES",
+        "DIM_GENRES",
+        "DIM_DIRECTORS",
+        "DIM_ACTORS",
+        "DIM_COUNTRIES",
+        "DIM_LANGUAGES",
+        "DIM_TIME",
+        "BRIDGE_MOVIE_GENRE",
+        "BRIDGE_MOVIE_ACTOR",
+        "BRIDGE_MOVIE_COUNTRY",
+        "BRIDGE_MOVIE_LANGUAGE",
+        "BRIDGE_MOVIE_DIRECTOR",
+        "FACT_MOVIE_PERFORMANCE"
+      ],
+      "countAll": "Count all tables:",
+      "result": "ผลลัพธ์ที่ได้:",
+      "resultItems": [
+        "ตรงกับ Phase 11 ที่ Complete Table Counts",
+        "Phase 15: Deploy EC2 COMPLETE! 🎉"
+      ]
+    },
+    "summary": {
+      "heading": "สรุป Phase 15",
+      "complete": "คุณได้ Deploy Movies Data Pipeline ขึ้น AWS EC2 สำเร็จแล้ว!",
+      "accomplishments": "สิ่งที่ทำสำเร็จ:",
+      "items": [
+        "สร้าง EC2 Instance บน AWS",
+        "ติดตั้ง Docker และ Dependencies",
+        "Clone project จาก GitHub",
+        "ตั้งค่า Environment Variables",
+        "Build Docker Images สำหรับ Airflow",
+        "Start All Services (Webserver, Scheduler, Postgres, Redis)",
+        "เชื่อมต่อ Snowflake ผ่าน Airflow",
+        "ทดสอบ Pipeline และตรวจสอบข้อมูลใน Snowflake"
+      ],
+      "benefits": "ประโยชน์ที่ได้รับ:",
+      "benefitsList": [
+        "ระบบรันได้ 24/7 บน Cloud",
+        "Airflow ทำงานอัตโนมัติตาม Schedule",
+        "เข้าถึงได้จากทุกที่ผ่าน Internet",
+        "ไม่ต้องเปิดเครื่องตัวเอง",
+        "มีความเสถียรและปลอดภัยมากกว่า Local"
+      ],
+      "nextSteps": "ขั้นตอนต่อไป:",
+      "nextStepsList": [
+        "Monitor Airflow DAG Runs",
+        "ตรวจสอบ Logs เมื่อมีปัญหา",
+        "Optimize Performance เมื่อจำเป็น",
+        "Setup Backup และ Disaster Recovery",
+        "พัฒนา Pipeline ต่อไปตามความต้องการ"
+      ]
+    }
+  }
+}
