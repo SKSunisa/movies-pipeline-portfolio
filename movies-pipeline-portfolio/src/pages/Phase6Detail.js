@@ -149,7 +149,7 @@ const Phase6Detail = () => {
               </h2>
               <p style={styles.bodyText}>{t('phase6.purpose.desc')}</p>
               <div style={styles.imageWrapper}>
-                <img src="/images/phase6/objective.png" alt="Phase 6 Objective" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/images/phase6/objective.png" alt="Phase 6 Objective" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -227,7 +227,7 @@ mkdir plugins
 # or
 mkdir dags logs config plugins`} />
               <div style={styles.imageWrapper}>
-                <img src="/images/phase6/step5-3.png" alt="Folder Structure" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/images/phase6/step5-3.png" alt="Folder Structure" style={styles.screenshot} />
                 <p style={styles.imageCaption}>{t('phase6.step2.imageCaption')}</p>
               </div>
             </div>
@@ -380,7 +380,7 @@ LABEL airflow.version="2.10.4"`} />
                   {t('phase6.step5.s1')}
                   <CopyableCode code="https://airflow.apache.org/docs/apache-airflow/2.10.4/howto/docker-compose/index.html" />
                   <div style={styles.imageWrapper}>
-                    <img src="/images/phase6/step5-2.png" alt="Airflow docker-compose download" style={styles.screenshot} />
+                    <img src="/movies-pipeline-portfolio/images/phase6/step5-2.png" alt="Airflow docker-compose download" style={styles.screenshot} />
                   </div>
                 </li>
                 <li style={styles.listItem}>

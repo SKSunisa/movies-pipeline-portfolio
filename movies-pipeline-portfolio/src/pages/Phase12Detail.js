@@ -678,7 +678,7 @@ dbt docs serve --port 8001`} />
 
               <p style={styles.bodyText}><strong>{t('phase12.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase12/generate_docs_site.png" alt="Generate Documentation Site" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase12/generate_docs_site.png" alt="Generate Documentation Site" style={styles.screenshot} />
               </div>
             </div>
           </section>

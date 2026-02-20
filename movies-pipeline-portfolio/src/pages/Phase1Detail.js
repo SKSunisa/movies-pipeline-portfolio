@@ -74,7 +74,7 @@ const Phase1Detail = () => {
           <h3 style={styles.downloadTitle}>{t('phase1.downloads.title')}</h3>
           <div style={styles.downloadButtons}>
             <a
-              href="/downloads/imdb_top_100.csv"
+              href="/movies-pipeline-portfolio/downloads/imdb_top_100.csv"
               download
               style={styles.downloadButton}
             >
@@ -82,7 +82,7 @@ const Phase1Detail = () => {
               {t('phase1.downloads.dataset')}
             </a>
             <a
-              href="/downloads/data_profiling.ipynb"
+              href="/movies-pipeline-portfolio/downloads/data_profiling.ipynb"
               download
               style={{...styles.downloadButton, ...styles.downloadButtonAlt}}
             >
@@ -466,7 +466,7 @@ Language Rows with multiple values: 5 rows`}</pre>
             <h4 style={styles.outputTitle}>{t('phase1.statistics.resultTitle')}</h4>
             <div style={styles.imageContainer}>
               <img
-                src="/images/describe_output.png"
+                src="/movies-pipeline-portfolio/images/describe_output.png"
                 alt="data.describe() output"
                 style={styles.outputImage}
               />

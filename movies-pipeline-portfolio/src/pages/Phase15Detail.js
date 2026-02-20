@@ -315,7 +315,7 @@ SNOWFLAKE_ROLE=ACCOUNTADMIN`;
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase15/Step2-Rule-SSH.png" alt="Security Group Rules" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase15/Step2-Rule-SSH.png" alt="Security Group Rules" style={styles.screenshot} />
               </div>
 
               <p style={styles.bodyText}><strong>{t('phase15.step2.networkSettings')}</strong></p>
@@ -397,7 +397,7 @@ SNOWFLAKE_ROLE=ACCOUNTADMIN`;
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase15/install-docker.png" alt="Install Docker" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase15/install-docker.png" alt="Install Docker" style={styles.screenshot} />
               </div>
 
               <p style={styles.bodyText}><strong>{t('phase15.step4.dockerVerify')}</strong></p>
@@ -628,15 +628,15 @@ ls -la`} />
               <p style={styles.bodyText}>{t('phase15.step15.viewProgress')}</p>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase15/Step 15-1.png" alt="Airflow DAGs List" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase15/Step 15-1.png" alt="Airflow DAGs List" style={styles.screenshot} />
               </div>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase15/Step 15-2.png" alt="Test DAG Execution" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase15/Step 15-2.png" alt="Test DAG Execution" style={styles.screenshot} />
               </div>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase15/Step 15-3.png" alt="Movies Pipeline DAG Running" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase15/Step 15-3.png" alt="Movies Pipeline DAG Running" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -669,7 +669,7 @@ SHOW TABLES;
               </ul>
 
               <div style={styles.imageWrapper}>
-                <img src="/phase15/Step 16.png" alt="Verify in Snowflake" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase15/Step 16.png" alt="Verify in Snowflake" style={styles.screenshot} />
               </div>
 
               <InfoBox color="#27AE60">

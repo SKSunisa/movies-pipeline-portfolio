@@ -165,7 +165,7 @@ const Phase11Detail = () => {
                 <li style={styles.listItem}>{t('phase11.purpose.goal2')}</li>
               </ol>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/objective.svg" alt="Phase 11 Architecture" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/objective.svg" alt="Phase 11 Architecture" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -350,7 +350,7 @@ order by movie_id, genre_id
 
               <p style={styles.bodyText}><strong>{t('phase11.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/bridge_movie_genre.png" alt="bridge_movie_genre result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/bridge_movie_genre.png" alt="bridge_movie_genre result" style={styles.screenshot} />
               </div>
 
               <CopyableCode code={`-- See movies with multiple genres
@@ -365,7 +365,7 @@ LIMIT 10;`} />
 
               <p style={styles.bodyText}><strong>{t('phase11.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/bridge_movie_genre_2.png" alt="bridge_movie_genre genre count result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/bridge_movie_genre_2.png" alt="bridge_movie_genre genre count result" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -461,7 +461,7 @@ order by movie_id, actor_id
 
               <p style={styles.bodyText}><strong>{t('phase11.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/bridge_movie_actor.png" alt="bridge_movie_actor result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/bridge_movie_actor.png" alt="bridge_movie_actor result" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -557,7 +557,7 @@ order by movie_id, country_id
 
               <p style={styles.bodyText}><strong>{t('phase11.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/bridge_movie_country.png" alt="bridge_movie_country result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/bridge_movie_country.png" alt="bridge_movie_country result" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -654,7 +654,7 @@ order by movie_id, language_id
 
               <p style={styles.bodyText}><strong>{t('phase11.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/bridge_movie_language.png" alt="bridge_movie_language result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/bridge_movie_language.png" alt="bridge_movie_language result" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -752,7 +752,7 @@ order by movie_id, director_id
 
               <p style={styles.bodyText}><strong>{t('phase11.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/bridge_movie_director.png" alt="bridge_movie_director result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/bridge_movie_director.png" alt="bridge_movie_director result" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -781,7 +781,7 @@ SELECT 'bridge_movie_director', COUNT(*) FROM bridge_movie_director;`} />
 
               <p style={styles.bodyText}><strong>{t('phase11.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/bridges_summary.png" alt="Bridges Summary result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/bridges_summary.png" alt="Bridges Summary result" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -978,7 +978,7 @@ LIMIT 10;`} />
 
               <p style={styles.bodyText}><strong>{t('phase11.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/fact_table.png" alt="fact_movie_performance result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/fact_table.png" alt="fact_movie_performance result" style={styles.screenshot} />
               </div>
             </div>
           </section>
@@ -1018,7 +1018,7 @@ ORDER BY category, table_name;`} />
 
               <p style={styles.bodyText}><strong>{t('phase11.labels.result')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/phase11/complete_table_counts.png" alt="Complete Table Counts" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/phase11/complete_table_counts.png" alt="Complete Table Counts" style={styles.screenshot} />
               </div>
             </div>
           </section>

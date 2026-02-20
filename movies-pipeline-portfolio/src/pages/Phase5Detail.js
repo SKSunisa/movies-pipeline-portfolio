@@ -383,7 +383,7 @@ SNOWFLAKE_ROLE=`} />
                   <strong>{t('phase5.step1_6.s2Label')}</strong>
                   <ul style={styles.bulletList}><li style={styles.listItem}>{t('phase5.step1_6.s2a')}</li></ul>
                   <div style={styles.imageWrapper}>
-                    <img src="/images/step-1-6.png" alt="IAM Roles - Create role" style={styles.screenshot} />
+                    <img src="/movies-pipeline-portfolio/images/step-1-6.png" alt="IAM Roles - Create role" style={styles.screenshot} />
                     <p style={styles.imageCaption}>{t('phase5.step1_6.imgCaption')}</p>
                   </div>
                 </li>
@@ -555,7 +555,7 @@ SELECT
     CURRENT_USER()      AS USER;`} />
               <p style={styles.bodyText}><strong>{t('phase5.step2_5.resultLabel')}</strong></p>
               <div style={styles.imageWrapper}>
-                <img src="/images/step-2-5.png" alt="Snowflake query result" style={styles.screenshot} />
+                <img src="/movies-pipeline-portfolio/images/step-2-5.png" alt="Snowflake query result" style={styles.screenshot} />
                 <p style={styles.imageCaption}>{t('phase5.step2_5.imgCaption')}</p>
               </div>
               <CopyableCode code={`-- Verify created objects
