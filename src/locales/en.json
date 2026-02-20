@@ -1,0 +1,2570 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Project",
+    "phases": "Pipeline Phases"
+  },
+  "home": {
+    "title": "IMDb Top 100 Movies Data Pipeline",
+    "subtitle": "End-to-End Data Pipeline Portfolio",
+    "description": "This project builds an End-to-End Data Pipeline for analyzing IMDb Top 100 movies data using standard and globally recognized technologies and tools."
+  },
+  "objectives": {
+    "title": "Objectives",
+    "item1": "Learn the real workflow of a Data Engineer from start to finish",
+    "item2": "Practice using important tools that are widely used today"
+  },
+  "learning": {
+    "title": "What You'll Learn in This Project",
+    "cloud": {
+      "title": "Cloud Infrastructure",
+      "item1": "Using AWS EC2 for system deployment",
+      "item2": "Managing S3 bucket for Data Lake"
+    },
+    "orchestration": {
+      "title": "Data Orchestration",
+      "item1": "Using Apache Airflow to control and manage workflows",
+      "item2": "Writing DAGs (Directed Acyclic Graph) to define task sequences",
+      "item3": "Setting up scheduling and monitoring"
+    },
+    "warehouse": {
+      "title": "Data Warehousing",
+      "item1": "Using Snowflake as Cloud Data Warehouse",
+      "item2": "Designing Star Schema for data analysis"
+    },
+    "transform": {
+      "title": "Data Transformation",
+      "item1": "Using dbt (data build tool) for data transformation"
+    },
+    "modeling": {
+      "title": "Data Modeling",
+      "item1": "Designing Star Schema with Fact Table and Dimension Tables"
+    }
+  },
+  "architecture": {
+    "title": "Project Architecture",
+    "extract": "Extract",
+    "load": "Load",
+    "transform": "Transform",
+    "dataLake": "Data Lake (Staging Area)",
+    "rawLayer": "Data Warehouse (RAW Layer)",
+    "martsLayer": "Data Warehouse (MARTS Layer)",
+    "dashboard": "Dashboard (Power BI)",
+    "orchestration": "Orchestration with Apache Airflow"
+  },
+  "prerequisites": {
+    "title": "Prerequisites for This Project",
+    "item1": "AWS Account (Free Tier)",
+    "item2": "Snowflake Account (Free Tier)",
+    "item3": "Computer/Laptop",
+    "item4": "Basic Knowledge: SQL, Python (beginner level)"
+  },
+  "phases": {
+    "title": "Document Structure - 15 Phases",
+    "phase": "Phase",
+    "viewDetails": "View Details",
+    "phase1": {
+      "name": "Data Profiling",
+      "description": "Analyze and understand source data"
+    },
+    "phase2": {
+      "name": "Data Model Design",
+      "description": "Design data structure"
+    },
+    "phase3": {
+      "name": "Architecture Design",
+      "description": "Design system architecture"
+    },
+    "phase4": {
+      "name": "Environment Setup",
+      "description": "Setup Windows + Docker"
+    },
+    "phase5": {
+      "name": "Infrastructure Setup",
+      "description": "Setup AWS + Snowflake"
+    },
+    "phase6": {
+      "name": "Docker & Airflow Setup",
+      "description": "Install and configure Docker and Airflow"
+    },
+    "phase7": {
+      "name": "dbt Setup & Configuration",
+      "description": "Install and configure dbt"
+    },
+    "phase8": {
+      "name": "Manual Scripts",
+      "description": "Create scripts for Local → S3"
+    },
+    "phase9": {
+      "name": "Data Cleansing & Staging",
+      "description": "Clean data and create Staging Models"
+    },
+    "phase10": {
+      "name": "Dimensional Modeling",
+      "description": "Create Star Schema"
+    },
+    "phase11": {
+      "name": "Bridge & Fact Tables",
+      "description": "Create Bridge Tables and Fact Table"
+    },
+    "phase12": {
+      "name": "Testing & Documentation",
+      "description": "Test and create documentation"
+    },
+    "phase13": {
+      "name": "DAG Development",
+      "description": "Develop DAG and manage Orchestration"
+    },
+    "phase14": {
+      "name": "Dashboard",
+      "description": "Create Dashboard for visualization"
+    },
+    "phase15": {
+      "name": "EC2 Deployment",
+      "description": "Deploy system on AWS EC2"
+    }
+  },
+  "techStack": {
+    "title": "Technologies Used"
+  },
+  "common": {
+    "language": "Language",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "jumpTo": "Jump to"
+  },
+  "phase1": {
+    "title": "Data Profiling",
+    "subtitle": "Analyze and understand source data",
+    "navigation": {
+      "title": "Phase 1 Topics"
+    },
+    "downloads": {
+      "title": "Download Files",
+      "dataset": "Download Dataset (CSV)",
+      "notebook": "Download Jupyter Notebook"
+    },
+    "intro": {
+      "title": "What is Data Profiling?",
+      "description": "Data Profiling is the process of examining and analyzing data to understand its structure. Understanding data structure helps identify the format of source data, aids in appropriate schema design, enables efficient data pipeline planning, and ensures data quality. It also helps avoid redesign or rework that may arise from data misunderstanding later.",
+      "purposeTitle": "Purpose of Phase 1",
+      "purpose": "Study the structure of data within the dataset we'll use for this project. We'll perform Data Profiling to understand the internal data structure before building the data pipeline."
+    },
+    "sections": {
+      "overview": "Data Structure Overview",
+      "duplicates": "Duplicate Data",
+      "multivalue": "Multi-value",
+      "missing": "Missing Data",
+      "statistics": "Statistical Summary",
+      "outliers": "Outliers"
+    },
+    "overview": {
+      "title": "Data Structure Overview",
+      "description": "I used Pandas, one of the most popular libraries for Data Profiling. The summary is as follows:",
+      "totalRows": "Total Rows",
+      "totalRowsDesc": "Top 100 Movies",
+      "totalColumns": "Total Columns",
+      "dataTypes": "Main Data Types",
+      "intType": "Integer (int64)",
+      "objectType": "Text (object)",
+      "floatType": "Decimal (float64)"
+    },
+    "duplicates": {
+      "title": "Duplicate Data",
+      "description": "This section finds duplicate values in the 'Title' column (movie titles) by removing parentheses () for standardization.",
+      "methodTitle": "Duplicate Detection Method",
+      "results": "Results",
+      "summary": "Found duplicates",
+      "pairs": "pairs",
+      "rows": "rows",
+      "solutionTitle": "Handling Duplicates",
+      "solution": "After loading into Snowflake, we'll drop duplicate columns to make the data cleaner and more accurate. We'll keep the best rank and drop the worse ones, reducing from 100 rows to 95 rows."
+    },
+    "multivalue": {
+      "title": "Multi-value",
+      "description": "This section is very important because according to database principles, we cannot store multiple values in a single field. This step is crucial as it affects the schema design that will appear in Phase 2.",
+      "observation": "In this project, when running .head() or viewing the data structure overview from section 1, we found that some columns can have multiple values, identified by the | symbol used as a delimiter.",
+      "step1Title": "1. Find which columns contain | as delimiter",
+      "step2Title": "2. Show column name and number of rows with | delimiter",
+      "results1": "Output",
+      "results2": "Output",
+      "solutionTitle": "Handling Multi-value",
+      "solution": "The results show many rows with multiple values. We'll split them in Snowflake since this project uses an ELT data pipeline approach, choosing to Load first then Split in Snowflake."
+    },
+    "missing": {
+      "title": "Missing Data",
+      "description": "Found Missing Values in 5 columns from checking all 100 rows as shown in the table below:",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "columnName": "Column Name",
+      "missingCount": "Missing Count",
+      "percentage": "Missing Percentage",
+      "note": "Note",
+      "metacriticNote": "High level missing (half the data is missing, which may affect overall score analysis)",
+      "boxOfficeNote": "Medium level missing (some revenue data is missing)",
+      "lowNote": "Low level missing",
+      "solutionTitle": "Handling Missing Data",
+      "solution": "For handling missing data, initially I may choose to leave them as NULL. Leaving as NULL gives us options like \"should NULL be the average?\" or \"should it display as N/A?\" We can change our approach anytime without modifying the code."
+    },
+    "statistics": {
+      "title": "Statistical Summary",
+      "description": "Using:",
+      "resultTitle": "Output",
+      "summaryTitle": "Summary:",
+      "yearSummary": "Most movies are from the mid-20th century, with the oldest in 1931 and newest in 2019",
+      "imdbSummary": "Average rating is 8.39 with a maximum of 9.3",
+      "runtimeSummary": "Average runtime is 130 minutes, with shortest at 86 minutes and longest at 222 minutes",
+      "boxOfficeSummary": "Revenue has high variance (Std of 270.32) with maximum revenue of $1,119.9 million"
+    },
+    "outliers": {
+      "title": "Outlier Detection",
+      "description": "Outlier detection identifies unusual data points that may be 'erroneous data'. Outliers can occur from 2 main causes: Errors and Extreme Values.",
+      "purpose": "Outlier detection prevents 'skewed' statistics and helps discover interesting data patterns.",
+      "codeIntro": "I detected outliers using the following code:",
+      "validation": "From the code:",
+      "yearRule": "Year should not be older than 1800 or newer than current year, as historical data generally indicates movies started around 1800",
+      "imdbRule": "Must be between 0-10",
+      "runtimeRule": "Should not be negative or zero",
+      "rottenRule": "Percentage score must be between 0-100",
+      "oscarsRule": "Oscar count should not be negative"
+    },
+    "summary": {
+      "title": "Phase 1 Summary: Data Profiling",
+      "description": "This phase studied the data structure, revealing problems in the project's dataset. Since this project uses an ELT data pipeline approach, focusing on loading raw data into the system first (Load) then using SQL to handle transformations (Transform) later, Data Profiling is crucial before starting the Data pipeline process to ensure understanding of the data structure and lead to good design.",
+      "finding1Title": "Duplicate Values",
+      "finding1": "Found 5 pairs of duplicate 'Title' values after removing parentheses ()",
+      "finding2Title": "Multi-value",
+      "finding2": "According to database principles, we cannot store multiple values in a single field - to store this data, we'll use it in schema design in Phase 2",
+      "finding3Title": "Missing Data",
+      "finding3": "Leave as NULL for now as Unknown",
+      "nextSteps": "Next Steps",
+      "nextStepsDescription": "Phase 2: Design Data Model (Star Schema) to structure the profiled data into an optimal format for analysis"
+    }
+  },
+  "phase2": {
+    "title": "Data Model Design",
+    "subtitle": "Designing Star Schema",
+    "navigation": {
+      "title": "Phase 2 Topics"
+    },
+    "intro": {
+      "title": "What is Data Model?",
+      "description": "From Phase 1, we completed Data Profiling which helped us understand the data structure and handling methods. In Phase 2, we will create the Data Model.",
+      "purposeTitle": "Purpose of Phase 2",
+      "purpose": "Creating a Data Model helps us visualize data connections better, understand the logic for storing data. In organizational settings or collaborative work, Data Model becomes crucial for helping everyone involved understand the overall data picture and helps reduce future problems."
+    },
+    "sections": {
+      "problems": "Understanding Existing Problems",
+      "division": "Data Division",
+      "erdiagram": "ER-Diagram",
+      "schema": "Star Schema"
+    },
+    "problems": {
+      "title": "Understanding Existing Problems",
+      "description": "From Phase 1 Data Profiling, we identified problems in this project's dataset including Duplicate Data, Multi-value, and Missing Data. These problems determine the direction of Data Modeling design. If you don't know where to start, focus on data cleanliness and accuracy first. The most structurally significant problem is Multi-value — according to Database principles, we cannot store multiple values in a single field, so data must be separated as the first priority.",
+      "duplicate": "Duplicate Data",
+      "multivalue": "Multi-value",
+      "multivalueDesc": "According to Database principles, we cannot store multiple values in a single field. Normalization is required to solve Many-to-Many relationships.",
+      "missing": "Missing Data",
+      "focus": "The most structurally significant problem is Multi-value. In this project, we start Data Modeling from the Multi-value problem first — because according to Database principles, we cannot store multiple values in a single field, so data must be separated as the first priority."
+    },
+    "division": {
+      "title": "Data Division",
+      "description": "From section 1, the problem I identified was Multi-value. The core of the Multi-value problem is data compressed into one field. According to Database principles, \"one field must have one value\" (Atomicity). If we force data into one table, querying becomes very difficult, requiring us to restructure the data. Simply put, we need to analyze new table structures. Start by asking just 3 simple questions:",
+      "q1": "What do we primarily analyze or focus on?",
+      "q1Desc": "This question leads to creating a Fact Table. In this project, we primarily analyze \"Movies\" — so ✅ Fact Table = movies",
+      "q2": "What metrics does our Fact Table measure?",
+      "q2Desc": "Look back at the dataset we have — these are usually numeric or statistical columns. They must be actual measurable values (measures) that do not change with the analysis perspective.",
+      "q3": "What has its own Attributes and can be reused?",
+      "q3Desc": "Look back at the dataset again. This question leads to creating Dimension Tables.",
+      "dimensionTitle": "Dimension Tables in This Project",
+      "closing": "At this point we now have both a Fact Table and Dimension Tables. In the next section, we will draw an ER-Diagram."
+    },
+    "erdiagram": {
+      "title": "Drawing ER-Diagram (Chen diagram)",
+      "description": "ER-Diagram based on Business Rules. The Business Logic was designed by the author based on watching various movies and series, and is considered reasonably logical. The diagram summarizes the relationships between all entities in this project.",
+      "manyToMany": "Many-to-Many Relationship (M:N)",
+      "manyToManyDesc": "Most relationships in the diagram are M:N (Many-to-Many). According to Database principles, we cannot store M:N data directly in a table structure. Therefore, we must use Bridge Tables to resolve M:N relationships.",
+      "bridgeTitle": "Bridge Tables",
+      "bridgeDesc": "This leads us to create the Data Modeling as shown in the image below"
+    },
+    "schema": {
+      "title": "Star Schema vs Snowflake Schema",
+      "description": "Normally, Data Warehouse design is <strong>Denormalized</strong> — we avoid Normalization (or keep it minimal). However, when <strong>Many-to-Many</strong> relationships exist, we organize data using <strong>Dimensional Modeling</strong>, which consists of:",
+      "recommended": "Recommended",
+      "star1": "Basic Normalization only to solve Many-to-Many",
+      "star2": "Dimension Tables are not further Normalized",
+      "star3": "Emphasizes Query speed",
+      "snowflake1": "More Normalized (3NF-BCNF)",
+      "snowflake2": "Dimension Tables are subdivided further (e.g. separate country table)",
+      "snowflake3": "Saves storage but slower Query",
+      "projectChoice": "<strong>Our Project:</strong> Uses <strong>Star Schema</strong> — we Normalize only at the basic level to solve Many-to-Many using Bridge Tables for N:M. We do not perform deep OLTP-style Normalization <strong>because Data Warehouses prioritize ease and speed of Query.</strong>",
+      "finalDesc": "When converted to Star Schema, it looks like this",
+      "noteTitle": "Note: Bridge Tables ≠ Snowflake Schema",
+      "noteText": "Bridge Tables are a technique for solving Many-to-Many within Star Schema — not part of Snowflake Schema. The diagram may look like Snowflake Schema because of multiple tables, but the key principle is that Dimension Tables are not further normalized. That is the distinction between Star and Snowflake Schema.",
+      "modernNote": "However, modern tools have advanced significantly with more flexible alternatives — such as storing data as Array/Semi-structured types in a single table, then using special SQL commands (e.g. FLATTEN in Snowflake) to extract and analyze data as if it were in separate tables. This project chose the Normalization approach as a best practice for personal learning and for other readers."
+    },
+    "summary": {
+      "title": "Phase 2 Summary: Data Model Design",
+      "description": "In this phase, we designed a Data Model using Star Schema to handle Multi-value problems and Many-to-Many relationships.",
+      "finding1Title": "Fact Table",
+      "finding1": "fact_movie_performance for storing movie quantitative data",
+      "finding2Title": "Bridge Tables",
+      "finding2": "Created 5 Bridge Tables to solve Many-to-Many problems",
+      "finding3Title": "Star Schema",
+      "finding3": "Using Star Schema for Query speed and ease of understanding",
+      "nextSteps": "Next Steps",
+      "nextStepsDescription": "Phase 3: Architecture Design using the designed Data Model to plan system structure"
+    }
+  },
+  "phase3": {
+    "title": "Architecture Design",
+    "subtitle": "Designing Architecture & Tech Stack",
+    "navigation": {
+      "title": "Topics in Phase 3"
+    },
+    "sections": {
+      "purpose": "Purpose of Phase 3",
+      "concept": "Origin of the Concept",
+      "workflow": "Project Workflow",
+      "techstack": "Tech Stack"
+    },
+    "purpose": {
+      "description": "In Phase 3 our purpose is to design the Architecture to help us visualize how data flows from source to destination, what tools are used, reduce confusion, and align everyone's understanding.",
+      "outputTitle": "Outputs from this Phase:",
+      "output1": "Architecture Diagram",
+      "output2": "Tech Stack List"
+    },
+    "concept": {
+      "description": "Based on the project's goals, I wanted tools that require minimal installation, are cloud-based, and have a free trial for practice. After research, I narrowed it down to 2 main candidates for the Data Warehouse, each of which also defines itself as a Data Warehouse:",
+      "toolCompareTitle": "Data Warehouse Options Comparison",
+      "tool": "Tool",
+      "cloudBased": "Cloud-based",
+      "freeTrial": "Free Trial",
+      "easeOfUse": "Ease of Use",
+      "definition": "Definition",
+      "snowflakeCloud": "Via Browser",
+      "snowflakeTrial": "30 days ($400 credits)",
+      "snowflakeEase": "Very easy",
+      "snowflakeDef": "\"Snowflake tables are ideal for data warehouses\"",
+      "bigqueryCloud": "Via GCP",
+      "bigqueryTrial": "90 days ($300 credits)",
+      "bigqueryEase": "Moderate (longer setup)",
+      "bigqueryDef": "\"Google Cloud's fully managed, petabyte-scale, and cost-effective analytics data warehouse\"",
+      "decision": "I chose Snowflake because its setup is simpler, so I planned to use Snowflake as the data warehouse for this project.",
+      "s3Concept": "After further research and wanting to explore AWS as a cloud platform, I found that AWS S3 can serve as a Data Lake. This gave me the following concept:",
+      "s3Result": "Now I had the core concept for this project: using S3 (Data Lake) to load data into Snowflake, which serves as the Data Warehouse.",
+      "kaggleDesc": "Next, I needed to find Source data — a dataset. I used Kaggle to find source data and found a dataset called <a href=\"https://www.kaggle.com/datasets/shayanzk/imdb-top-100-movies-dataset-2025-edition\" target=\"_blank\" rel=\"noopener noreferrer\">IMDb Top 100 Movies Dataset (2025 Edition)</a> for this project's source data. I chose it because it is a small dataset, perfect for a practice project. After running Data Profiling in Phase 1, I had a rough idea of the Transform approach. By now I had the Workflow for this project:",
+      "eltIntro": "At this point, the data pipeline approach for this project became clear: we are doing \"ELT\".",
+      "eltCompareTitle": "ETL vs ELT Comparison",
+      "paradigm": "Paradigm",
+      "order": "Process Order",
+      "transformLocation": "Where Transform (T) Happens",
+      "transformTool": "Tool Used for Transform (T)",
+      "etlLocation": "Outside the warehouse (Staging Area)",
+      "etlTool": "External scripts: Python, Spark, Scala, Flink",
+      "eltLocation": "Inside the warehouse (Staging Tables)",
+      "eltTool": "Native SQL scripts",
+      "dbtReason": "So in this project, the \"ELT\" Transform step happens inside the Data Warehouse. The tool used for transformation is Native SQL scripts. I chose dbt for the Transform step because dbt is Native SQL enhanced with additional features. Plain SQL works too, but the problem with plain SQL is that you must run it in the correct order — a wrong sequence causes errors. dbt solves this with its DAG (Directed Acyclic Graph) system. Simply put, dbt has a structured workflow with a clear direction and no circular loops. It automatically determines the correct execution order based on dependencies, eliminating ordering errors that can occur with plain SQL.",
+      "dagExplain": ""
+    },
+    "workflow": {
+      "description": "The purpose of this project is to learn the data pipeline process and practice using widely-adopted tools. Here is an overview of the process used in this project.",
+      "layer": "Layer",
+      "layer1Title": "Docker Container",
+      "layer1Problem": "If we develop the project on Windows and then deploy it on EC2 (Linux) and it doesn't work — that's a big problem.",
+      "layer1SolutionIntro": "Docker solves this by wrapping everything in a container. Benefits of using Docker:",
+      "layer1Benefit1": "Runs on any machine — Windows, Mac, Linux, or Cloud (EC2)",
+      "layer1Benefit2": "Identical environments, eliminating the 'works on my machine but not yours' problem",
+      "layer1ExtractIntro": "Once the CSV data is inside the container, the first thing we do is move the data from the local machine to the Cloud. This step is called Extract:",
+      "layer1ExtractLabel": "EXTRACT:",
+      "layer1Extract1": "Python script reads top_100_movies_full_best_effort.csv from the data folder",
+      "layer1Extract2": "Script uses boto3 (AWS SDK) to upload the file to an S3 bucket",
+      "layer2Title": "Data Lake - Amazon S3",
+      "layer2Desc": "After upload, data lands in S3 — the Data Lake — acting as \"raw data storage\":",
+      "layer2Question": "Many might wonder: why not load directly into Snowflake? Why go through S3 first?",
+      "layer2Answer": "The answer is we need:",
+      "layer2Reason1": "Backup of the original data — if something goes wrong, we still have the raw data in the Data Lake (S3)",
+      "layer2Reason2": "Snowflake can pull data directly from S3 — using the COPY INTO command conveniently",
+      "layer3Title": "Data Warehouse - RAW Layer",
+      "layer3Desc": "Now that data is on S3, the next step is to load it into the Data Warehouse to prepare it for analysis.",
+      "layer3SchemaIntro": "Before loading data into the Data Warehouse, we split data into Layers by Schema. Simply put, we create 3 Schemas. Splitting into multiple Schema layers results in data being divided into Layers:",
+      "layer3Schema1": "Raw Schema: stores raw unprocessed data (Bronze Layer or Raw Layer)",
+      "layer3Schema2": "Staging Schema: stores cleaned, ready-to-use data (Silver Layer or Staging Layer)",
+      "layer3Schema3": "Marts Schema: stores Star Schema or analytics-ready data (Gold Layer or Marts Layer)",
+      "layer3Note": "Splitting data into Layers keeps data separate and organized",
+      "layer3LoadIntro": "In this step we Load data from S3 into the Data Warehouse:",
+      "layer3Load": "In Snowflake, we use the COPY INTO command to pull data from S3 into the Raw Schema first",
+      "layer3Raw": "The important thing to understand is that the RAW layer stores everything unmodified — data still has NULL values, Duplicates, and other issues:",
+      "layer3WhyTitle": "So why not clean the data at S3?",
+      "layer3WhyAnswer": "Because we want to preserve the raw data as-is. If our cleaning logic turns out to be wrong, we can reload the raw data",
+      "layer4Title": "Data Transformation - dbt",
+      "layer4Desc": "Data is transformed using dbt (data build tool), which converts raw data into high-quality data. Transformations happen inside the Staging Schema where data cleansing is performed.",
+      "layer5Title": "Data Warehouse - MARTS Layer",
+      "layer5Desc": "After data cleansing is complete, dbt runs and stores all transformed data in the Marts Schema of Snowflake, ready for analytics use.",
+      "layer6Title": "Dashboard - Power BI",
+      "layer6Desc": "Power BI connects to the Snowflake Marts Schema and pulls data from Fact + Dimension tables to build visualizations and display analytical results.",
+      "layer7Title": "Orchestration - Apache Airflow",
+      "layer7Desc": "Automates as much of the pipeline as possible from start to finish. Airflow manages execution order, scheduling, and monitoring of the entire data pipeline."
+    },
+    "techstack": {
+      "description": "This project uses the following tools:",
+      "dockerTitle": "Docker",
+      "dockerDesc": "Acts as the Containerization layer — isolates the project environment to prevent dependency conflicts, ensures Environment Consistency across all machines, and also serves as a server hosting platform.",
+      "s3Title": "AWS S3",
+      "s3Desc": "S3 stands for Simple Storage Service — Amazon's cloud file storage (similar to Google Drive). AWS S3 uses Buckets as large folders for storing files.",
+      "s3Role1": "Data Lake: raw data storage area",
+      "s3Role2": "Staging Area (temporary area): holds data before loading into Snowflake",
+      "s3Role3": "Backup Storage: when Snowflake has issues, raw data in S3 serves as a backup",
+      "s3Role4": "Integration Point: connects the local machine to Snowflake",
+      "snowflakeTitle": "Snowflake",
+      "snowflakeDesc": "Serves as the Data Warehouse for this project, storing both RAW data and ANALYTICS data transformed into Star Schema, used for querying and building dashboards.",
+      "ec2Title": "AWS EC2",
+      "ec2Desc": "Acts as a Virtual Server running Airflow and Docker on the cloud 24/7.",
+      "airflowTitle": "Apache Airflow",
+      "airflowDesc": "Serves as Workflow Orchestration — tracks and controls data pipeline execution from start to finish."
+    },
+    "summary": {
+      "title": "Phase 3 Summary: Architecture Design",
+      "description": "In this phase we designed the Architecture for the data pipeline, choosing an ELT pattern with a 7-layer architecture comprising Docker, AWS S3, Snowflake, dbt, Power BI, Apache Airflow, and AWS EC2.",
+      "finding1Title": "ELT Pattern",
+      "finding1": "Chose ELT over ETL because the Transform step happens inside the Data Warehouse using Native SQL (dbt), reducing infrastructure complexity.",
+      "finding2Title": "7-Layer Architecture",
+      "finding2": "Designed a 7-layer architecture from Docker Container to Power BI Dashboard, covering the full ELT pipeline.",
+      "finding3Title": "Cloud-First Approach",
+      "finding3": "Leverages Cloud services (AWS S3, EC2, Snowflake) for flexibility, scalability, and the ability to run from anywhere.",
+      "nextSteps": "Next Steps",
+      "nextStepsDescription": "Phase 4: Implement the designed Architecture, starting with Docker container setup and environment configuration."
+    }
+  },
+  "phase4": {
+    "title": "Environment Setup",
+    "subtitle": "Windows + Docker Setup",
+    "navigation": {
+      "title": "Jump to Section"
+    },
+    "sections": {
+      "purpose": "Purpose of Phase 4",
+      "steps": "Installation Steps",
+      "summary": "Phase 4 Summary"
+    },
+    "purpose": {
+      "description": "The purpose of Phase 4 is to install Docker and Python to set up the environment for this project. I've organized all the steps for you — just follow along."
+    },
+    "steps": {
+      "step1": {
+        "title": "Install Docker Desktop (Most Important!)",
+        "sub1Title": "Download Docker Desktop",
+        "sub1Code": "# Open browser and go to:\nhttps://www.docker.com/products/docker-desktop/",
+        "sub2Title": "Install Docker Desktop",
+        "sub2Warning": "Important! During installation, select:",
+        "sub2Check": "\"Use WSL 2 instead of Hyper-V\" (recommended if WSL is needed, but not used in this project)",
+        "sub2Click": "Click OK and wait for installation to complete",
+        "sub3Title": "Restart your computer",
+        "sub3Warn": "You must restart — otherwise Docker will not work",
+        "sub4Title": "Open Docker Desktop",
+        "sub4Step1": "After restart, Docker Desktop should open automatically",
+        "sub4Step2": "Check the system tray (bottom right) for the Docker icon",
+        "sub4Step3": "Wait until it shows \"Docker Desktop is running\"",
+        "sub5Title": "Test Docker installation",
+        "sub5Intro": "Open CMD and run:",
+        "sub5Code": "docker --version\ndocker-compose --version",
+        "sub5ResultLabel": "My result:",
+        "sub5Result": "Docker version 27.5.1, build 9f9e405\nDocker Compose version v2.32.4"
+      },
+      "step2": {
+        "title": "Install Python 3.11+",
+        "sub1Title": "Download Python",
+        "sub1Code": "# Open browser and go to:\nhttps://www.python.org/downloads/",
+        "sub1Note": "Download Python 3.11.x or 3.12.x (latest version)",
+        "sub2Title": "Install Python",
+        "sub2Warning": "Important! Don't forget! During installation, check:",
+        "sub2Check": "\"Add Python to PATH\" (at the bottom of the first screen)",
+        "sub2Note": "This is the most critical step! If you forget to check this, Python won't work in CMD",
+        "sub2Then": "Then:",
+        "sub2Click1": "Click \"Install Now\"",
+        "sub2Click2": "Wait about 5 minutes for installation to complete",
+        "sub3Title": "Test installation",
+        "sub3Intro": "Open a new CMD (must open a new one, not the previously opened window) and run:",
+        "sub3Code": "python --version\npip --version",
+        "sub3ResultLabel": "My result:",
+        "sub3Result": "Python 3.11.0\npip 25.3 from D:\\movies_pipeline\\venv\\Lib\\site-packages\\pip (python 3.11)"
+      },
+      "step3": {
+        "title": "Install Git (if not already installed)",
+        "description": "We install Git for version control and to create a .gitignore to prevent committing sensitive files (e.g. .env) before pushing to GitHub.",
+        "testLabel": "Test Git:",
+        "testCode": "git --version"
+      },
+      "step4": {
+        "title": "Create Project Folder Structure",
+        "sub1Title": "Open CMD and run:",
+        "sub1Code": "# Navigate to the drive where you want to store the project (this project uses D:)\nD:\n\n# Create the project folder\n# This project is named movies_pipeline\nmkdir movies_pipeline\ncd movies_pipeline\n\n# Create subfolder structure\nmkdir data\nmkdir scripts\n\n# Verify everything was created\ndir",
+        "sub2Title": "Copy the CSV file",
+        "sub2Note": "Copy top_100_movies_full_best_effort.csv into the data folder"
+      },
+      "step5": {
+        "title": "Create Python Virtual Environment",
+        "description": "A virtual environment keeps this project's packages separate from the system Python installation.",
+        "code": "# Navigate to the project folder (if not already there)\nD:\ncd movies_data_pipeline\n\n# Create a virtual environment named venv\npython -m venv venv\n\n# Activate the virtual environment\nvenv\\Scripts\\activate",
+        "successLabel": "After successful activation, you'll see (venv) at the front:",
+        "successResult": "(venv) D:\\movies_pipeline>"
+      },
+      "step6": {
+        "title": "Install Python Packages",
+        "description": "The venv is now active. Let's install all the required packages:",
+        "code": "# Upgrade pip to the latest version\npython -m pip install --upgrade pip\n\n# Install main packages\npip install pandas\npip install boto3\npip install snowflake-connector-python==3.12.2\npip install python-dotenv\npip install apache-airflow\npip install dbt-snowflake==1.8.4\npip install dbt-core==1.8.7\npip install apache-airflow-providers-snowflake==5.6.0",
+        "checkCode": "# Verify all packages are installed\npip list | findstr \"airflow dbt snowflake pandas boto3 numpy python-dotenv\"",
+        "resultLabel": "Result:"
+      },
+      "step7": {
+        "title": "Create requirements.txt",
+        "description": "For reinstalling packages in the future.",
+        "sub1": "Create requirements.txt in VS Code:",
+        "sub2": "Paste this code into requirements.txt:",
+        "code": "# ====================================\n# DBT + SNOWFLAKE\n# ====================================\ndbt-core==1.8.7\ndbt-snowflake==1.8.4\nsnowflake-connector-python==3.12.2\n\n# ====================================\n# AWS\n# ====================================\nboto3==1.42.34\n\n# ====================================\n# Snowflake Provider\n# ====================================\napache-airflow-providers-snowflake==5.6.0\n\n# ====================================\n# UTILITIES\n# ====================================\npython-dotenv==1.2.1"
+      }
+    },
+    "summary": {
+      "title": "Phase 4: Environment Setup COMPLETE!",
+      "description": "All necessary tools for this project are installed and ready for the next steps.",
+      "item1": "Docker Desktop (running)",
+      "item2": "Python 3.11+ + pip",
+      "item3": "Git for Windows",
+      "item4": "Project folder structure",
+      "nextSteps": "Next Steps",
+      "nextStepsDescription": "Phase 5: Proceed with AWS Infrastructure setup and connect it to the project."
+    }
+  },
+  "phase5": {
+    "title": "Infrastructure Setup",
+    "subtitle": "AWS + Snowflake SETUP",
+    "backBtn": "← Back to Home",
+    "navTitle": "Phase 5 Topics",
+    "nav": {
+      "purpose": "Purpose of Phase 5",
+      "step1": "Step 1: AWS S3 Setup",
+      "step1_1": "  1.1 Create AWS Account",
+      "step1_2": "  1.2 Create S3 Bucket",
+      "step1_3": "  1.3 Create Folder on S3",
+      "step1_4": "  1.4 Create IAM User",
+      "step1_5": "  1.5 AWS Credentials",
+      "step1_6": "  1.6 IAM Role",
+      "step2": "Step 2: Snowflake Setup",
+      "step2_1": "  2.1 Sign up Snowflake",
+      "step2_2": "  2.2 Create Warehouse",
+      "step2_3": "  2.3 Create Database & Schema",
+      "step2_4": "  2.4 Set Context",
+      "step2_5": "  2.5 Verify Objects",
+      "step2_6": "  2.6 Storage Integration",
+      "step2_7": "  2.7 Update IAM Role",
+      "step2_8": "  2.8 Create Stage",
+      "step2_9": "  2.9 File Format",
+      "step2_10": "  2.10 Create Table",
+      "step2_11": "  2.11 Update .env",
+      "summary": "Phase 5 Complete"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 5",
+      "desc1": "The purpose of Phase 5 is to set up AWS and Snowflake. The goal is to create an AWS Account, S3 Bucket, and Snowflake Account that can connect to each other.",
+      "desc2": "Phase 5 has 2 main steps: Step 1 focuses on AWS configuration, and Step 2 focuses on Snowflake configuration.",
+      "goal1Title": "Step 1: AWS S3 Setup",
+      "goal1_1": "Create AWS Account (Free Tier)",
+      "goal1_2": "Create S3 Bucket for storing CSV files",
+      "goal1_3": "Create IAM User with Access Keys",
+      "goal1_4": "Configure AWS Credentials on your machine",
+      "goal1_5": "Test uploading CSV file to S3",
+      "goal2Title": "Step 2: Snowflake Setup",
+      "goal2_1": "Create Snowflake Account (Free Trial)",
+      "goal2_2": "Database: movies_db",
+      "goal2_3": "Warehouse: movies_wh",
+      "goal2_4": "Schemas: raw, staging, analytics",
+      "goal2_5": "Storage Integration connecting to S3",
+      "goal2_6": "Table: movies_raw with 100 rows of data"
+    },
+    "step1Header": {
+      "title": "☁️ Step 1: AWS S3 Setup",
+      "desc": "In this Step we will configure AWS S3 to store CSV files on the Cloud."
+    },
+    "step1_1": {
+      "title": "📋 Step 1.1: Create AWS Account",
+      "goToAws": "Go to AWS website",
+      "note": "This guide won't cover creating an AWS Account (Free Tier) in detail. The focus will be on goals 2–5."
+    },
+    "step1_2": {
+      "title": "📋 Step 1.2: Create S3 Bucket",
+      "desc": "As mentioned in Phase 3: AWS S3 is Amazon's cloud file storage service. In this project we'll use it as a Data Lake for storing data, a Staging Area (temporary area), Backup Storage, and an Integration Point connecting the local machine to Snowflake.",
+      "s1Label": "Go to AWS Management Console or search for S3",
+      "s1a": "Type \"S3\" in the search bar at the top",
+      "s1b": "Click \"S3\" (Scalable Storage in the Cloud)",
+      "s2Label": "Create Bucket",
+      "s2a": "Click the \"Create bucket\" button (orange)",
+      "s2b": "Bucket name: (must be globally unique!)",
+      "bucketNameComment": "In this project I named it:",
+      "s3Label": "Check Region:",
+      "s3Desc": "This project uses the default to match the Snowflake region",
+      "s4Label": "Object Ownership: Select \"ACLs disabled (recommended)\"",
+      "s5Label": "Block Public Access settings:",
+      "s5a": "Check all 4 boxes (Block all public access)",
+      "s5b": "We don't want others to access our data",
+      "s6Label": "Bucket Versioning: Select \"Disable\"",
+      "s6Note": "(Not needed for this project. Versioning stores multiple file versions, increasing storage use and cost.)",
+      "s7Label": "Default encryption:",
+      "s7a": "Select \"Server-side encryption with Amazon S3 managed keys (SSE-S3)\" — automatically encrypts data",
+      "s7b": "Enable (turn on)",
+      "s8Label": "Advanced settings → Object Lock: Select \"Disable\"",
+      "s9Label": "Click \"Create bucket\"",
+      "resultDesc": "After creating the Bucket, the screen will show: Bucket name, AWS Region and Creation date"
+    },
+    "step1_3": {
+      "title": "📋 Step 1.3: Create Folder on S3",
+      "desc": "In this section we will create a Folder in the bucket we just created.",
+      "item1": "Go to the Bucket we just created",
+      "item2": "Click create folder, name it:",
+      "item3": "Click on the raw folder just created",
+      "item4": "Upload the file top_100_movies_full_best_effort.csv into the folder"
+    },
+    "step1_4": {
+      "title": "📋 Step 1.4: Create IAM User (Very Important)",
+      "iamDesc": "IAM (\"Identity and Access Management\") is a service for managing identities and access permissions to various AWS services. An IAM User is a 'user identity' created within the IAM system — each User has their own username and permissions to ensure security and controlled access.",
+      "choiceDesc": "In this project we use Access Keys because we want the data pipeline to communicate with AWS automatically — using a Python Script to Extract data from Local to S3, and Airflow on EC2 which needs to access S3 without manual login.",
+      "stepsTitle": "Steps to create an IAM User in this project:",
+      "s1Label": "Go to IAM Service",
+      "s1a": "Search \"IAM\" in the search bar",
+      "s1b": "Click \"IAM\" (Identity and Access Management)",
+      "s2Label": "Create New User",
+      "s2a": "Click \"Users\" in the left sidebar",
+      "s2b": "Click \"Create user\"",
+      "s2Note": "Note: If you already have a User, click the user name you want to use.",
+      "s3Label": "Enter User information:",
+      "s3Desc": "In this project the User name is:",
+      "s4Label": "Permissions:",
+      "s4a": "Select \"Attach policies directly\"",
+      "s4b": "Search and select: \"AmazonS3FullAccess\" (for S3 access)",
+      "s5Label": "Click \"Next\" → \"Create user\"",
+      "s6Label": "Create Access Keys (Very Important!)",
+      "s6a": "Click on the User just created (movies-pipeline-user)",
+      "s6b": "You'll see Tabs: Permissions, Groups, Tags, Security credentials, Last Accessed",
+      "s6c": "Go to the \"Security credentials\" tab",
+      "s6d": "Scroll down to find \"Access keys\"",
+      "s6e": "Click \"Create access key\"",
+      "s6f": "Select \"Command Line Interface (CLI)\"",
+      "s6g": "Check ✅ \"I understand...\"",
+      "s6h": "Click \"Next\"",
+      "s6i": "Description tag (optional) — I wrote:",
+      "s6j": "Click \"Create access key\"",
+      "s7Label": "Save Access Keys (⚠️ This step is very important!)",
+      "s7Desc": "You will see:",
+      "s7a": "Click \"Download .csv file\" (keep the file in a safe place!)",
+      "s7b": "Or copy both values and store them safely",
+      "warnText": "Warning: Secret access key is shown only once! If you close this page it's gone — you must create a new one. Never share these keys with anyone!"
+    },
+    "step1_5": {
+      "title": "📋 Step 1.5: Configure AWS Credentials on Your Machine",
+      "credDesc": "Credentials are \"identity verification data\" — when two systems communicate, one asks \"Who are you? Do you have a password?\" The other responds with the Access key ID and Secret access key. When correct, that system can access AWS services.",
+      "goalLabel": "Goal 🎯: In this step we will create a .env file to store Credentials and constants securely.",
+      "item1": "Create .env file in VS Code:",
+      "item2": "Paste this code into the .env file:",
+      "item3": "Save the file (Ctrl+S)"
+    },
+    "step1_6": {
+      "title": "📋 Step 1.6: Configure IAM Role",
+      "roleDesc": "An IAM Role defines access permissions to various AWS services. If an IAM User is a permanent identity with permanent credentials, then an IAM Role is a 'role to be assumed' with no permanent credentials.",
+      "s1Label": "Go to IAM Console:",
+      "s1a": "Search → \"IAM\"",
+      "s2Label": "Create Role:",
+      "s2a": "Left menu → \"Roles\" → \"Create role\"",
+      "imgCaption": "IAM Console → Roles → Create role",
+      "s3Label": "Trusted Entity:",
+      "s3a": "Select \"AWS account\"",
+      "s3b": "Select \"This AWS account\"",
+      "s3c": "✅ Check \"Require external ID\"",
+      "s3d": "External ID: Enter 0000 for now",
+      "s3e": "Click \"Next\"",
+      "s4Label": "Add Permissions:",
+      "s4a": "Search: AmazonS3FullAccess",
+      "s4b": "✅ Check and select this policy",
+      "s4c": "Click \"Next\"",
+      "s5Label": "Name Role:",
+      "s5a": "Description: \"Allows Snowflake to full access from S3 bucket\"",
+      "s5b": "Click \"Create role\"",
+      "s6Label": "Copy Role ARN:",
+      "s6a": "Open the created role",
+      "s6b": "Copy \"ARN\" to use in the Storage Integration step in section 2.6",
+      "completeTitle": "✅ Step 1 COMPLETE!",
+      "completeSubtitle": "What you accomplished:",
+      "complete1": "Created AWS Account (Free Tier)",
+      "complete2": "Created S3 Bucket for storing data (movies-pipeline-data-22)",
+      "complete3": "Created IAM User with Access Keys (movies-pipeline-user)",
+      "complete4": "Configured AWS Credentials in .env",
+      "complete5": "Created IAM Role (movies-pipeline-data-22-role)"
+    },
+    "step2Header": {
+      "title": "❄️ Step 2: Snowflake Setup",
+      "desc": "Goal Step 2: Create Snowflake Account, Database, Warehouse, Schemas, Storage Integration, Stage, and Table"
+    },
+    "step2_1": {
+      "title": "📋 Step 2.1: Sign up for Snowflake Account (Free Tier)",
+      "desc": "In step 2.1 you can do this yourself. Go to:"
+    },
+    "step2_2": {
+      "title": "📋 Step 2.2: Create Warehouse",
+      "whDesc": "A Warehouse is a Virtual Computer or group of Servers: a 'machine' that you turn on only when computing data. If not computing, turn it off to save money.",
+      "whyTitle": "💡 Why we create a Warehouse:",
+      "whyDesc": "We create a Warehouse to pull data for processing (using CPU/RAM) and to work independently without competing for resources.",
+      "rolesTitle": "💡 The Warehouse has 3 main functions:",
+      "role1": "Query commands, e.g. SELECT (Join, Group By, Sort)",
+      "role2": "Moving data, e.g. COPY INTO to load or export data",
+      "role3": "Transforming data in tables, e.g. INSERT, UPDATE, DELETE, MERGE",
+      "codeTitle": "Code details:",
+      "code1": "CREATE WAREHOUSE IF NOT EXISTS movies_wh — creates warehouse named movies_wh only if it doesn't exist",
+      "code2": "WAREHOUSE_SIZE = 'X-SMALL' — smallest size, suitable for light workloads, cost-effective",
+      "code3": "AUTO_SUSPEND = 180 — auto-suspends after 180 seconds of inactivity to save costs",
+      "code4": "AUTO_RESUME = TRUE — auto-resumes when a query comes in, no manual start needed",
+      "code5": "INITIALLY_SUSPENDED = TRUE — initial state is 'suspended', runs only when used"
+    },
+    "step2_3": {
+      "title": "📋 Step 2.3: Create Database & Schema",
+      "dbTitle": "Create Database",
+      "dbDesc": "A Database is a large organized collection of data. If a Warehouse is a 'machine', a Database is like a large building — Schemas are floors inside the building, and Tables are rooms on each floor.",
+      "whyDbTitle": "💡 Why we need a Database:",
+      "whyDbDesc": "To keep data organized, prevent mixing, and ensure data security.",
+      "dbRolesTitle": "💡 Database has 3 main functions:",
+      "dbRole1": "Group data by Business Domain",
+      "dbRole2": "Separate Environments",
+      "dbRole3": "Control Access",
+      "schemaTitle": "Create Schema",
+      "schemaDesc": "Schemas are folders in a Database used to group Tables. We divide data into 3 Schemas by data layer:",
+      "schemaItem1": "raw schema: loads raw data from S3 (not yet transformed) — RAW Layer",
+      "schemaItem2": "staging schema: for data cleansing — Staging Layer",
+      "schemaItem3": "analytics schema: stores transformed data (Star Schema) — Marts Layer"
+    },
+    "step2_4": {
+      "title": "📋 Step 2.4: Set Warehouse, Database and Schema as Default"
+    },
+    "step2_5": {
+      "title": "📋 Step 2.5: Verify Objects (Warehouse, Database, Schema)",
+      "resultLabel": "Result:",
+      "imgCaption": "Snowflake result: MOVIES_WH | MOVIES_DB | RAW | ACCOUNTADMIN | ZH"
+    },
+    "step2_6": {
+      "title": "📋 Step 2.6: Create Storage Integration",
+      "desc": "Remember Step 1 where we created an S3 bucket? This is the most challenging part — we will make Snowflake able to read data from the S3 bucket. Storage Integration is the 'bridge' connecting Snowflake to Cloud Storage (S3, Azure Blob, GCS).",
+      "s1Label": "Create Storage Integration",
+      "s1Note": "Replace STORAGE_AWS_ROLE_ARN with the ARN from Step 1.6 and update STORAGE_ALLOWED_LOCATIONS with your S3 bucket name.",
+      "s2Label": "View Integration details",
+      "s3Label": "Record the values",
+      "s3Desc": "You will see:",
+      "s3Note": "Record the STORAGE_AWS_IAM_USER_ARN and STORAGE_AWS_EXTERNAL_ID values."
+    },
+    "step2_7": {
+      "title": "📋 Step 2.7: Update IAM Role",
+      "item1": "Roles → movies-pipeline-data-22-role",
+      "item2": "Trust relationships → Edit trust policy",
+      "item3": "Replace with this JSON:",
+      "item4": "Click Update policy"
+    },
+    "step2_8": {
+      "title": "📋 Step 2.8: Create Stage",
+      "stageDesc": "A Stage in Snowflake is a 'temporary storage area' (staging area) used for:",
+      "item1": "Loading data into Snowflake (COPY INTO)",
+      "item2": "Exporting data from Snowflake (UNLOAD)",
+      "stageSummary": "Simply put, it's a 'data holding point' before importing or exporting.",
+      "resultLabel": "Result:",
+      "successMsg": "✅ Seeing the file = Connection successful!"
+    },
+    "step2_9": {
+      "title": "📋 Step 2.9: Create File Format",
+      "ffDesc": "A File Format is a 'file reading rule' that tells Snowflake the structure of data in the file so it can read and load correctly. It can be reused every time you load a CSV file with the same format.",
+      "codeTitle": "Code details:",
+      "code1": "TYPE = 'CSV' — sets file type to CSV (Comma-Separated Values)",
+      "code2": "FIELD_DELIMITER = ',' — sets column delimiter to comma",
+      "code3": "SKIP_HEADER = 1 — skips the first line (header row)",
+      "code4": "FIELD_OPTIONALLY_ENCLOSED_BY = '\"' — allows fields to be enclosed in double quotes",
+      "code5": "TRIM_SPACE = TRUE — automatically trims leading/trailing spaces",
+      "code6": "ERROR_ON_COLUMN_COUNT_MISMATCH = FALSE — does not error if column count doesn't match"
+    },
+    "step2_10": {
+      "title": "📋 Step 2.10: Create Table",
+      "desc": "Create the movies_raw table with column names. The column names don't need to match the dataset — I renamed them for convenience."
+    },
+    "step2_11": {
+      "title": "📋 Step 2.11: Update .env File",
+      "item1": "Open .env in VS Code",
+      "item2": "Add Snowflake information:"
+    },
+    "summary": {
+      "title": "PHASE 5 COMPLETE!",
+      "subtitle": "Summary of what was accomplished:",
+      "item1Title": "Snowflake Account",
+      "item1Desc": "30 days, $400 credits",
+      "item2Title": "MOVIES_WH",
+      "item2Desc": "Warehouse (XSMALL)",
+      "item3Title": "MOVIES_DB",
+      "item3Desc": "Database",
+      "item4Title": "RAW / STAGING / ANALYTICS",
+      "item4Desc": "Schemas",
+      "item5Title": "S3_INTEGRATION",
+      "item5Desc": "Connected to S3",
+      "item6Title": "MOVIES_S3_STAGE",
+      "item6Desc": "Reads files from S3",
+      "item7Title": "CSV_FORMAT",
+      "item7Desc": "CSV format",
+      "item8Title": "MOVIES_RAW Table",
+      "item8Desc": "With 100 rows of data",
+      "nextTitle": "Next Steps",
+      "nextDesc": "Phase 6: Docker & Airflow Setup — Install and configure Docker and Airflow"
+    },
+    "navBtn": {
+      "prev": "← Phase 4: Environment Setup",
+      "next": "Phase 6: Docker & Airflow Setup →"
+    }
+  },
+  "phase6": {
+    "title": "Docker + Airflow Setup",
+    "subtitle": "DOCKER + AIRFLOW SETUP",
+    "backBtn": "← Back to Home",
+    "navTitle": "Phase 6 Topics",
+    "nav": {
+      "purpose": "Purpose of Phase 6",
+      "docker": "What is Docker?",
+      "step1": "Step 1: Airflow Settings",
+      "step2": "Step 2: Folder Structure",
+      "step3": "Step 3: .dockerignore",
+      "step4": "Step 4: Dockerfile",
+      "step5": "Step 5: docker-compose.yaml",
+      "step6": "Step 6: Customize docker-compose.yaml",
+      "step6p1": "  Part 1: Base Configuration",
+      "step6p2": "  Part 2: Services",
+      "summary": "Phase 6 Complete"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 6: Docker + Airflow",
+      "desc": "In this phase, we will install and configure Docker + Airflow to create a Data Pipeline environment for automated execution of our pipeline."
+    },
+    "docker": {
+      "title": "🐳 What is Docker?",
+      "desc1": "Docker is a platform that solves problems with code libraries. Imagine you build this project today using specific tools and versions. In the future, if you or someone else wants to continue the project, they'd need to figure out which library versions were used, check compatibility with the current machine, and spend time reconfiguring the environment from scratch.",
+      "desc2": "Docker solves this using Containers — wrapping code and environments together. When you or someone else returns to the project, just run the Docker-wrapped code and you get the exact same environment.",
+      "vocabTitle": "Key Vocabulary:",
+      "imageTitle": "Docker Image",
+      "imageDesc": "Code wrapped to work with Docker. Think of it as a blueprint, template, or recipe.",
+      "containerTitle": "Container",
+      "containerDesc": "Running a Docker Image on a machine — also called an instance. One Image can produce multiple Containers from the same source, so they work identically."
+    },
+    "step1": {
+      "title": "⚙️ Step 1: Airflow Settings",
+      "desc": "When configuring Airflow and dbt for Docker, we need to specify a User ID and Group ID so Docker knows who we are:",
+      "uidDesc": "AIRFLOW_UID= User ID (UID) that Airflow assigns for use inside the Docker Container",
+      "gidDesc": "AIRFLOW_GID= Group ID (GID) for setting file access permissions by group",
+      "gidNote": "GID can be any number, e.g.: 0 = root group (highest permissions), 1000 = regular user group, 50 = staff group, 100 = users group",
+      "osTitle": "This differs by OS — divided into 2 parts:",
+      "linuxTitle": "Linux:",
+      "linuxDesc": "Linux has a strict permission system. When using Airflow run by Docker, you must set the UID in Docker to match your machine's user with: echo \"AIRFLOW_UID=$(id -u)\" >> .env in the terminal. If the UID in the container ≠ UID of the host, you will get permission denied.",
+      "windowsTitle": "Windows:",
+      "windowsDesc": "Windows does not have a UID/GID system. Docker Desktop uses WSL 2 as an intermediary for file management, handling file permissions in a special way that lets Windows users access all files without checking UID. In this project I use Windows — after checking the Airflow documentation, AIRFLOW_UID=50000 is used.",
+      "stepsTitle": "Steps:",
+      "s1": "Open the .env file in VS Code",
+      "s2": "Add this code:"
+    },
+    "step2": {
+      "title": "📁 Step 2: Create Folder Structure",
+      "desc": "Create folders: dags, logs, config, and plugins:",
+      "imageCaption": "Resulting folder structure in VS Code"
+    },
+    "step3": {
+      "title": "🚫 Step 3: Create .dockerignore",
+      "desc": "A .dockerignore file lists items NOT to include in the Docker Image — such as cache and temporary files — saving storage space. In short, .dockerignore tells Docker: \"do not include these items.\"",
+      "s1": "Create file: .dockerignore",
+      "s2": "Paste all of this content into the file:"
+    },
+    "step4": {
+      "title": "🐳 Step 4: Create Dockerfile",
+      "desc": "A Dockerfile is a file containing commands to build a Docker image.",
+      "s1": "Create a file in VS Code: Dockerfile",
+      "s2": "Copy all of this content into the file:",
+      "learnMore": "Learn about building Airflow Images at:"
+    },
+    "step5": {
+      "title": "📄 Step 5: Create docker-compose.yaml",
+      "desc": "In this step we will download the docker-compose.yaml template from Airflow, then customize it for our project.",
+      "s1": "Go to the Airflow documentation website:",
+      "s2": "Download the docker-compose.yaml file from Airflow",
+      "s2cmd": "Fetch command:",
+      "s3": "Move the downloaded docker-compose.yaml into your project folder"
+    },
+    "step6": {
+      "title": "⚙️ Step 6: Customize docker-compose.yaml",
+      "desc": "In this step we will customize the file section by section:",
+      "part1Title": "Part 1: Adjust Base Configuration",
+      "before": "Before:",
+      "changeTo": "Change to:",
+      "pointsTitle": "Points to change:",
+      "c1Title": "1. Image Build — Change from pre-built image to building your own:",
+      "c1n1": "Comment the line image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.10.4} by adding # in front",
+      "c1n2": "Uncomment the line build: . by removing # — this lets Docker build from our Dockerfile which includes dbt-snowflake. Without this, it pulls a standard Image without dbt.",
+      "c1n3": "Add env_file: - .env so Docker automatically loads environment variables from the .env file",
+      "c2Title": "2. Change Executor:",
+      "c2Note": "If using CeleryExecutor, we also need to run Redis and Airflow Worker. With LocalExecutor, we must also remove redis, flower, and airflow-worker from docker-compose.yaml. Reason: this project is small-scale — running tasks in the same process as the Scheduler makes debugging easier than routing tasks through Celery's queue.",
+      "c3Title": "3. Remove 2 Celery Config lines:",
+      "c3Note": "We remove these because we no longer use CeleryExecutor. RESULT_BACKEND stores task results and BROKER_URL connects to Redis. With LocalExecutor, the system runs tasks internally. Keeping these unused lines could cause confusion during future debugging.",
+      "c4Title": "4. Change Load Examples:",
+      "c4Note": "The default 'true' shows many example DAGs making it hard to find our own. We set it to 'false' to show only our DAGs.",
+      "c5Title": "5. Fix depends_on:",
+      "c5Note": "Since we switched to LocalExecutor, Airflow no longer uses Redis. All tasks run inside the Scheduler itself. If we don't remove the Redis dependency, docker compose up will fail to start because it waits for a Redis service that no longer exists.",
+      "c6Title": "6. Fix Pause DAGs:",
+      "c6Note": "When set to 'false', newly created DAGs start running automatically without manual unpausing. Caution: if a DAG has a schedule and is not ready, it may run unintentionally — verify before deploying.",
+      "c7Title": "7. Add Snowflake + dbt environment variables:",
+      "c7Note": "Add before _PIP_ADDITIONAL_REQUIREMENTS. This allows Airflow to connect to S3 and load data into Snowflake, and tells dbt where to find profiles.yml inside the Container. In summary: env_file: - .env loads the raw .env file into the container; adding these to environment forces Docker Compose to read values from .env and substitute ${VARIABLE_NAME} with actual values before sending them into the container.",
+      "part2Title": "Part 2: Adjust Services",
+      "p2Intro": "Before adjusting the services, here is a summary table of all services in Airflow:",
+      "tableH1": "Service",
+      "tableH2": "Description",
+      "keepTitle": "For this project (LocalExecutor), the services decision is:",
+      "e1Title": "1. Edit postgres",
+      "e1Note": "Normally Docker assigns container names randomly or based on the folder name. Specifying a name makes management easier. We also added Port 5432 (standard PostgreSQL port) so we can view database tables in Postgres.",
+      "e2Title": "2. Edit webserver",
+      "e2Note": "Added container_name: movies_airflow_webserver for easy identification.",
+      "e3Title": "3. Delete unused Services",
+      "e3Note": "Delete these 4 services entirely: redis, airflow-worker, airflow-cli, and flower.",
+      "e4Title": "4. Edit airflow-scheduler",
+      "e4Note": "A clear container name prevents accidentally managing the wrong container. We also replaced <<: *airflow-common-depends-on with only postgres since Redis was removed — otherwise the Scheduler will be stuck Pending, waiting for a Redis service that no longer exists.",
+      "e5Title": "5. Edit airflow-init",
+      "e5Note": "Adding a container name is for the same reason — easier and more organized management.",
+      "e6Title": "6. Edit volumes",
+      "e6Note": "We specify a name so we can immediately identify this as the Movies project data. Without a name, Docker Volume uses the folder name as identifier, which may cause confusion across multiple projects."
+    },
+    "services": {
+      "postgresDesc": "Database that Airflow uses to store all important data: DAG list, run statuses, task history, configuration. Without this, all Airflow data is lost every time it restarts.",
+      "redisDesc": "Message broker between Airflow components, especially when multiple machines run simultaneously or thousands of Tasks run at once. Uses a Queue as a holding area before sending to airflow-worker.",
+      "webserverDesc": "Connects with external programs that want to send commands to Airflow. In Airflow 3, this will be renamed airflow-apiserver.",
+      "schedulerDesc": "Runs tasks on schedule and manages task dependencies. With LocalExecutor it runs tasks itself. Every Airflow setup must have this — otherwise Airflow will not work.",
+      "dagProcessorDesc": "New in Airflow 3. Reads and validates DAG files. Previously the Scheduler did this, but with many files it slowed other tasks — so it was separated into its own service.",
+      "workerDesc": "Receives tasks from the Scheduler (CeleryExecutor). With LocalExecutor, the Scheduler runs tasks itself — like one employee. For larger scale, more workers can be added.",
+      "triggererDesc": "A special service that watches 'waiting' tasks (e.g., waiting for a file from S3 for 5 hours). Designed to wait efficiently without consuming machine resources.",
+      "initDesc": "Runs once during initial Airflow installation: creates Postgres tables, creates admin account, sets up initial configuration. Stops automatically after completing.",
+      "flowerDesc": "Dashboard for monitoring Celery Worker health — shows each Worker's status, current tasks, and queue size."
+    },
+    "summary": {
+      "title": "Phase 6 Complete!",
+      "subtitle": "Summary of what was accomplished:",
+      "item1Title": "Docker Configured",
+      "item1Desc": "Docker environment setup",
+      "item2Title": "Airflow Configured",
+      "item2Desc": "LocalExecutor setup",
+      "item3Title": "Folder Structure",
+      "item3Desc": "dags, logs, config, plugins",
+      "item4Title": ".dockerignore",
+      "item4Desc": "Excluded unnecessary files",
+      "item5Title": "Dockerfile",
+      "item5Desc": "Custom Airflow 2.10.4 image",
+      "item6Title": "docker-compose.yaml",
+      "item6Desc": "Downloaded and customized",
+      "item7Title": "Services Configured",
+      "item7Desc": "postgres, scheduler, triggerer, init",
+      "item8Title": "Credentials Setup",
+      "item8Desc": "AWS + Snowflake + dbt env vars",
+      "nextTitle": "Next Steps",
+      "nextDesc": "Phase 7: Configure DAGs and run the data pipeline automatically"
+    },
+    "navBtn": {
+      "prev": "← Phase 5: Infrastructure Setup",
+      "next": "Phase 7: DAG Configuration →"
+    }
+  },
+  "phase7": {
+    "title": "dbt Setup & Configuration",
+    "subtitle": "DBT SETUP & CONFIGURATION",
+    "backBtn": "← Back to Home",
+    "navTitle": "Phase 7 Topics",
+    "nav": {
+      "purpose": "Purpose of Phase 7",
+      "concepts": "Concepts",
+      "workflow": "Workflow",
+      "projectStructure": "dbt Project Structure",
+      "sqlModel": "SQL Model Structure",
+      "step1": "Step 1: Prerequisites",
+      "step2": "Step 2: Prepare Environment",
+      "step3": "Step 3: Install dbt-snowflake",
+      "step4": "Step 4: Create dbt Project",
+      "step5": "Step 5: Configure profiles.yml",
+      "step6": "Step 6: Update dbt_project.yml",
+      "step7": "Step 7: Create sources.yml",
+      "step8": "Step 8: Test with dbt compile",
+      "summary": "Phase 7 Complete"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 7: dbt Setup & Configuration",
+      "desc": "In this phase, we will install and configure dbt (Data Build Tool). This phase is about laying the foundation so we can write data transformation code in the next phase in an organized, safe, and auditable way.",
+      "overviewTitle": "Overview — what we will do in this phase:",
+      "o1": "Install dbt-snowflake",
+      "o2": "Create dbt project",
+      "o3": "Configure Snowflake connection",
+      "o4": "Create sources (reference to MOVIES_RAW)",
+      "o5": "Test connection",
+      "o6": "Create project structure",
+      "o7": "Verify setup"
+    },
+    "concepts": {
+      "title": "1. What is dbt?",
+      "desc": "dbt (data build tool) is a tool for transforming data in a Data Warehouse using SQL. In this phase we will set up dbt as described in the purpose above."
+    },
+    "workflow": {
+      "title": "2. Understanding the Workflow",
+      "desc": "The workflow of this project looks like this:",
+      "flow": "CSV File → S3 Bucket → RAW Layer → STAGING Layer → MARTS Layer",
+      "layersTitle": "From this workflow, we have 3 Layers in Snowflake:",
+      "raw": "RAW Layer: Stores raw data pulled from external sources (S3). Data may have duplicates or unclean formats. Immutable — no modification.",
+      "staging": "Staging Layer: The data cleaning layer (cleansing).",
+      "marts": "Marts Layer: Data that has been Transformed for analytics. Ready for Dashboards, reports. In this project we create Dimension Tables and Fact Tables.",
+      "note": "Note: Do not confuse S3 Bucket with 'Staging Storage' — S3 here is not the Staging Layer, but a temporary storage area."
+    },
+    "projectStructure": {
+      "title": "3. dbt Project Structure",
+      "desc": "In this project we name the dbt project movies_dbt. The structure looks like this:",
+      "modelsTitle": "From this structure, we focus on the models/ folder:",
+      "modelsDesc": "models/ is the most important folder — stores SQL files we write. dbt will run these files in Snowflake. Each file becomes a VIEW or TABLE (1 SQL file = 1 model).",
+      "stagingDesc": "models/staging/ contains SQL files for creating the Staging Layer. Key files: sources.yml and schema.yml. This folder receives data from the Raw Layer, cleans it, and sends it to the MARTS Layer.",
+      "martsDesc": "models/marts/ contains SQL files for creating the Marts Layer. Receives data from Staging Layer to build Analytics using a Star Schema (Dimension + Fact Tables), matching the data modeling design from Phase 2."
+    },
+    "sqlModel": {
+      "title": "4. SQL Model Structure",
+      "desc": "In dbt, a Model is a .sql file where we write commands. Each file becomes 1 table/view in Snowflake.",
+      "jinjaTitle": "SQL Models use Jinja Templates. Benefits of using Jinja:",
+      "jinjaDesc": "No need to write long table names repeatedly. We can store commonly used commands as functions (called Macros in dbt).",
+      "syntaxTitle": "Important Syntax to remember:",
+      "s1": "{{ ... }} — Expressions: prints a value, e.g., calling a table name",
+      "s2": "{% ... %} — Statements: logic, e.g., loops or conditions",
+      "s3": "{# ... #} — Comments: write notes in code that dbt will not read",
+      "examplesTitle": "Jinja Template usage in this project:"
+    },
+    "step1": {
+      "title": "⚙️ Step 1: Prerequisites",
+      "desc": "Before starting, you must have:",
+      "p1": "Phase 1–6 completed",
+      "p2": "Python 3.11 (already installed)",
+      "p3": "Snowflake account + credentials",
+      "p4": "movies_db.raw.movies_raw table with data",
+      "verifyTitle": "Verify in Snowflake:"
+    },
+    "step2": {
+      "title": "💻 Step 2: Prepare Environment",
+      "s1": "Open Command Prompt (CMD)",
+      "s2": "Navigate to the Project Directory:",
+      "s3": "Verify:",
+      "s4": "Activate Virtual Environment:",
+      "s5": "Update pip:"
+    },
+    "step3": {
+      "title": "📦 Step 3: Install dbt-snowflake",
+      "s1": "Check if dbt-snowflake is already installed:",
+      "s2": "Install dbt-snowflake (if not yet installed):",
+      "s3": "Verify installation:"
+    },
+    "step4": {
+      "title": "🚀 Step 4: Create dbt Project & Test Connection",
+      "desc": "In this section we create the dbt Project. The structure was explained earlier. Here we create a project named movies_dbt.",
+      "s1": "Create the project:",
+      "cmdDesc": "Command explanation:",
+      "c1": "dbt init — command to create a new dbt project",
+      "c2": "movies_dbt — name of the dbt project to be created",
+      "c3": "This command creates the folder structure and initial files for the movies_dbt project, including models, tests, macros, and configuration files needed for data transformation.",
+      "questionsTitle": "Then answer the setup questions:",
+      "q1": "Which database: type 1 (snowflake) then Enter",
+      "q2": "account: enter your Snowflake account",
+      "q3": "user: enter your username",
+      "q4": "Authentication type: type 1 (password)",
+      "q5": "password: enter your password",
+      "q6": "role: ACCOUNTADMIN (or your project's role)",
+      "q7": "warehouse: movies_wh",
+      "q8": "database: movies_db",
+      "q9": "schema: analytics (final output schema)",
+      "q10": "threads: 10",
+      "resultTitle": "Result:",
+      "result": "profiles.yml file created at C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "s2": "Test the dbt ↔ Snowflake connection:",
+      "successMsg": "If you see \"All checks passed!\" — the connection between dbt and Snowflake is working.",
+      "s3": "Verify project structure:"
+    },
+    "step5": {
+      "title": "🔧 Step 5: Configure profiles.yml",
+      "desc": "After connecting dbt with Snowflake in Step 4, in this step we will adjust profiles.yml slightly. First, let's understand what profiles.yml is.",
+      "whatTitle": "What is profiles.yml?",
+      "whatDesc": "It acts as the intermediary for storing connection information between dbt and Snowflake. The file must specify: Connection Details (account, user, password), Roles & Warehouse, and Database & Schema (where transformed data will be stored — MOVIES_DB and analytics).",
+      "securityNote": "For security, dbt is designed to store this file OUTSIDE the project to prevent accidentally uploading passwords to GitHub.",
+      "location": "Windows location: C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "s1": "Find profiles.yml: go to C:\\Users\\<<YourName>>\\.dbt\\profiles.yml",
+      "s2": "Open with VS Code or Notepad. The file currently looks like this:",
+      "s3": "Copy-paste this code into profiles.yml:",
+      "envTitle": "2 environments:",
+      "devTitle": "dev (Development):",
+      "devDesc": "Used for testing during development. Writes to schema: staging. If this schema doesn't exist, dbt creates it automatically when you run dbt run in the next phase. Safe to experiment without affecting production.",
+      "prodTitle": "prod (Production):",
+      "prodDesc": "Used for the live system. Writes to schema: analytics. This is the data that Dashboards will pull from.",
+      "targetNote": "You can switch target anytime using dbt run --target dev (for dev environment) or dbt run --target prod (for production).",
+      "s4": "Save the file: Ctrl+S",
+      "s5": "Verify the file:",
+      "s6": "Test connection again:"
+    },
+    "step6": {
+      "title": "📝 Step 6: Update dbt_project.yml",
+      "desc": "This section is about dbt_project.yml. This file is mainly used to: define materialization (table / view / incremental), separate schema by environment (dev / prod), and manage model structure (staging / marts).",
+      "s1": "Open the movies_dbt folder in VS Code, find dbt_project.yml",
+      "s2": "Edit the content — find these lines and update:",
+      "s2Before": "Before:",
+      "s2After": "Change to:",
+      "s3": "Add Configuration to dbt_project.yml — scroll down, find this section and update:",
+      "s3Before": "Before:",
+      "s3After": "Change to:",
+      "configNote1": "movies_dbt must match the name: specified above",
+      "configNote2": "+materialized tells dbt what to create each model as in the database",
+      "configNote3": "staging models will be VIEW — runs a query every time without storing data. Receives data from Raw Layer, cleans it, and sends to MARTS Layer.",
+      "configNote4": "marts models will be TABLE — stores data after each query. Receives data from Staging Layer to build Analytics for Star Schema (Dimension + Fact Tables).",
+      "configNote5": "+schema is a suffix appended to the base schema from profiles.yml — helps separate models by layer."
+    },
+    "step7": {
+      "title": "📋 Step 7: Create sources.yml",
+      "desc": "sources.yml is a YAML file that declares the source data — telling dbt where the raw data of this project lives in Snowflake. You must specify: which Database, which Schema, which Table, and which Columns.",
+      "benefitTitle": "Benefit of creating sources.yml:",
+      "benefitDesc": "We don't have to type the long table name movies_db.raw.movies_raw over and over. We just use a short alias 'raw', reducing errors:",
+      "s1": "Go to the movies_dbt folder, then navigate to the models subfolder:",
+      "s2": "Create sources.yml at location models/staging/sources.yml:",
+      "s3": "Save the file: Ctrl+S"
+    },
+    "step8": {
+      "title": "🧪 Step 8: Test sources.yml with dbt compile",
+      "desc": "Open Terminal. We will use dbt compile to convert dbt models into pure SQL without touching the database — it shows exactly what SQL dbt would write, without running it.",
+      "s1": "Run this command:",
+      "resultTitle": "Result:",
+      "resultDesc": "Warnings may appear because in dbt_project.yml we configured paths for models.movies_dbt.staging and models.movies_dbt.marts, but dbt cannot find .sql model files under those paths yet — which is normal at this stage.",
+      "successNote": "Compile succeeded. Warnings are expected because we haven't created .sql models yet."
+    },
+    "summary": {
+      "title": "Phase 7 Complete!",
+      "subtitle": "Summary of what was accomplished:",
+      "item1Title": "dbt-snowflake Installed",
+      "item1Desc": "version 1.8.4",
+      "item2Title": "dbt Project Created",
+      "item2Desc": "movies_dbt project",
+      "item3Title": "Connection Tested",
+      "item3Desc": "dbt debug — All checks passed!",
+      "item4Title": "profiles.yml Configured",
+      "item4Desc": "dev (staging) + prod (analytics)",
+      "item5Title": "dbt_project.yml Updated",
+      "item5Desc": "staging (view) + marts (table)",
+      "item6Title": "sources.yml Created",
+      "item6Desc": "raw.movies_raw declared",
+      "item7Title": "Tests Defined",
+      "item7Desc": "not_null, unique on key columns",
+      "item8Title": "dbt compile Passed",
+      "item8Desc": "Setup verified",
+      "nextTitle": "Next Steps",
+      "nextDesc": "Phase 8: Write SQL transformation models (staging + marts)"
+    },
+    "navBtn": {
+      "prev": "← Phase 6: Docker & Airflow Setup",
+      "next": "Phase 8: Manual Scripts →"
+    }
+  },
+  "phase8": {
+    "title": "Manual Scripts (Local → S3)",
+    "subtitle": "MANUAL SCRIPTS (LOCAL → S3)",
+    "backBtn": "← Back to Home",
+    "navTitle": "Phase 8 Topics",
+    "nav": {
+      "purpose": "Purpose of Phase 8",
+      "part1": "Part 1: Update docker-compose.yml",
+      "part1_1": "  1. Delete Config File",
+      "part1_2": "  2. Add Performance Config",
+      "part1_3": "  3. Fix Volumes",
+      "part1_4": "  4. Reduce airflow-init",
+      "part1_5": "  5. Adjust environment",
+      "part2": "Part 2: Running Airflow",
+      "part3": "Part 3: Create upload_to_s3.py",
+      "part4": "Part 4: Verification",
+      "part5": "Part 5: Load data in Snowflake UI",
+      "summary": "Phase 8 Complete"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 8",
+      "desc": "In this phase our objectives are:",
+      "o1": "Update docker-compose.yml file for Airflow",
+      "o2": "Run Airflow and test",
+      "o3": "Create a Python script to upload CSV files from Local to S3",
+      "o4": "Load data from S3 into Snowflake (RAW Layer)"
+    },
+    "part1": {
+      "title": "Part 1: Update docker-compose.yml",
+      "desc": "After completing dbt Setup and configuration in Phase 7, we return to update docker-compose.yml before running Airflow.",
+      "c1Title": "1. Delete Config File",
+      "c1BeforeLabel": "Before (delete this line):",
+      "c1Note": "Using AIRFLOW_CONFIG tells Airflow to read config from airflow.cfg — meaning we must write airflow.cfg separately and configure 2 files (airflow.cfg and .env). This is overly complex. The best approach is to delete this line and configure only the .env file.",
+      "c2Title": "2. Add Performance Config",
+      "c2Intro": "Add:",
+      "c2n1": "This allows Airflow to run a maximum of 32 tasks concurrently (system-wide).",
+      "c2n2": "Each DAG can run a maximum of 16 tasks concurrently.",
+      "c2n3": "Each DAG can have a maximum of 16 runs concurrently.",
+      "c2n4": "Tells Airflow which folder to read DAG files from.",
+      "c2n5": "Sets the scheduler to check the DAG folder every 30 seconds.",
+      "c3Title": "3. Fix Volumes",
+      "c3BeforeLabel": "Before:",
+      "c3AfterLabel": "Change to:",
+      "c3Note": "Remove /config because we removed the airflow.cfg file. Add /movies_dbt so Airflow can run dbt commands — Airflow needs access to the dbt project files (models, dbt_project.yml) on your machine. Add /data to access raw data files. /scripts is the folder for Python scripts used by Airflow DAGs — files that are not DAGs but are called by DAGs.",
+      "c4Title": "4. Reduce command in airflow-init",
+      "c4Intro": "In airflow-init command: currently ~100 lines. You can keep the original or replace with this shorter version:",
+      "c5Title": "5. Adjust environment",
+      "c5Intro": "Add to the environment section:"
+    },
+    "part2": {
+      "title": "Part 2: Running Airflow",
+      "s1": "Build Docker Image:",
+      "s1Note": "This step builds the Docker image from Dockerfile, installs dependencies from requirements.txt, and prepares the Airflow environment.",
+      "s2": "Initialize Airflow Database:",
+      "s2Intro": "This step will:",
+      "s2n1": "Create the database schema for Airflow",
+      "s2n2": "Create username: airflow  password: airflow (as defined in docker-compose.yml)",
+      "s2n3": "Create required folders (logs, dags, plugins, movies_dbt and data)",
+      "s2n4": "Set permissions",
+      "s2n5": "If you see 'Airflow initialization complete!' — it succeeded",
+      "s3": "Start Airflow Services:",
+      "s3Note": "Starts all services (webserver, scheduler, postgres)",
+      "s4": "Open Web UI at http://localhost:8080",
+      "loginLabel": "Login:"
+    },
+    "part3": {
+      "title": "Part 3: Create upload_to_s3.py",
+      "desc": "In this step we create a file to upload CSV files from Local (Docker Container) to AWS S3. This file is the starting point of the entire Data Pipeline. It accepts a CSV file from /opt/airflow/data/ and uploads it to the specified S3 bucket.",
+      "step1Title": "Step 1: Check files in Folder data/",
+      "step1Result": "Result: You should see top_100_movies_full_best_effort.csv. If it is not there, place the CSV file in the data/ folder.",
+      "step2Title": "Step 2: Create upload_to_s3.py in Folder scripts/",
+      "step2s1": "1. Check scripts/ folder — we created this folder back in Phase 4:",
+      "step2s2": "2. Create upload_to_s3.py in the scripts/ folder",
+      "step2s3": "3. Write code in upload_to_s3.py:",
+      "resultLabel": "Result:"
+    },
+    "part4": {
+      "title": "Part 4: Verification",
+      "s1Title": "1. Verify in AWS S3",
+      "method1Label": "Method 1: Use AWS CLI",
+      "method2Label": "Method 2: AWS Console",
+      "m2s1": "Go to S3 → Buckets → movies-pipeline-data-22",
+      "m2s2": "Open folder raw/",
+      "m2s3": "You should see top_100_movies_full_best_effort.csv",
+      "s2Title": "2. Verify in Snowflake:",
+      "resultLabel": "Result:"
+    },
+    "part5": {
+      "title": "Part 5: Load data in Snowflake UI",
+      "desc": "In this step we load data into the Raw schema. The data remains at the Raw layer.",
+      "s1": "Open Snowflake",
+      "s2": "Open Worksheet",
+      "s3": "Copy this code into the Worksheet:"
+    },
+    "summary": {
+      "title": "Phase 8 Complete!",
+      "subtitle": "Summary of what was accomplished:",
+      "item1Title": "docker-compose.yml Updated",
+      "item1Desc": "Performance config + volumes",
+      "item2Title": "Airflow Running",
+      "item2Desc": "webserver, scheduler, postgres",
+      "item3Title": "upload_to_s3.py Created",
+      "item3Desc": "CSV → S3 upload script",
+      "item4Title": "Verification Done",
+      "item4Desc": "AWS S3 + Snowflake Stage",
+      "item5Title": "Data Loaded",
+      "item5Desc": "S3 → Snowflake RAW Layer",
+      "item6Title": "100 Rows Verified",
+      "item6Desc": "movies_raw table ready",
+      "nextTitle": "Next Steps",
+      "nextDesc": "Phase 9: Data Cleansing & Staging — Clean data and create Staging Models"
+    },
+    "navBtn": {
+      "prev": "← Phase 7: dbt Setup & Configuration",
+      "next": "Phase 9: Data Cleansing →"
+    }
+  },
+  "phase9": {
+    "title": "Data Cleansing & Staging Models",
+    "subtitle": "Building the Staging Layer — The First Layer of Data Transformation with dbt",
+    "backBtn": "← Back to Home",
+    "navTitle": "Contents",
+    "nav": {
+      "purpose": "Purpose of Phase 9",
+      "overview": "Overview",
+      "step1": "Step 1: stg_movies_cleaned.sql",
+      "step1Verify": "Verify Step 1",
+      "step2": "Step 2: stg_movies_enriched.sql",
+      "step2Verify": "Verify Step 2",
+      "step3": "Step 3: data_quality_report.sql",
+      "step4": "Step 4: schema.yml",
+      "step5": "Step 5: Generate Documentation",
+      "summary": "Summary"
+    },
+    "info": {
+      "title": "Phase 9 Info",
+      "models": "Models Created",
+      "inputRows": "Input Rows",
+      "outputRows": "Output Rows",
+      "duplicatesRemoved": "Duplicates Removed",
+      "newColumns": "New Columns",
+      "tool": "Tool"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 9",
+      "desc": "In this phase we build the Staging Layer — the first layer of Data Transformation. Its responsibilities are:",
+      "o1": "Clean raw data from the RAW schema",
+      "o2": "Convert data into a ready-to-use format",
+      "o3": "Handle Missing Values and Data Quality Issues",
+      "o4": "Prepare data for building the Dimensional Model in the next phase"
+    },
+    "overview": {
+      "heading": "Overview",
+      "subh1": "1. Data Quality Issues (from Phase 1)",
+      "desc1": "From Phase 1, we found the following issues:",
+      "problem1": "Issue 1: Missing Data",
+      "thCol": "Column Name",
+      "thCount": "Missing Count",
+      "thPct": "Missing %",
+      "thNote": "Note",
+      "note1": "High missing data (half the data is missing, which may affect overall score analysis)",
+      "note2": "Medium missing data (some revenue data is missing)",
+      "note3": "Low missing data",
+      "note4": "Low missing data",
+      "note5": "Low missing data",
+      "problem2": "Issue 2: Duplicate Data",
+      "problem2Desc": "Found 5 duplicate pairs (10 rows):",
+      "subh2": "What We Do in Phase 9",
+      "subh2Desc": "In Phase 9 we create 3 SQL Models in models/staging/ as follows:",
+      "m1Desc": "Layer 1: Basic Cleaning — Handle Data Quality Issues from Phase 1",
+      "m2Desc": "Layer 2: Business Logic — Handle NULL values and create new columns",
+      "m3Desc": "Quality Metrics — Check data quality after running the first two models"
+    },
+    "step1": {
+      "heading": "Step 1: Create stg_movies_cleaned.sql (Layer 1: Basic Cleaning)",
+      "infoHeading": "Goal of stg_movies_cleaned.sql",
+      "infoDesc": "This is the first staging model that performs basic data cleaning:",
+      "i1": "Rename columns",
+      "i2": "Trim whitespace: remove extra spaces",
+      "i3": "Keep NULLs: do not replace with 0",
+      "i4": "Convert empty strings to NULL: using nullif()",
+      "i5": "Remove duplicates: using QUALIFY",
+      "subh": "How to Create stg_movies_cleaned.sql",
+      "s1": "1. Open Command Prompt (CMD):",
+      "s2": "2. Copy this code in full:",
+      "s3": "3. Compile:",
+      "s4": "4. Run:",
+      "result": "Result:",
+      "warning": "Note: The WARNING occurs because we haven't created the marts folder yet, so dbt cannot find the paths. We will create this folder in Phase 10."
+    },
+    "step1Verify": {
+      "heading": "Verify Step 1 in Snowflake",
+      "goal": "Goal: Verify data accuracy between the Raw schema and the Staging schema (analytics_staging)",
+      "infoTitle": "Why analytics_staging and not just staging?",
+      "infoDesc": "dbt combines the schema name from 2 sources: Target schema (analytics) + Custom schema (staging). Combination: {target_schema}_{custom_schema} → Result: analytics_staging",
+      "subh1": "Part 1: Verify data in raw schema",
+      "v1": "1. Check row count (Total Rows)",
+      "v2": "2. View first 5 rows (Sample Data)",
+      "v3": "3. Check NULL values",
+      "v4": "4. Duplicate Analysis",
+      "v5": "5. Unique Titles",
+      "cap1": "✅ 100 rows confirmed — matches Data Profiling (Phase 1)",
+      "cap2": "✅ Matches Data Profiling (Phase 1)",
+      "cap3": "✅ Matches Data Profiling (Phase 1)",
+      "subh2": "Part 2: Verify data in analytics_staging schema",
+      "a1": "1. Total Rows",
+      "a3": "3. NULL Check",
+      "a4": "4. Duplicate Check (should be 0)",
+      "a5": "5. Unique Titles"
+    },
+    "step2": {
+      "heading": "Step 2: Create stg_movies_enriched.sql (Layer 2: Business Logic)",
+      "infoHeading": "Goal of stg_movies_enriched.sql",
+      "infoDesc": "This is the second staging model that handles NULL values and creates columns for business analysis:",
+      "ib1": "Text fields (director, country, language): replace NULL with 'Unknown'",
+      "ib2": "Numeric fields (runtime_mins, oscars_won, box_office_millions): replace NULL with 0",
+      "ib3": "Review scores (imdb_rating, rotten_tomatoes_pct, metacritic_score): keep NULL because 'no data' ≠ 'score of 0'",
+      "subh": "How to Create stg_movies_enriched.sql",
+      "s1": "1. Open Command Prompt (CMD):",
+      "s2": "2. Copy this code in full:",
+      "s3": "3. Compile:",
+      "s4": "4. Run:",
+      "derivedTitle": "6 Newly Created Derived Columns",
+      "d1Basis": "IMDb score",
+      "d2Basis": "Box office revenue",
+      "d3Basis": "Oscars won",
+      "d4Basis": "Release year",
+      "d5Basis": "Release year",
+      "d6Basis": "Runtime in minutes"
+    },
+    "step2Verify": {
+      "heading": "Verify Step 2 in Snowflake",
+      "topMovies": "Top Masterpiece Movies:"
+    },
+    "step3": {
+      "heading": "Step 3: Create data_quality_report.sql — Data Quality Report",
+      "s1": "1. Open Command Prompt (CMD):",
+      "s2": "2. Copy this code in full:",
+      "s3": "3. Run:",
+      "s4": "4. Verify — Open Snowflake Web UI → Worksheet → Run:",
+      "caption": "Result: 13 checks — PASS 76.9%, INFO 23.1%"
+    },
+    "step4": {
+      "heading": "Step 4: Create schema.yml",
+      "desc": "schema.yml is a YAML file that 'declares' the models we created — telling dbt what the new tables we built look like and their rules. You can specify validation rules, e.g., the movie_id column must not be empty (not_null) and must be unique (unique).",
+      "thFile": "File",
+      "thUsedFor": "Used For",
+      "thGoal": "Main Goal",
+      "sourceDesc": "Raw data (source)",
+      "sourceGoal": "Tells dbt 'where the raw data is'",
+      "schemaDesc": "Data we created (destination)",
+      "schemaGoal": "Tells dbt what the new tables we built look like and their rules",
+      "s1": "1. Open Command Prompt (CMD):",
+      "s2": "2. Add the following content:",
+      "s3": "3. Run Tests:"
+    },
+    "step5": {
+      "heading": "Step 5: Generate Documentation",
+      "infoBox": "After running the command, a browser will open automatically. Or open your browser at: http://localhost:8001",
+      "caption": "dbt Docs UI — Shows the project structure and all models in analytics_staging"
+    },
+    "summary": {
+      "heading": "Phase 9: Data Cleansing & Staging Models COMPLETE!",
+      "subtext": "Phase 9 Summary: Achievements",
+      "modelsTitle": "Successfully Created 3 Models:",
+      "m1": "Layer 1: Basic Cleaning",
+      "m2": "Layer 2: Business Logic",
+      "m3": "Quality Monitoring",
+      "fixedTitle": "Data Quality Issues Resolved",
+      "thCol": "Column Name",
+      "thCount": "Missing Count",
+      "thPct": "% Missing",
+      "thHandling": "Handling Method",
+      "h1": "Keep NULL",
+      "h2": "Replace with 0 (no data ≠ loss)",
+      "h3": "Keep NULL",
+      "h4": "Keep NULL",
+      "h5": "Replace with 0",
+      "dupTitle": "Duplicate Data — Keep the better rank:",
+      "d1": "Rashomon: rank 45 ✅ kept / rank 79 ❌ removed",
+      "d2": "Paths of Glory: rank 76 ✅ / rank 92 ❌",
+      "d3": "The Bridge on the River Kwai: rank 73 ✅ / rank 97 ❌",
+      "d4": "The Third Man: rank 47 ✅ / rank 71 ❌",
+      "d5": "The Great Dictator: rank 43 ✅ / rank 75 ❌",
+      "newColsTitle": "6 New Columns in stg_movies_enriched.sql",
+      "nc1": "Masterpiece, Excellent, Very Good, Good",
+      "nc2": "Blockbuster, Major Hit, Hit, Modest",
+      "nc3": "Oscar Winner (5+), (3-4), (1-2), No Oscar",
+      "nc4": "1930, 1940, ..., 2019",
+      "nc5": "Modern Era (2010s+), 2000s, 1990s, 1970s, 1950s, etc.",
+      "nc6": "Epic, Long, Standard, Short",
+      "finalBox": "All Data Tests Passed ✅ — 13 checks: PASS 76.9%, INFO 23.1%"
+    },
+    "navBtn": {
+      "prev": "← Phase 8: Manual Scripts",
+      "next": "Phase 10: Dimensional Modeling →"
+    }
+  },
+  "phase12": {
+    "backBtn": "← Home",
+    "title": "Testing & Documentation",
+    "subtitle": "Create dbt tests to verify data quality and generate documentation",
+    "navTitle": "Phase 12 Contents",
+    "nav": {
+      "purpose": "Purpose of Phase 12",
+      "step1": "Step 1: schema.yml",
+      "step1_dims": "— Dimension Tables",
+      "step1_bridges": "— Bridge Tables",
+      "step1_fact": "— Fact Table",
+      "step2": "Step 2: Business Logic Tests",
+      "step3": "Step 3: Install dbt_utils",
+      "step4": "Step 4: Run Tests",
+      "step5": "Step 5: Generate Docs",
+      "summary": "Summary"
+    },
+    "info": {
+      "title": "Summary"
+    },
+    "labels": {
+      "createFile": "Create file:",
+      "code": "Code:",
+      "run": "Run:",
+      "result": "Result:"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 12",
+      "desc": "To verify data accuracy and validate logic correctness. The goal of this phase is to create dbt tests to check data quality."
+    },
+    "step1": {
+      "heading": "STEP 1: Create schema.yml for General Testing",
+      "infoText": "The purpose of creating schema.yml is to define the structure of Dimension tables, bridge tables, and fact tables, resulting in improved data accuracy and quality verification.",
+      "dimsHeading": "DIMENSION TABLES",
+      "bridgesHeading": "BRIDGE TABLES",
+      "factHeading": "FACT TABLE",
+      "saveNote": "Save file (Ctrl+S)"
+    },
+    "step2": {
+      "heading": "STEP 2: Business Logic Tests",
+      "desc": "In this step we need to create separate files because we want to test that the logic we wrote calculates correctly. Starting from:",
+      "file1": "assert_movie_count.sql",
+      "file1desc": "File 1 assert_movie_count.sql: Verify we have exactly 95 movies (after removing duplicates). The source data has 100 rows; after cleansing exactly 95 movies should remain. If not 95, there is a problem in data cleansing.",
+      "file2": "assert_no_orphan_bridges.sql",
+      "file2desc": "File 2 assert_no_orphan_bridges.sql: Verify that every Bridge Table correctly links to the main tables.",
+      "file3": "assert_rating_consistency.sql",
+      "file3desc": "File 3 assert_rating_consistency.sql: Verify that the is_masterpiece column is calculated correctly. If imdb_rating >= 9.0, is_masterpiece = 1 (masterpiece). If imdb_rating < 9.0, is_masterpiece = 0. This file checks that rating and is_masterpiece match for every movie — PASS if all match, FAIL if not."
+    },
+    "step3": {
+      "heading": "STEP 3: Install dbt_utils Package",
+      "createFile": "1. Create packages.yml:",
+      "addContent": "2. Add:",
+      "install": "3. Install:"
+    },
+    "step4": {
+      "heading": "STEP 4: Run Tests",
+      "desc": "Run all tests:"
+    },
+    "step5": {
+      "heading": "STEP 5: Generate Documentation Site"
+    },
+    "summary": {
+      "heading": "Phase 12 Complete!",
+      "desc": "We created dbt tests (schema.yml + 3 custom tests) and generated dbt documentation site.",
+      "whatDone": "Summary of what was done in Phase 12:",
+      "thStep": "STEP",
+      "thFile": "FILE / COMMAND",
+      "thDesc": "DESCRIPTION",
+      "row1": "Define structure and tests for all 13 MARTS tables",
+      "row2": "Verify exactly 95 movies after deduplication",
+      "row3": "Verify all bridge records have valid foreign keys",
+      "row4": "Verify is_masterpiece flag is consistent with IMDb rating",
+      "row5": "Add dbt_utils v1.1.1 dependency",
+      "row6": "Run all schema + singular tests",
+      "row7": "Generate and serve dbt documentation site"
+    },
+    "navBtn": {
+      "prev": "← Phase 11: Bridge & Fact Tables",
+      "next": "Phase 13: DAG Development →"
+    }
+  },
+  "phase11": {
+    "backBtn": "← Home",
+    "title": "Bridge Tables and Fact Table",
+    "subtitle": "Build Bridge Tables and Fact Table for Many-to-Many relationships in Star Schema",
+    "navTitle": "Phase 11 Contents",
+    "nav": {
+      "purpose": "Purpose of Phase 11",
+      "structure": "Project Structure",
+      "tables": "Tables Overview",
+      "part1": "PART 1: Bridge Tables",
+      "step1": "Step 1: bridge_movie_genre",
+      "step2": "Step 2: bridge_movie_actor",
+      "step3": "Step 3: bridge_movie_country",
+      "step4": "Step 4: bridge_movie_language",
+      "step5": "Step 5: bridge_movie_director",
+      "bridges_summary": "Bridges Summary",
+      "part2": "PART 2: Fact Table",
+      "final_verify": "Final Verification",
+      "summary": "Summary"
+    },
+    "info": {
+      "title": "Summary"
+    },
+    "labels": {
+      "createFile": "Create file:",
+      "code": "Code:",
+      "run": "Run:",
+      "verify": "Verify:",
+      "result": "Result:"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 11",
+      "desc1": "This phase continues from Phase 10 to manage complex data relationships in the Data Model.",
+      "desc2": "The main objective is to solve Many-to-Many (M:N) relationships between Fact and Dimension tables that cannot be connected directly. This phase aims to:",
+      "goal1": "Create Bridge Tables for many-to-many relationships",
+      "goal2": "Create Fact Table as the heart of Star Schema"
+    },
+    "structure": {
+      "heading": "Project Structure"
+    },
+    "tables": {
+      "heading": "Tables to Create: 13 Tables",
+      "dimTitle": "Dimension Tables (7 tables) — completed in Phase 10:",
+      "bridgeTitle": "Bridge Tables (5 tables) to create in this phase:",
+      "factTitle": "Fact Table (1 table) to create in this phase:"
+    },
+    "part1": {
+      "heading": "PART 1: BRIDGE TABLES",
+      "desc": "Bridge tables manage Many-to-Many relationships"
+    },
+    "step1": {
+      "heading": "STEP 1: bridge_movie_genre"
+    },
+    "step2": {
+      "heading": "STEP 2: bridge_movie_actor"
+    },
+    "step3": {
+      "heading": "STEP 3: bridge_movie_country"
+    },
+    "step4": {
+      "heading": "STEP 4: bridge_movie_language"
+    },
+    "step5": {
+      "heading": "STEP 5: bridge_movie_director"
+    },
+    "bridges_summary": {
+      "heading": "Bridges Summary",
+      "runAll": "Run All Bridges:",
+      "verifyAll": "Verify All:"
+    },
+    "part2": {
+      "heading": "PART 2: FACT TABLE",
+      "desc": "Fact table with movie performance metrics | Grain: One row per movie | Input: dim_movies, dim_time | Output: 95 rows"
+    },
+    "final_verify": {
+      "heading": "FINAL VERIFICATION",
+      "runAll": "Run everything:",
+      "completeCounts": "Complete Table Counts:"
+    },
+    "summary": {
+      "heading": "Phase 11 Complete!",
+      "desc": "We created Bridge Tables (5 tables) and Fact table (1 table), giving us 6 models in this phase.",
+      "modelsBuilt": "Models built in Phase 11:",
+      "totalModels": "Combined with Dimension tables (7 tables) and Staging Layer, we have 16 models total:",
+      "thCategory": "CATEGORY",
+      "thTable": "TABLE_NAME",
+      "thRows": "ROW_COUNT"
+    },
+    "navBtn": {
+      "prev": "← Phase 10: Dimensional Modeling",
+      "next": "Phase 12: Testing & Documentation →"
+    }
+  },
+  "phase10": {
+    "backBtn": "← Home",
+    "title": "Dimensional Modeling",
+    "subtitle": "Build Dimensional Models in Star Schema using dbt",
+    "navTitle": "Phase 10 Contents",
+    "nav": {
+      "purpose": "Purpose of Phase 10",
+      "structure": "Project Structure",
+      "step1": "Step 1: Setup Folders",
+      "step2": "Step 2: dim_movies",
+      "step3": "Step 3: dim_genres",
+      "step4": "Step 4: dim_directors",
+      "step5": "Step 5: dim_actors",
+      "step6": "Step 6: dim_countries",
+      "step7": "Step 7: dim_languages",
+      "step8": "Step 8: dim_time",
+      "summary": "Dimensions Summary"
+    },
+    "info": {
+      "title": "Summary"
+    },
+    "labels": {
+      "createFile": "Create file:",
+      "run": "Run:",
+      "verify": "Verify:",
+      "result": "Result:"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 10",
+      "desc": "Build Dimensional Models in Star Schema format so that Dashboard and Analytics can query data efficiently"
+    },
+    "structure": {
+      "heading": "Project Structure",
+      "listTitle": "Dimension Tables to build (7 tables):"
+    },
+    "step1": {
+      "heading": "Step 1: Setup Folders",
+      "cmd": "Windows CMD:",
+      "verify": "Verify:"
+    },
+    "step2": {
+      "heading": "Step 2: dim_movies (Main Dimension)",
+      "infoText": "Movie dimension with all attributes | Input: stg_movies_enriched | Output: 95 rows | materialized='table', schema='marts'",
+      "result": "Result:"
+    },
+    "step3": {
+      "heading": "Step 3: dim_genres",
+      "infoText": "Genre lookup dimension | Input: stg_movies_enriched | Output: 21 rows | Uses LATERAL FLATTEN to split genres_raw"
+    },
+    "step4": {
+      "heading": "Step 4: dim_directors",
+      "infoText": "Director lookup dimension | Input: stg_movies_cleaned (uses cleaned because director_raw is needed) | Output: 61 rows"
+    },
+    "step5": {
+      "heading": "Step 5: dim_actors",
+      "infoText": "Actor lookup dimension | Input: stg_movies_enriched | Output: 152 rows"
+    },
+    "step6": {
+      "heading": "Step 6: dim_countries",
+      "infoText": "Country lookup dimension | Input: stg_movies_enriched | Output: 16 rows | Split by country_list"
+    },
+    "step7": {
+      "heading": "Step 7: dim_languages",
+      "infoText": "Language lookup dimension | Input: stg_movies_enriched | Output: 12 rows | Split by language_list"
+    },
+    "step8": {
+      "heading": "Step 8: dim_time",
+      "infoText": "Time dimension (year-based for movies) | Input: stg_movies_enriched | Output: 54 rows | One row per unique year"
+    },
+    "summary": {
+      "heading": "Dimensions Summary",
+      "runAll": "Run All Dimensions:",
+      "verifyAll": "Verify All:",
+      "completeMsg": "Phase 10: Dimensional Modeling (Star Schema) COMPLETE!",
+      "tablesBuilt": "We built 7 Dimension tables as follows:",
+      "thTable": "TABLE_NAME",
+      "thRows": "ROW_COUNT",
+      "thKey": "KEY FIELD",
+      "thDesc": "DESCRIPTION",
+      "d1Desc": "Unique actors from all movies",
+      "d2Desc": "Unique countries from all movies",
+      "d3Desc": "Unique directors from all movies",
+      "d4Desc": "Unique genres from all movies",
+      "d5Desc": "Unique languages from all movies",
+      "d6Desc": "All movies with full attributes",
+      "d7Desc": "Unique years with time attributes"
+    },
+    "navBtn": {
+      "prev": "← Phase 9: Data Cleansing & Staging",
+      "next": "Phase 11: Bridge Tables & Fact Table →"
+    }
+  },
+  "phase13": {
+    "backBtn": "← Home",
+    "title": "DAG Development & Orchestration",
+    "subtitle": "Build an automated, reliable system to manage task dependencies",
+    "navTitle": "Phase 13 Contents",
+    "nav": {
+      "purpose": "Purpose of Phase 13",
+      "step1": "Step 1: test_airflow_setup.py",
+      "step2": "Step 2: movies_pipeline_dag.py",
+      "step3": "Step 3: Snowflake Connection",
+      "step4": "Step 4: Test DAG",
+      "summary": "Summary"
+    },
+    "info": {
+      "title": "Phase 13 Info",
+      "dag1": "Test DAG",
+      "dag2": "Main DAG",
+      "tasks": "Total Tasks",
+      "schedule": "Schedule",
+      "version": "Airflow Version",
+      "conn": "Snowflake Conn"
+    },
+    "labels": {
+      "openCmd": "Open CMD",
+      "paste": "Copy-Paste this code:"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 13",
+      "desc": "In developing the Data Pipeline in this phase, our purpose is to build an automated, reliable system to clearly define Task Dependencies (Task Dependencies) and prevent out-of-order task execution."
+    },
+    "step1": {
+      "heading": "Step 1: Create test_airflow_setup.py",
+      "infoText": "This file is a test DAG to verify that Airflow is installed and running correctly before creating the real DAG for Movies Pipeline."
+    },
+    "step2": {
+      "heading": "Step 2: Create movies_pipeline_dag.py",
+      "infoText": "This is the most important file. We will create a DAG for every step of the Movies Data Pipeline, from CSV all the way to Star Schema in Snowflake, automatically.",
+      "tasksLabel": "Pipeline Tasks (8 tasks):",
+      "depsLabel": "Task Dependencies:"
+    },
+    "step3": {
+      "heading": "Step 3: Setup Snowflake Connection in Airflow",
+      "openAirflow": "1. Open Airflow",
+      "openUI": "2. Open Web UI",
+      "loginLabel": "Login:",
+      "setupLabel": "3. Setup Snowflake Connection in Airflow:",
+      "goto": "Go to Admin → Connections",
+      "clickAdd": "Click + (Add a new record)",
+      "fillInfo": "Fill in the connection details:",
+      "clickSave": "Click Save"
+    },
+    "step4": {
+      "heading": "Step 4: Test DAG",
+      "step1Label": "1. Go to Dags page or our main page:",
+      "step1Desc": "You will see the DAG is Toggle ON. If not, Trigger DAG at the top left → click toggle to ON (blue)",
+      "step2Label": "2. Click Trigger DAG for both",
+      "step3Label": "3. View Progress"
+    },
+    "summary": {
+      "heading": "Summary",
+      "desc": "We have successfully built an automated data pipeline using Apache Airflow, orchestrating all 8 tasks from CSV upload to dbt documentation generation.",
+      "whatDone": "What we built in Phase 13:",
+      "thStep": "Step",
+      "thFile": "File / Tool",
+      "thDesc": "Description",
+      "row1": "Test DAG to verify Airflow setup",
+      "row2": "Main DAG orchestrating the full Movies Data Pipeline (8 tasks)",
+      "row3": "Setup Snowflake connection in Airflow Admin",
+      "row4": "Trigger and monitor both DAGs successfully"
+    },
+    "navBtn": {
+      "prev": "← Phase 12: Testing & Documentation",
+      "next": "Phase 14: Dashboard →"
+    }
+  },
+  "phase14": {
+    "title": "Dashboard Creation with Power BI",
+    "subtitle": "Create Dashboard with Power BI to present data from Snowflake",
+    "backBtn": "← Back to Home",
+    "navTitle": "Contents",
+    "sidebar": {
+      "quickInfo": "Quick Info",
+      "tool": "Tool",
+      "dataSource": "Data Source",
+      "schema": "Schema",
+      "tables": "Tables",
+      "dashboardPages": "Dashboard Pages",
+      "visuals": "Visuals"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 14",
+      "description": "This is the final phase of the data pipeline journey. In previous phases, we prepared, cleaned, and structured the data. This phase aims to connect to Snowflake, pull data from the Star Schema, and present insights through easy-to-understand and actionable Data Visualizations.",
+      "infoboxTitle": "🎬 Phase 14 Coverage:",
+      "coverage": [
+        "Installing Power BI Desktop",
+        "Connecting to Snowflake",
+        "Importing data from Star Schema (13 tables)",
+        "Verifying Data Model and Relationships",
+        "Creating 2-page Dashboard with 7+ Visualizations",
+        "Analyzing 95 movies from the IMDb Top 100"
+      ]
+    },
+    "step1": {
+      "heading": "STEP 1: Install Power BI Desktop",
+      "description": "We won't go into detail in this step. Installation is straightforward and can be completed quickly.",
+      "note": "💡 Note:",
+      "noteText": "You can download Power BI Desktop from the Microsoft Store or Microsoft's official website"
+    },
+    "step2": {
+      "heading": "STEP 2: Connect to Snowflake",
+      "goal": "Goal:",
+      "goalText": "Connect Power BI to Snowflake to retrieve data",
+      "subsection1": {
+        "title": "2.1 Prepare Snowflake Credentials",
+        "description": "Required information:"
+      },
+      "subsection2": {
+        "title": "2.2 Connect to Snowflake",
+        "step1Title": "Step 1: Get Data",
+        "step1Items": [
+          "Open Power BI Desktop",
+          "Click \"Get data\" (Home tab)",
+          "Or: Home → Get Data → More..."
+        ],
+        "step2Title": "Step 2: Search for Snowflake",
+        "step2Description": "In the \"Get Data\" dialog:",
+        "step2Items": [
+          "Search box: Type \"Snowflake\"",
+          "Select \"Snowflake\"",
+          "Click \"Connect\""
+        ],
+        "step3Title": "Step 3: Enter Snowflake Details",
+        "step3Description": "Snowflake Connection Dialog will appear:",
+        "warningTitle": "⚠️ Important:",
+        "warningItems": [
+          "Must include .snowflakecomputing.com suffix",
+          "Do not use https://"
+        ],
+        "step4Title": "Step 4: Authentication",
+        "step4Description": "Authentication dialog will appear:",
+        "step4Items": [
+          "Select \"Database\" (left tab)",
+          "Enter Username and Password",
+          "Click \"Connect\""
+        ],
+        "step5Title": "Step 5: Navigator (Select Tables)",
+        "step5Description": "Navigator window will display databases:",
+        "step5Info": "You will see 13 tables:",
+        "tables": [
+          "✅ DIM_MOVIES",
+          "✅ DIM_GENRES",
+          "✅ DIM_DIRECTORS",
+          "✅ DIM_ACTORS",
+          "✅ DIM_COUNTRIES",
+          "✅ DIM_LANGUAGES",
+          "✅ DIM_TIME",
+          "✅ BRIDGE_MOVIE_GENRE",
+          "✅ BRIDGE_MOVIE_ACTOR",
+          "✅ BRIDGE_MOVIE_COUNTRY",
+          "✅ BRIDGE_MOVIE_LANGUAGE",
+          "✅ BRIDGE_MOVIE_DIRECTOR",
+          "✅ FACT_MOVIE_PERFORMANCE"
+        ]
+      },
+      "subsection3": {
+        "title": "2.3 Verify Connection",
+        "items": [
+          "Click on DIM_MOVIES",
+          "Check Preview on the right: You should see columns: MOVIE_ID, MOVIE_TITLE, RELEASE_YEAR...",
+          "If you see data = Connection successful!"
+        ]
+      }
+    },
+    "step3": {
+      "heading": "STEP 3: Import Data",
+      "goal": "Goal:",
+      "goalText": "Import required tables from Snowflake",
+      "subsection1": {
+        "title": "3.1 Select Tables",
+        "description": "How to select:",
+        "items": [
+          "✅ Click checkbox next to table name",
+          "Or Ctrl+Click for multiple tables"
+        ],
+        "info": "In Navigator window: Select all 13 tables, including Dimensions (7), Bridges (5), and Fact (1)"
+      },
+      "subsection2": {
+        "title": "3.2 Load Data",
+        "items": [
+          "Click \"Load\"",
+          "Wait for loading..."
+        ]
+      },
+      "subsection3": {
+        "title": "3.3 Verify Data Loaded",
+        "description": "Check the \"Fields\" pane (on the right): You should see 13 tables",
+        "successTitle": "✅ Once loaded",
+        "successText": "You will see 13 tables appear in the Fields pane, ready to use, including:",
+        "successItems": [
+          "Dimensions: 7 tables (Movies, Genres, Directors, Actors, Countries, Languages, Time)",
+          "Bridges: 5 tables (Movie-Genre, Movie-Actor, Movie-Country, Movie-Language, Movie-Director)",
+          "Fact: 1 table (Movie Performance)"
+        ]
+      }
+    },
+    "step4": {
+      "heading": "STEP 4: Data Model",
+      "subsection1": {
+        "title": "4.1 Enter Model View",
+        "description": "Click the \"Model\" icon on the left side to check relationships between tables",
+        "infoTitle": "🔗 Power BI will auto-create Relationships",
+        "infoText": "Between Fact table and Dimension tables based on Foreign Keys defined in Snowflake. Verify that:",
+        "infoItems": [
+          "Bridge tables connect Fact with Dimensions correctly",
+          "Cardinality is Many-to-One (*:1) as designed",
+          "No Ambiguous Relationships (red lines)"
+        ]
+      }
+    },
+    "step5": {
+      "heading": "STEP 5: Build Dashboards",
+      "subsection1": {
+        "title": "1. Create Page",
+        "description": "Rename page:",
+        "items": [
+          "Right-click \"Page 1\" (at bottom)",
+          "Rename → \"Executive Summary\""
+        ],
+        "canvasTitle": "Canvas Setting:"
+      },
+      "subsection2": {
+        "title": "2. Create Measures Table",
+        "description": "Before creating Visuals, we need to create Measures first:",
+        "steps": [
+          "Home → Enter Data",
+          "Name the table: \"DAX_Metrics\"",
+          "Delete all columns",
+          "Load"
+        ],
+        "daxTitle": "Create DAX Measures:"
+      }
+    },
+    "kpi": {
+      "heading": "KPI Cards: Key Metrics",
+      "goal": "Goal:",
+      "goalText": "Display the most important metrics for all movies",
+      "steps": [
+        "Insert → Card (4 cards)",
+        "Select Fields: Total Movies, Total Revenue, Total Oscars, Avg IMDb Rating",
+        "Arrange as 4 vertical cards"
+      ],
+      "resultsTitle": "Reading the Results:",
+      "results": {
+        "movies": "95 Movies",
+        "moviesDesc": "Total of 95 movies (5 were removed as duplicates)",
+        "revenue": "$16,621M",
+        "revenueDesc": "Total revenue of $16.6 billion (average ~$210M per movie)",
+        "oscars": "173",
+        "oscarsDesc": "Total Oscar awards (average 1.8 awards per movie)",
+        "rating": "8.40",
+        "ratingDesc": "Average IMDb rating (very high > 8.0 = Excellent)"
+      }
+    },
+    "visual1": {
+      "heading": "Visual 1: Top 10 Movies by Revenue",
+      "goal": "Goal:",
+      "goalText": "Display the top 10 highest-grossing movies",
+      "steps": [
+        "Insert → Clustered bar chart",
+        "X-axis: DIM_MOVIES[MOVIE_TITLE]",
+        "Y-axis: DAX_Metrics[Total Revenue]",
+        "Add Top 10 Filter → Sort by Total Revenue Descending"
+      ],
+      "resultsTitle": "Results:",
+      "topMoviesTitle": "Top 3 are Billion-Dollar Blockbusters:",
+      "topMovies": [
+        "1. The Lord of the Rings: Return of the King - $1,119.9M",
+        "2. The Dark Knight - $1,004.9M",
+        "3. The Lion King - $968.5M"
+      ],
+      "observation": "Note:",
+      "observationText": "2 out of 3 are successful trilogies (LOTR trilogy)"
+    },
+    "visual2": {
+      "heading": "Visual 2: Revenue by Decade",
+      "goal": "Goal:",
+      "goalText": "Show revenue trends for movies across different decades",
+      "steps": [
+        "Insert → Line chart",
+        "X-axis: DIM_TIME[DECADE]",
+        "Y-axis: DAX_Metrics[Total Revenue]"
+      ],
+      "resultsTitle": "Results:",
+      "goldenEra": "2000s were the Golden Era:",
+      "goldenEraText": "Highest revenue at ~$5,747M with average IMDb rating of 8.5",
+      "growth": "Growth:",
+      "growthText": "From <$100M (1930s-1940s) → $1,000M (1970s) → $5,300M (1990s) → Peak $6,000M (2000s)",
+      "decline": "2010s:",
+      "declineText": "Declined to $2,000M (-67%) because dataset only includes data up to 2019"
+    },
+    "visual3": {
+      "heading": "Visual 3: Number of Movies by Genre",
+      "goal": "Goal:",
+      "goalText": "Show the number of movies in each genre",
+      "steps": [
+        "Insert → Clustered bar chart",
+        "X-axis: DIM_GENRES[GENRE_NAME]",
+        "Y-axis: BRIDGE_MOVIE_GENRE[MOVIE_ID] → Count (Distinct)",
+        "Sort by Count Descending"
+      ],
+      "resultsTitle": "Results:",
+      "drama": "Drama Dominates:",
+      "dramaText": "69 movies = 72.6% of all movies (2.5x more than Crime in 2nd place)",
+      "middle": "Middle Tier:",
+      "middleText": "Crime (27), Adventure (17), Comedy (16), Mystery (15), Thriller (13)",
+      "bottom": "Lower Tier:",
+      "bottomText": "Action, Fantasy, Romance, Sci-Fi all tied at 11 movies",
+      "note": "Note:",
+      "noteText": "Total > 95 because one movie can have multiple genres"
+    },
+    "visual4": {
+      "heading": "Visual 4: Global Movie Production",
+      "goal": "Goal:",
+      "goalText": "View geographical diversity of movie production",
+      "steps": [
+        "Insert → Treemap",
+        "Category: DIM_COUNTRIES[COUNTRY_NAME]",
+        "Values: BRIDGE_MOVIE_COUNTRY[MOVIE_ID] → Count (Distinct)"
+      ],
+      "resultsTitle": "Results:",
+      "us": "🇺🇸 United States Dominates:",
+      "usText": "76 movies (80.0%)",
+      "uk": "🇬🇧 UK is Second:",
+      "ukText": "17 movies (17.9%) - 4.5x less than US",
+      "others": "Other Countries:",
+      "othersText": "Japan (5), Germany (4), Italy/France/NZ/Korea (3 movies)",
+      "takeaway": "Key Takeaway:",
+      "takeawayText": "Hollywood dominates 80% of high-quality films worldwide"
+    },
+    "visual5": {
+      "heading": "Visual 5: Rating Distribution",
+      "goal": "Goal:",
+      "goalText": "Show the distribution of IMDb ratings",
+      "steps": [
+        "Insert → Clustered Column Chart",
+        "X-axis: Rating Range (7.5-7.9, 8.0-8.4, 8.5-8.9, 9.0-10.0)",
+        "Y-axis: Movies with IMDb (DAX measure filtering NULL)"
+      ],
+      "resultsTitle": "Results:",
+      "great": "Great (8.0-8.4):",
+      "greatText": "51 movies (54.3%) - largest group",
+      "excellent": "Excellent (8.5-8.9):",
+      "excellentText": "36 movies (38.3%) - almost as many as Great",
+      "masterpiece": "Masterpiece (9.0-10.0):",
+      "masterpieceText": "5 movies (5.3%) - very rare (Shawshank 9.3, Godfather 9.2, Dark Knight 9.0)",
+      "good": "Good (7.5-7.9):",
+      "goodText": "2 movies (2.1%) - lowest scores (Social Network 7.7, Breakfast Club 7.8)"
+    },
+    "visual6": {
+      "heading": "Visual 6: Top 10 Oscar-Awarded Movies",
+      "goal": "Goal:",
+      "goalText": "Display movies with the most Oscar awards",
+      "steps": [
+        "Insert → Clustered bar chart",
+        "Y-axis: DIM_MOVIES[MOVIE_TITLE]",
+        "X-axis: Oscar Wins (Awarded Only) - DAX measure filtering > 0",
+        "Add Top 10 Filter"
+      ],
+      "resultsTitle": "Results:",
+      "rank1": "🏆 Rank 1:",
+      "rank1Text": "The Lord of the Rings: Return of the King - 11 awards (IMDb 8.90)",
+      "rank2": "Rank 2:",
+      "rank2Text": "On the Waterfront - 8 awards (IMDb 8.10)",
+      "ranks36": "Ranks 3-6:",
+      "ranks36Text": "4 movies with 7 awards (Lawrence of Arabia, Schindler's List, Bridge on River Kwai, The Sting)",
+      "note": "Note:",
+      "noteText": "47 movies have no Oscar awards (49.5%)"
+    },
+    "visual7": {
+      "heading": "Visual 7: Quality vs Commercial Success",
+      "goal": "Goal:",
+      "goalText": "Show relationship between quality (IMDb Rating) and revenue",
+      "steps": [
+        "Insert → Scatter chart",
+        "X-axis: FACT_MOVIE_PERFORMANCE[IMDB_RATING]",
+        "Y-axis: FACT_MOVIE_PERFORMANCE[BOX_OFFICE_MILLIONS]",
+        "Values: DIM_MOVIES[MOVIE_TITLE]",
+        "Enable Trend Line (Analytics pane)"
+      ],
+      "resultsTitle": "Results:",
+      "trendline": "Trend Line Slopes Upward (Positive Slope):",
+      "trendlineText": "Overall, \"higher ratings tend to correlate with higher revenue\"",
+      "exceptionsTitle": "⚠️ But many exceptions exist:",
+      "exceptions": [
+        "Masterpiece movies (9.0+) have revenue differences of up to 1,000x ($1M - $1,005M)",
+        "Shawshank Redemption (9.3) earned only $58M",
+        "The Dark Knight (9.0) earned $1,005M",
+        "Social Network (7.7) earned $225M - 4x more than Shawshank"
+      ],
+      "conclusion": "Conclusion:",
+      "conclusionText": "Rating is just one of many factors affecting revenue"
+    },
+    "dashboards": {
+      "heading": "Dashboard Pages - Final Result",
+      "description": "When all Visuals are arranged together, we get 2 complete Dashboard pages:",
+      "page1Title": "Page 1: Executive Summary (Overview)",
+      "page1InfoTitle": "Page 1 includes:",
+      "page1Components": [
+        "KPI Cards (4 cards) - Display key metrics",
+        "Top 10 Movies by Revenue - Show Blockbusters",
+        "Revenue by Decade - Show revenue trends by era",
+        "Number of Movies by Genre - Show genre popularity",
+        "Global Movie Production - Show production by country"
+      ],
+      "page2Title": "Page 2: Deep Dive Analysis",
+      "page2InfoTitle": "Page 2 includes:",
+      "page2Components": [
+        "Movies with IMDb by Rating Range - Rating distribution",
+        "Top 10 Most Oscar-Awarded Movies - Most awarded films",
+        "Quality vs Commercial Success - Relationship between rating and revenue"
+      ]
+    },
+    "summary": {
+      "heading": "Summary of Phase 14",
+      "completeTitle": "✅ Phase 14: Dashboard Creation with Power BI — COMPLETE!",
+      "completeText": "You have created an Interactive Dashboard that effectively presents data from the Data Pipeline",
+      "accomplishedTitle": "What we accomplished in Phase 14:",
+      "tableHeaders": {
+        "step": "Step",
+        "details": "Details",
+        "result": "Result"
+      },
+      "steps": [
+        {
+          "step": "Step 1",
+          "details": "Install Power BI Desktop",
+          "result": "Successfully installed Power BI"
+        },
+        {
+          "step": "Step 2",
+          "details": "Connect to Snowflake",
+          "result": "Connected to Snowflake and pulled data from analytics_marts"
+        },
+        {
+          "step": "Step 3",
+          "details": "Import Data",
+          "result": "Imported 13 tables (7 Dimensions, 5 Bridges, 1 Fact)"
+        },
+        {
+          "step": "Step 4",
+          "details": "Data Model",
+          "result": "Verified Relationships between tables"
+        },
+        {
+          "step": "Step 5",
+          "details": "Build Dashboards",
+          "result": "Created 2-page Dashboard with 7+ Visualizations"
+        }
+      ],
+      "pipelineCompleteTitle": "🎬 Data Pipeline Complete!",
+      "pipelineCompleteText": "From Phase 1-14, you built an End-to-End Data Pipeline from data collection, cleaning, storage in Data Warehouse, processing with dbt, orchestration with Airflow, to presenting results with a complete Power BI Dashboard!",
+      "insightsTitle": "Key Insights from Dashboard:",
+      "insights": [
+        "95 movies in the database with an average IMDb rating of 8.40 (Excellent)",
+        "$16,621M total revenue from all movies (average $210M per movie)",
+        "173 Oscar awards won by these movies (average 1.8 awards per movie)",
+        "Drama dominates with 72.6% of all movies",
+        "United States produces 80% of the dataset (Hollywood dominance)",
+        "2000s were the golden era with nearly $6,000M revenue and high ratings",
+        "LOTR: Return of the King earned the most and won the most awards ($1,120M, 11 Oscars)",
+        "Masterpiece movies (9.0+) - only 5, but revenue varies greatly"
+      ],
+      "learnedTitle": "What we learned:",
+      "learnedSubtitle": "📊 Data Visualization Best Practices:",
+      "learned": [
+        "Choose appropriate Visual Types for data (Bar, Line, Scatter, Treemap, Cards)",
+        "Use meaningful and consistent colors throughout the Dashboard",
+        "Arrange Layout to tell a story (Storytelling with Data)",
+        "Create DAX Measures to calculate desired values",
+        "Use Filters and Slicers to let users explore data",
+        "Add Trend Lines and Analytics to see Patterns"
+      ],
+      "nextSteps": "Next Steps",
+      "nextStepsDescription": "Phase 15: Deploy the system to AWS EC2 for automated 24/7 cloud operation with internet accessibility from anywhere"
+    }
+  },
+  "phase15": {
+    "title": "EC2 Deployment",
+    "subtitle": "Deploy to AWS EC2 for 24/7 Cloud Operation",
+    "backBtn": "← Back to Home",
+    "navTitle": "Table of Contents",
+    "sidebar": {
+      "quickInfo": "Quick Info",
+      "tool": "Tool",
+      "platform": "Platform",
+      "instance": "Instance Type",
+      "os": "Operating System",
+      "services": "Services",
+      "deployment": "Deployment Method"
+    },
+    "purpose": {
+      "heading": "Purpose of Phase 15",
+      "description": "The purpose of this phase is to deploy the Movies Data Pipeline we developed on our local machine to Production on AWS EC2, allowing the system to run 24/7 on the Cloud (without needing to keep our own machine on) and enabling Airflow to run automatically according to the defined schedule. Additionally, it can be accessed from anywhere via the Internet.",
+      "infoboxTitle": "Benefits of Deploying on EC2:",
+      "benefits": [
+        "Runs 24/7 without needing to keep your own machine on",
+        "Airflow runs automatically on schedule",
+        "Accessible from anywhere via Internet",
+        "More stable and secure than Local",
+        "Can scale up when needed"
+      ]
+    },
+    "step1": {
+      "heading": "Step 1: Create profiles.yml in Root Project",
+      "description": "In this step, we previously created the profiles.yml file in Phase 7 when we connected dbt to Snowflake, and we got the profiles.yml file in C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "roleTitle": "Role of profiles.yml:",
+      "roleDesc": "profiles.yml acts as an \"intermediary\" to store connection information between dbt and Snowflake",
+      "details": [
+        "Address and identity: Must specify which Snowflake Account dbt should connect to, what Username to use, and what password",
+        "Define permissions: Tell dbt what Role level to use and which Warehouse to use for processing",
+        "Specify destination: Define which Database and Schema to place the transformed data"
+      ],
+      "twoFiles": "This project uses 2 profiles.yml files:",
+      "globalFile": "File 1: Global profiles.yml",
+      "globalLocation": "Location: C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "globalPurpose": "Purpose: Used for development and testing on local machine",
+      "projectFile": "File 2: Project profiles.yml",
+      "projectLocation": "Location: D:\\movies_pipeline\\movies_dbt\\profiles.yml",
+      "projectPurpose": "Purpose: Used for deployment on Docker/Airflow/EC2",
+      "createTitle": "How to create profiles.yml file (Project):",
+      "createStep1": "Open CMD and navigate to movies_dbt",
+      "createStep2": "Copy-Paste this code from C:\\Users\\YourName\\.dbt\\profiles.yml and make it not hardcoded",
+      "testConnection": "Test Connection:",
+      "testDesc": "dbt will search for profiles.yml in this order: 1) In current folder (if exists) → use this file, 2) If not found → look at C:\\Users\\YourName\\.dbt\\profiles.yml",
+      "testSteps": [
+        "Set environment variables",
+        "Verify settings: echo %SNOWFLAKE_ACCOUNT%",
+        "Run dbt debug",
+        "If you see 'All checks passed!' = Success!"
+      ]
+    },
+    "step2": {
+      "heading": "Step 2: Create EC2 Instance",
+      "console": "1. Access EC2 Console",
+      "consoleSteps": [
+        "Login to AWS Console: https://console.aws.amazon.com",
+        "Verify you are in Region: US East (N. Virginia)",
+        "Search for 'EC2' in the search box and click 'EC2'",
+        "Click 'Launch Instance' (orange button)"
+      ],
+      "configure": "2. Configure Instance",
+      "nameTag": "Name and Tags: movies-pipeline-airflow",
+      "ami": "Application and OS Images (AMI):",
+      "amiDetails": [
+        "AMI: Ubuntu Server 22.04 LTS (HVM), SSD Volume Type",
+        "Architecture: 64-bit (x86)",
+        "Click 'Quick Start' tab → Select 'Ubuntu'",
+        "Select 'Ubuntu Server 22.04 LTS' (has 'Free tier eligible' label)"
+      ],
+      "instanceType": "Instance Type: m7i-flex.large",
+      "instanceTypeDesc": "In the search box, type 'm7i-flex.large' and select (has 'Free tier eligible' label)",
+      "keyPair": "Key Pair (Login):",
+      "keyPairNew": "If you don't have a Key Pair yet:",
+      "keyPairSteps": [
+        "Click 'Create new key pair'",
+        "Key pair name: movies-pipeline-key",
+        "Key pair type: RSA",
+        "Private key file format: .pem (if using Mac/Linux) ← This project uses this",
+        "Click 'Create key pair'",
+        "The .pem file will be downloaded - keep this file safe!"
+      ],
+      "networkSettings": "Network Settings:",
+      "networkSteps": [
+        "Click 'Edit' in Network settings",
+        "VPC: Default VPC (leave as default)",
+        "Subnet: No preference",
+        "Auto-assign public IP: Enable (must enable to access via internet)"
+      ],
+      "securityGroup": "Firewall (Security Groups):",
+      "sgName": "Security group name: movies-pipeline-sg",
+      "sgDesc": "Description: Security group for Airflow server",
+      "sgRules": "Inbound Security Group Rules:",
+      "rule1": "Rule 1: SSH - Type: SSH, Protocol: TCP, Port: 22, Source type: My IP",
+      "rule2": "Rule 2: Custom TCP (Airflow Webserver) - Port: 8080, Source type: My IP",
+      "rule3": "Rule 3: Custom TCP (Postgres) - Port: 5432, Source type: My IP",
+      "rule4": "Rule 4: HTTPS - Port: 443, Source type: Anywhere (0.0.0.0/0)",
+      "launch": "3. Launch Instance",
+      "launchSteps": [
+        "Check Summary on the right: Instance type: m7i-flex.large, Number of instances: 1",
+        "Click 'Launch instance' (orange button on bottom right)",
+        "Wait 1-2 minutes for instance to start",
+        "Click 'View all instances' to see created instance"
+      ],
+      "verify": "4. Verify Instance Status",
+      "verifyDesc": "In EC2 Dashboard you should see Instance state: Running (green), Status check: 2/2 checks passed (wait about 2-3 minutes), Public IPv4 address: copy and save it"
+    },
+    "step3": {
+      "heading": "Step 3: Connect to EC2",
+      "prepareKey": "1. Prepare SSH Key (Windows)",
+      "keySteps": [
+        "Open PowerShell",
+        "Move key to .ssh folder (recommended)",
+        "Check if .ssh folder exists: dir $HOME\\.ssh",
+        "(If not) Create .ssh folder: mkdir $HOME\\.ssh",
+        "Move .pem file: move $HOME\\Downloads\\movies-pipeline-key.pem $HOME\\.ssh\\",
+        "Set permissions"
+      ],
+      "permissions": "Set file permissions:",
+      "permSteps": [
+        "Reset Permission: icacls.exe movies-pipeline-key.pem /reset",
+        "Grant Replace permission: icacls.exe movies-pipeline-key.pem /grant:r \"$(env:USERNAME):(R)\"",
+        "Disable Inheritance: icacls.exe movies-pipeline-key.pem /inheritance:r",
+        "Verify permissions: icacls movies-pipeline-key.pem"
+      ],
+      "connect": "2. Connect SSH to EC2",
+      "connectCmd": "ssh -i \"movies-pipeline-key.pem\" ubuntu@<EC2_IP>",
+      "firstConnect": "First time connecting will ask 'Are you sure you want to continue connecting (yes/no)?'",
+      "firstConnectAction": "Type yes and press Enter",
+      "successMsg": "When connected successfully, you'll see: Welcome to Ubuntu 22.04.3 LTS"
+    },
+    "step4": {
+      "heading": "Step 4: Install Software on EC2",
+      "update": "1. Update System",
+      "updateCmd": "sudo apt update && sudo apt upgrade -y",
+      "docker": "2. Install Docker",
+      "dockerSteps": [
+        "Install dependencies",
+        "Add Docker repository",
+        "Install Docker",
+        "Allow ubuntu user to use docker without sudo",
+        "Must logout and login again"
+      ],
+      "dockerVerify": "Verify Docker:",
+      "dockerCmds": [
+        "docker --version (should get Docker version 29.2.1 or newer)",
+        "docker compose version (should get Docker Compose version v5.0.2 or newer)"
+      ],
+      "projectDir": "3. Create New Project Directory",
+      "projectDirCmd": "mkdir -p ~/movies-pipeline && cd ~/movies-pipeline",
+      "git": "4. Install Git",
+      "gitCmd": "sudo apt install -y git && git --version"
+    },
+    "step5": {
+      "heading": "Step 5: Move Code to EC2",
+      "github": "1. Create GitHub Repository",
+      "githubSteps": [
+        "Go to https://github.com",
+        "Login",
+        "Click '+' in top right → 'New repository'",
+        "Name: movies-data-pipeline",
+        "Select Private (if you don't want others to see)",
+        "Don't check 'Add a README'",
+        "Click 'Create repository'"
+      ],
+      "push": "2. Push Code from Local Machine",
+      "pushDesc": "Go to your project folder and run commands:",
+      "pushCmds": [
+        "git init",
+        "git add .",
+        "git commit -m 'Prepare for EC2 Deployment'",
+        "git branch -M main",
+        "git remote add origin https://github.com/yourusername/movies-pipeline.git",
+        "git push -u origin main"
+      ]
+    },
+    "step6": {
+      "heading": "Step 6: Clone Project from GitHub",
+      "description": "On EC2 (already in ~/movies-pipeline)",
+      "cmd": "git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git .",
+      "note": "Note: The . (dot) at the end = clone into current folder"
+    },
+    "step7": {
+      "heading": "Step 7: Check Important Files",
+      "checks": [
+        "Check for CSV files in data/: ls -la data/",
+        "Check for DAG files: ls -la dags/",
+        "Check dbt project: ls -la movies_dbt/"
+      ]
+    },
+    "step8": {
+      "heading": "Step 8: Create .env File",
+      "create": "1. Create .env file",
+      "createCmd": "cd ~/movies_pipeline && nano .env",
+      "content": "2. Enter all information",
+      "sections": [
+        "AIRFLOW SETTINGS",
+        "AWS Credentials",
+        "Snowflake Credentials"
+      ],
+      "save": "Save: Ctrl + X, Y, Enter",
+      "verify": "Verify .env:",
+      "verifyCmds": [
+        "Check if created: ls -la .env",
+        "View content: cat .env"
+      ],
+      "warning": "⚠️ Warning: .env file contains sensitive information. Keep it safe and never upload to GitHub!"
+    },
+    "step9": {
+      "heading": "Step 9: Setup Permissions",
+      "setUid": "Set AIRFLOW_UID: export AIRFLOW_UID=50000",
+      "createDirs": "Create directories (logs, plugins): mkdir -p logs plugins",
+      "setOwnership": "Set ownership: sudo chown -R 50000:0 logs dags plugins data movies_dbt",
+      "setPerms": "Set permissions: chmod -R 775 logs dags plugins data movies_dbt",
+      "verify": "Verify: ls -la"
+    },
+    "step10": {
+      "heading": "Step 10: Build Docker Images",
+      "cmd": "docker compose build",
+      "verify": "Verify created images: docker images | grep movies-pipeline",
+      "expected": "Should see: movies-pipeline-airflow-webserver, airflow-scheduler, airflow-triggerer, airflow-init"
+    },
+    "step11": {
+      "heading": "Step 11: Initialize Airflow Database",
+      "cmd": "docker compose up airflow-init",
+      "description": "This command will create the database for Airflow"
+    },
+    "step12": {
+      "heading": "Step 12: Start All Services",
+      "cmd": "docker compose up -d",
+      "description": "Start services (detached mode - runs in background)"
+    },
+    "step13": {
+      "heading": "Step 13: Check Services Status",
+      "cmd": "docker compose ps",
+      "description": "View status of all containers"
+    },
+    "step14": {
+      "heading": "Step 14: Access Airflow UI",
+      "url": "Open Browser: http://<EC2_IP>:8080",
+      "login": "Login:",
+      "username": "Username: airflow",
+      "password": "Password: airflow"
+    },
+    "step15": {
+      "heading": "Step 15: Create Snowflake Connection in Airflow UI",
+      "steps": [
+        "Go to Admin → Connections",
+        "Click + (Add a new record)",
+        "Fill in Connection information"
+      ],
+      "fields": "Fill in as follows:",
+      "connectionId": "Connection Id: snowflake_default",
+      "connectionType": "Connection Type: Snowflake",
+      "schema": "Schema: RAW",
+      "login": "Login: YOUR_SNOWFLAKE_ACCOUNT",
+      "passwordField": "Password: YOUR_SNOWFLAKE_PASSWORD",
+      "extraFields": "Extra Fields Json:",
+      "save": "Click Save",
+      "enableDag": "Enable DAG (Toggle ON)",
+      "viewProgress": "View Progress",
+      "sub1": {
+        "title": "Go to Admin → Connections"
+      },
+      "sub2": {
+        "title": "Fill in Connection Details"
+      },
+      "sub3": {
+        "title": "Add Extra Fields JSON"
+      },
+      "sub4": {
+        "title": "Save Configuration"
+      },
+      "sub5": {
+        "title": "Enable DAG and View Progress"
+      }
+    },
+    "step16": {
+      "heading": "Step 16: Verify in Snowflake",
+      "useDb": "Use database: USE DATABASE movies_db;",
+      "checkRaw": "Check RAW schema:",
+      "rawCmds": [
+        "USE SCHEMA raw;",
+        "SELECT COUNT(*) as total_movies FROM movies_raw; -- Should get 100 rows",
+        "SELECT * FROM movies_raw LIMIT 10;"
+      ],
+      "checkMarts": "Check ANALYTICS_MARTS:",
+      "martsCmds": [
+        "USE SCHEMA ANALYTICS_MARTS;",
+        "SHOW TABLES; -- Should see 13 tables"
+      ],
+      "tables": "Expected tables:",
+      "tableList": [
+        "DIM_MOVIES",
+        "DIM_GENRES",
+        "DIM_DIRECTORS",
+        "DIM_ACTORS",
+        "DIM_COUNTRIES",
+        "DIM_LANGUAGES",
+        "DIM_TIME",
+        "BRIDGE_MOVIE_GENRE",
+        "BRIDGE_MOVIE_ACTOR",
+        "BRIDGE_MOVIE_COUNTRY",
+        "BRIDGE_MOVIE_LANGUAGE",
+        "BRIDGE_MOVIE_DIRECTOR",
+        "FACT_MOVIE_PERFORMANCE"
+      ],
+      "countAll": "Count all tables:",
+      "result": "Expected result:",
+      "resultItems": [
+        "Matches Phase 11 Complete Table Counts",
+        "Phase 15: Deploy EC2 COMPLETE! 🎉"
+      ]
+    },
+    "summary": {
+      "heading": "Phase 15 Summary",
+      "complete": "You have successfully deployed the Movies Data Pipeline to AWS EC2!",
+      "accomplishments": "Accomplishments:",
+      "items": [
+        "Created EC2 Instance on AWS",
+        "Installed Docker and Dependencies",
+        "Cloned project from GitHub",
+        "Set up Environment Variables",
+        "Built Docker Images for Airflow",
+        "Started All Services (Webserver, Scheduler, Postgres, Redis)",
+        "Connected Snowflake via Airflow",
+        "Tested Pipeline and verified data in Snowflake"
+      ],
+      "benefits": "Benefits gained:",
+      "benefitsList": [
+        "System runs 24/7 on Cloud",
+        "Airflow runs automatically on schedule",
+        "Accessible from anywhere via Internet",
+        "No need to keep your own machine on",
+        "More stable and secure than Local"
+      ],
+      "nextSteps": "Next steps:",
+      "nextStepsList": [
+        "Monitor Airflow DAG Runs",
+        "Check Logs when issues occur",
+        "Optimize Performance when necessary",
+        "Setup Backup and Disaster Recovery",
+        "Continue developing Pipeline as needed"
+      ]
+    }
+  }
+}
