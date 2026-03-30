@@ -8,7 +8,7 @@ A comprehensive React-based web application showcasing an end-to-end data engine
 
 ## Live Demo
 
-**[View Live Application](https://sksunisa.github.io/movies-pipeline-portfolio/)**
+**[https://sksunisa.github.io/movies-pipeline-portfolio/](https://sksunisa.github.io/movies-pipeline-portfolio/)**
 
 ## Overview
 
